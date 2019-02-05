@@ -6,3 +6,5 @@ Here are the instructions for setting up this repository:
 - git remote add github https://github.com/csmberkeley/csm-16a.git
 - git push github master to push commits to github
 - git push origin master to push commits to overleaf
+
+[NOTICE] DO NOT HAVE SPACES OR QUESTION MARKS OR "ANYTHING THAT SHOULD NOT BE IN A FILE NAME" (from Mudit) IN YOUR FILE NAME. 
