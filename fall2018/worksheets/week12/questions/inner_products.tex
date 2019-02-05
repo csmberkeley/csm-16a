@@ -1,0 +1,80 @@
+% Authors: Anwar Baroudi
+% Emails: mabaroudi@berkeley.edu
+
+\qns{Inner Products}\\
+\meta{\\
+Description: goes over definition, properties, and simple applications of inner products\\
+Prereqs: basic linear algebra, i.e. what vectors are
+}
+
+\begin{enumerate}
+\qitem{What is an inner product?}\\
+\ans{An inner product describes a way to multiply vectors, such that the result is a scalar. It is often used to describe properties such as the length of a vector, the angle between vectors, orthogonality of vectors, etc.\\
+An inner product must satisfy the following properties:\\
+1. Symmetry: $\innp{\vec{x}}{\vec{y}} = \innp{\vec{y}}{\vec{x}}$ \\
+2. Homogeneity: $\innp{c\vec{x}}{\vec{y}} = c\innp{\vec{x}}{\vec{y}}$\\
+3. Additivity: $\innp{\vec{x}+\vec{y}}{\vec{z}} = \innp{\vec{x}}{\vec{z}} + \innp{\vec{y}}{\vec{z}}$\\
+4. Positive-definiteness: $\innp{\vec{x}}{\vec{x}} \geq 0$, and is $= 0$ iff $\vec{x} = \vec{0}$}
+
+\qitem{What is the dot product between two vectors $\vec{x}, \vec{y} \in \mathbb{R}^n$?}\\
+\ans{The dot product is defined as the sum of element-wise products, i.e. \[x_1y_1 + x_2y_2 + \hdots + x_ny_n\]}
+
+In the next four parts, we prove that the dot product is an inner product. Do note that the dot product is simply a type of inner product, and other inner products are also possible.
+\qitem{Prove that the dot product satisfies symmetry, i.e. that $\innp{\vec{x}}{\vec{y}} = \innp{\vec{y}}{\vec{x}}$}\\
+\ans{First, we write the definition of a dot product again:
+\[x_1y_1 + x_2y_2 + \hdots + x_ny_n\]
+Since $x_i$ and $y_i$ are just scalars, and we know that scalar multiplication commutes, we can rewrite this as:
+\[y_1x_1 + y_2x_2 + \hdots + y_nx_n = \innp{\vec{y}}{\vec{x}}\]
+}
+
+\qitem{Prove that the dot product satisfies homogeneity, i.e. that $\innp{c\vec{x}}{\vec{y}} = c\innp{\vec{x}}{\vec{y}}$: $c \in \mathbb{R}$}\\
+\ans{Writing out $\innp{c\vec{x}}{\vec{y}}$, we have:
+\[cx_1y_1 + cx_2y_2 + \hdots + cx_ny_n\]
+Since there is a c in every term, we can pull it out, getting:
+\[c(x_1y_1 + x_2y_2 + \hdots + x_ny_n) = c\innp{\vec{x}}{\vec{y}}\]
+}
+
+\qitem{Prove that the dot product satisfies additivity, i.e. that $\innp{\vec{x}+\vec{y}}{\vec{z}} = \innp{\vec{x}}{\vec{z}} + \innp{\vec{y}}{\vec{z}}$}
+
+\ans{Writing out $\innp{\vec{x}+\vec{y}}{\vec{z}}$, we get:
+\[(x_1+y_1)z_1 + (x_2+y_2)z_2 + \hdots + (x_n+y_n)z_n\]
+distributing we get
+\[x_1z_1 + x_2z_2 + \hdots + x_nz_n + y_1z_1 + y_2z_2 + \hdots + y_nz_n = \innp{\vec{x}}{\vec{z}} + \innp{\vec{y}}{\vec{z}}\]
+}
+
+\qitem{Prove that the dot product satisfies positive-definiteness, i.e., that $\innp{\vec{x}}{\vec{x}} \geq 0$, and is equal to 0 iff $\vec{x} = \vec{0}$}
+
+\ans{
+$\innp{\vec{x}}{\vec{x}} = x_1^2 + x_2^2 + \ldots + x_n^2$. Since each term in this sum is $\geq 0$, $\innp{\vec{x}}{\vec{x}} \geq 0$. Also, $\innp{\vec{x}}{\vec{x}}$ is clearly 0 only when $x_1, x_2, \ldots, x_n = 0$, i.e., $\vec{x} = \vec{0}$
+}
+
+We will now consider ways to use dot products to do neat things. For each of the following, assume that you're given a $\vec{x}$, and that you get a pick $\vec{y}$ of your choosing. Describe a $\vec{y}$, such that when you compute $\innp{\vec{x}}{\vec{y}}$, you get:\\
+\qitem{The sum of every element in $\vec{x}$}\\
+\ans{We can do this by setting $\vec{y} = \vec{1}$ taking the following dot product:
+\[\innp{\vec{1}}{\vec{x}} = 1x_1 + 1x_2 + \hdots + 1x_n\]
+}
+
+\qitem{The sum of certain elements in $\vec{x}$}\\
+\ans{We can do this by letting $\vec{y}$ be a vector of 1s and 0s, where the ones are in the positions corresponding to the desired elements.}
+
+\qitem{The mean of all the items in $\vec{x}$ (for $\vec{x}$ in $\mathbb{R}^n$)}\\
+\ans{For this case, we can have some vector $\vec{y}$, where every element is $\frac{1}{n}$, so we have:
+\[\innp{\vec{x}}{\vec{y}} = \frac{1}{n}x_1 + \frac{1}{n}x_2 + \hdots + \frac{1}{n}x_n = \frac{1}{n}(x_1 + x_2 + \hdots + x_n)\]
+}
+
+\qitem{The sum of the elements of $\vec{x}$ squared}\\
+\ans{For this case, we can just take the dot product of x with itself, 
+\[\innp{\vec{x}}{\vec{x}} = x_1^2 + x_2^2 + \hdots + x_n^2\]
+}
+
+We will conclude by making some observations based on that last case.\\
+
+\qitem{Consider that last case, where we summed the squares of the elements of a vector. Try doing that for a few 2-dimensional vectors. What do you notice about the resulting answer?}\\
+\ans{After trying out a few examples, you may notice that the dot product of a vector with itself is the square of the length of the vector! Another way to see this is to think of the normal euclidean distance equation:
+\[d = \sqrt{(x_1 - y_1)^2 + (x_2 - y_2)^2}\]
+This can be generalized to any number of dimensions. Now, consider that $\vec{y}$ is a vector of all zeroes, we now have an equation which is exactly the square root of $\innp{\vec{x}}{\vec{x}}$, which we also name the $\ell$2-norm of $\vec{x}$, or $\norm{x}_2$, or also $\norm{x}$. 
+}
+
+\meta{Write out a few vector examples, for example [.5,.5], where you can confirm that the answer is the length using trig.}
+
+\end{enumerate}

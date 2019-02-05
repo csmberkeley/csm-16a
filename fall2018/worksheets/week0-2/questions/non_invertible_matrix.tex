@@ -1,0 +1,103 @@
+% Author: Mudit Gupta, ELena Herbold
+% Email: mudit+csm16a@berkeley.edu, eherbold@berkeley.edu
+
+\qns{Invertibility and equations}
+
+\sol{Prereq: Understanding of how to convert equations to matrix form, and knowing what inverses are and figuring our invertibility using gaussian elimination. \\
+Description: Problem shows that pattern matching = failure. Basically, non-invertibility doesn't always mean no solutions.}
+
+\begin{enumerate}
+
+\qitem{
+	Consider the following system of equations 
+
+	$$2x - 2y = -6$$
+	$$x - y + z = 1$$
+	$$3y - 2z = -5$$
+
+	Write these equations in matrix form. Then, write an expression for the solution to the equations using inverses, but don't compute the inverse.
+}
+
+\ans{
+	$$\begin{bmatrix} 2 & -2 & 0 \\ 1 & -1 & 1 \\ 0 & 3 & -2 \end{bmatrix} \begin{bmatrix} x \\ y \\ z \end{bmatrix} = \begin{bmatrix} -6 \\ 1 \\ -5 \end{bmatrix}$$
+
+	This can be rewritten as 
+
+	$$\begin{bmatrix} x \\ y \\ z \end{bmatrix} = \begin{bmatrix} 2 & -2 & 0 \\ 1 & -1 & 1 \\ 0 & 3 & -2 \end{bmatrix}^{-1} \begin{bmatrix} -6 \\ 1 \\ -5 \end{bmatrix}$$
+}
+
+\qitem{
+	Let the system of equations be $\mathbf{A}\vec{x} = \vec{y}$. What does it mean if $\mathbf{A}$ is not invertible? \\
+	\textit{Hint: The solution to the previous part.} 
+}
+
+\ans{
+	If $\mathbf{A}$ is not invertible, then the system cannot be solved uniquely. We may have infinite solutions or no solutions. \textbf{Make sure you read through the entire problem. We talk more in depth about what invertibility means in later parts!} 
+}
+
+\sol{
+	Mentors -- at this point, get your students to nod. It's important that they think this is always the case, because we're going to trick them soon :-) \\
+	Also, don't read the "make sure..." part in section. This is mainly so that when students are looking over the solutions online, they don't look at this part and think this is always true. The whole point of this problem is to show that sometimes $\mathbf{A}$ can be non-invertible, but the system can still have solutions. \\
+	Lastly, you can tell the students that this is why iPython can't find the solution to a system with infinite solutions when you use numpy.linalg.solve - instead of using GE, it inverts your A matrix and computes $A^-1*b$. This will save them many ipython headaches in the future. 
+}
+
+\qitem{
+	Consider the matrix $$\begin{bmatrix} -1 & 1 \\ -2 & 1 \\ 1 & -3 \end{bmatrix}$$ Is it invertible?
+}
+
+\ans{
+	We don't actually need to do gaussian elimination on this matrix to check whether it is invertible. It is not. An $R^{NxM}$ matrix, where $N \neq M$ is \textbf{never} invertible. Why? Because when we do gaussian elimination, for invertible matrix, we must get 3 pivots since we have 3 rows. But we cannot get 3 pivots because we have only 2 columns.
+}
+
+\sol{
+	Be careful here. The solution is worded as if it this is obvious. This might be obvious to you having taken the class and studied linear algebra, but this is not immediately obvious to students! If students are confused by this, and please check if they are, then do guassian elimination, and show that you cannot possible get 3 pivots. 
+}
+
+\qitem{
+	Does the system of equations that is represented by the following have any solutions?
+	$$\underbrace{\begin{bmatrix} -1 & 1 \\ -2 & 1 \\ 1 & -3 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \end{bmatrix}}_{\mathbf{B}\vec{x}} = \underbrace{\begin{bmatrix} 5 \\ 9 \\ -7 \end{bmatrix}}_{\vec{y}}$$
+}
+
+\ans{
+	From part (b), we want to say that the system doesn't have any solutions. We saw in the previous part that $\mathbf{B}$ is not invertible. But... let's convert this system to actual equations. \\
+
+	$$-1x_1 + x_2 = 5$$
+	$$-2x_1 + x_2 = 9$$
+	$$1x_1 -3x_2 =-7$$
+
+	These are 3 equations in 2 variables. Surely, they could have a solution. If we solve them, we get $(x_1 = -4, x_2 = 1)$ as a solution. How could this happen? $\mathbf{B}$ was not invertible! \\
+
+	The invertibility test actually only holds well for the case when $\mathbf{B}_{NxN} \vec{x}_{Nx1} = \vec{y}_{Nx1}$ are the dimensions of the matrices and vectors in question. In this case, $\mathbf{B}$ being non-invertible, means that gaussian elimination gives you a row of zeros. 
+
+	\begin{itemize} 
+		\item If you have infinite solutions, then in your augmented matrix, you will have a row of 0s and the corresponding element from $\vec{y}$ will also be 0. (Why does this mean infinite solutions?) 
+		\item If you have no solutions, then in your augmented matrix, you will have a row of 0s, but the corresponding element from $\vec{y}$ will be non-zero. (Why does this mean zero solutions?) 
+	\end{itemize}
+
+	However, if you have an equation of the form $\mathbf{B}_{MxN} \vec{x}_{Nx1} = \vec{y}_{Mx1}$, then you have $M$ equations in $N$ variables. 
+	\begin{itemize} 
+		\item If $M > N$ (like in this example), then you have more equations than variables. 
+		\begin{itemize} 
+			\item This could certainly have a solution if the equations are linearly dependent. For instance, $x+y=1, 2x+2y=2, x-y=4$ definitely has a solution. The first 2 equations are linearly dependent, so we can remove one of them. Notice how Gaussian Elimination would help you realize this and find the one solution!
+			\item You could also have no solution, if the equations are all linearly independent. $x+y=3, x-y=-1, x+2y=0$ does not have any solutions. Notice how Gaussian Elimination would help you realize there are no solutions! \textit{If you don't see it, try it out. Do you get a row of 0s on the left part of the augmented matrix, but not a corresponding zero element?}
+			\item You could also have infinite solutions. Consider $x+y=1, 2x+2y=2, 3x+3y=3$. Gaussian elimination helps here too!
+		\end{itemize} 
+		\item If $M < N$, then you have more variables than equations. 
+		\begin{itemize}
+			\item This could have many solutions. Consider 1 equation: $x+y=3$. 
+			\item This could have no solutions. Consider $x+y+z=1$ and $x+y+z=2$
+			\item This cannot possibly have just one solution. You have more variables than you have equations!
+		\end{itemize}
+		Notice though that Gaussian Elimination would help you realize all 3 of these cases. \\ \\
+
+		\textbf{Big take away:} \underline{Do not pattern match.} If you hear it once "no inverse means no solutions", don't pattern match. That holds in a \textit{particular} case. Remember that at the end, these are all equations, and use your intuition about equations. 
+	\end{itemize}
+}
+
+\sol{A few notes 
+\begin{enumerate} 
+	\item let students solve the equations themselves, don't just give them $-4, 1$ 
+	\item There is a lot of 'answer' in here, but that does not mean that you as a mentor need to do all the talking. This material is very discussion-y, so discuss with them. Ask what happens in the case of $M>N$, and $M<N$. Let them come up with examples and ideas. 
+\end{enumerate} }
+
+\end{enumerate}

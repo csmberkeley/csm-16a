@@ -1,0 +1,72 @@
+% Author: Mudit Gupta
+% Email: mudit+csm16a@berkeley.edu
+
+\qns{Explore Subspace}
+
+\sol{Prereqs: What are vector spaces and subspaces? \\
+Description: Explains how to read set notation, tries to make students really realize that the notation means a set of vectors, and that a subspace is also a set of vectors. And what a subspace intuitively means.}
+
+\begin{enumerate}
+
+\qitem{
+	Consider the set $W = \{\begin{bmatrix} a_1 \\ a_2 \\ a_3 \end{bmatrix}, a_1, a_2, a_3 \in \mathbb{R}: a_1 + 2a_2 - 3a_3 = 0\}$. Is $\begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix}$ an element of the set $W$?
+}
+
+\ans{
+	The way set notation works is that for an element to be a part of the set, $a_1 + 2a_2 - 3a_3$ must be satisfied. We can plug in numbers for $a_1, a_2, a_3$ from the vector and see if the equation is satisfied. $1 + 4 - 9 \neq 0$, so this element is not a member of the set.
+}
+
+\qitem{Write any 3 elements from this set}
+
+\sol{The purpose here is really to make sure the students realize that $W$ is indeed a set. It has infinite number of elements, but it is still a set. Let the students come up with whatever they want. Ultimately though, it will be super helpful if the final 3 elements you get are the same as the ones in the answer below. We will be using these again! So verify a couple of the elements that the students put forth, but ultimately write these on the board.}
+
+\ans{There are many possibilities. For instance, we could set the values of $a_2$ and $a_3$ to be $0$ and then see what value of $a_1$ works. $\vec{v}_1 = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}$ is in the set. \\
+
+Another element can be obtained by setting the values of $a_1$ and $a_2$ to be $1$, and then we get $1 + 2 - 3a_3 = 0$, or $a_3 = 1$. Therefore $\vec{v}_2 = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}$ is also in the set. \\
+
+Another element can be obtained by setting the values of $a_1 = 3$ and $a_3 = 2$ and then we get $3 + 2a_2 - 6 = 0 \implies a_2 = \frac{3}{2}$. Therefore $\vec{v}_3 = \begin{bmatrix} 3 \\ \frac{3}{2} \\ 2 \end{bmatrix}$ is in the set too.}
+
+\qitem{Is the set $W$ a subspace?}
+
+\ans{
+	\textbf{Step 1: Claim that $W$ is a sub$\textit{set}$ of, say, $X$}. \\
+	$W$ is clearly a subset of $\mathbb{R}^3$. This can be seen because the elements of $W$ contain 3 elements, but $W$ is not equal to $\mathbb{R}^3$ since some elements from $\mathbb{R}^3$ are not in $W$. \\ 
+
+	\textbf{Step 2: Claim that $X$ is a vector space} \\
+	$\mathbb{R}^3$ is a vector space that we have seen in lecture. \\ 
+
+	\textbf{Step 3: If $X$ is a known vector space, and $W$ is a subset of $X$, only 3 axioms must be proven.} \\ \\
+	\textbf{a: Prove closure under addition} \\
+	Consider two arbitrary elements from the set $\begin{bmatrix} b_1 \\ b_2 \\ b_3 \end{bmatrix}$ and $\begin{bmatrix} c_1 \\ c_2 \\ c_3 \end{bmatrix}$. Since these elements are a part of the set, it is true that $b_1 + 2b_2 - 3b_3 = 0$ and that $c_1 + 2c_2 - 3c_3 = 0$. \\
+	Consider the sum of these elements. $\begin{bmatrix} b_1 + c_1 \\ b_2 + c_2 \\ b_3 + c_3 \end{bmatrix}$. Is this element a part of the set too? In other words, is $(b_1+c_1) + 2(b_2+c_2) - 3(b_3 + c_3) = 0$? \\
+	$$(b_1+c_1) + 2(b_2+c_2) - 3(b_3 + c_3) \stackrel{?}{=} 0$$
+	$$\implies (b_1 + 2b_2 - 3b_3) + (c_1 + 2c_2 - 3c_3) \stackrel{?}{=} 0$$
+	Clearly, the left hand side equals the right hand side. Therefore, 
+	$$0 + 0 = 0$$.
+	Thus, the element $\begin{bmatrix} b_1 + c_1 \\ b_2 + c_2 \\ b_3 + c_3 \end{bmatrix}$ is a part of the set and we have proven closure under addition. \\ 
+
+	\textbf{b: Prove closure under scalar multiplication} \\
+	Consider an arbitrarily element from the set $\begin{bmatrix} d_1 \\ d_2 \\ d_3 \end{bmatrix}$. This means that $d_1 + 2d_2 - 3d_3 = 0$ is true. \\
+	Consider some scalar $s$. Is $s\begin{bmatrix} d_1 \\ d_2 \\ d_3 \end{bmatrix}$ in the set $W$? I.e., is $\begin{bmatrix} sd_1 \\ sd_2 \\ sd_3 \end{bmatrix}$ in the set $W$? I.e. is $sd_1 + 2sd_2 - 3sd_3 = 0$?
+	$$sd_1 + 2sd_2 - 3sd_3 \stackrel{?}{=} 0$$
+	$$\implies s \cdot (d_1 + 2d_2 - 3d_3) \stackrel{?}{=} 0$$
+	Indeed the left hand side of the equation equals the right hand side, i.e., $$s\cdot 0 = 0$$
+
+	Therefore, $\begin{bmatrix} sd_1 \\ sd_2 \\ sd_3 \end{bmatrix}$ is in the set $W$ and the set $W$ is closed under scalar multiplication. \\ 
+
+	\textbf{c: Prove existence of 0 element} \\
+	We need to check whether $\vec{0} = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}$ exists in the set. This is easy to check because we just need to check whether $0 + 2 \cdot 0 - 3 \cdot 0 = 0$, which it is. So the 0 element exists in the set. \\ 
+
+	Therefore, the set $W$ is a subspace of $\mathbb{R}^3$. 
+}
+
+\qitem{How can we now quickly find more elements of this set?}
+
+\ans{
+	Since we know the set is closed under scalar multiplication and under addition, we can easily find more elements. Previously, we found $\vec{v}_1 = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}$ to be an element. Now we know that any multiple of this is in the set too! \\
+	We also found that $\vec{v}_2 = \begin{bmatrix} 3 \\ \frac{3}{2} \\ 2 \end{bmatrix}$ was in the set. Now we can add the 2 elements we found, and $\begin{bmatrix} 4 \\ \frac{5}{2} \\ 3 \end{bmatrix}$ is also in the set. In fact, any $s\vec{v}_1 + r\vec{v}_2$, where $s, r \in \mathbb{R}$ are in the set! 
+}
+
+
+
+\end{enumerate}

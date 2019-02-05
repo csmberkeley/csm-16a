@@ -1,0 +1,111 @@
+% Author: Mudit Gupta
+% Email: mudit+csm16a@berkeley.edu
+
+\qns{Eigenvalues everywhere}
+
+\sol{Prereq: All of linear algebra basically, including page rank et al.  \\
+Description: Meant to be an intuition problem on eigenvalues and eigenvectors.}
+
+In this problem, when asked for eigenvectors, you may simply state that the eigenvector comes from a set. For instance, you could state that any $\vec{x} \in \text{Colspace}(\mathbf{A})$ is an eigenvector. Also, note that when asked to find eigenvalues, only consider real eigenvalues for this problem. 
+\begin{enumerate}
+\qitem {
+	What is the one eigenvalue and eigenvector of the matrix that you can see without solving any equations? $$\mathbf{A} = \begin{bmatrix} 1 & 2 \\ 0 & 0 \end{bmatrix}$$ 
+}
+
+
+\ans{
+	Since this matrix is clearly not-invertible, it must have an eigenvalue $0$. 
+
+	$$\mathbf{A}\vec{x} = \lambda\vec{x}$$
+	$$\mathbf{A}\vec{x} = 0\vec{x}$$
+	$$\mathbf{A}\vec{x} = \vec{0}$$
+	This equation is precisely the equation for computing the nullspace of $\mathbf{A}$. Therefore, any $\vec{x} \in \text{Nullspace}(\mathbf{A})$ works.
+}
+
+\sol {
+	The point of this problem is not to find the eigenvalues mechanically, but instead use properties of the matrix that you can eyeball to figure out some eigenvalues and eigenvectors. Don't spend time mechancially computing the eigenvalues.
+}
+
+\qitem {
+	What are the eigenvalues and eigenvectors of the matrix $$\mathbf{B} = \begin{bmatrix} 3 & 0 & 0 \\ 0 & 3 & 0 \\ 0 & 0 & 3\end{bmatrix}$$
+
+}
+
+\ans{
+	This is a scaling matrix. It scales any vector by a factor of $3$. What this means is that any vector $\vec{x} \in \mathbb{R}^3$ when post-multiplied by $\mathbf{A}$ will output $3\vec{x}$. This matrix has only one eigenvalue, $\lambda = 3$ and any $\vec{x} \in \mathbb{R}^3$ is an eigenvector. 
+}
+
+\qitem{
+	What are the eigenvalues of $$\mathbf{C} = \begin{bmatrix} 2 & 0 \\ 3 & 4 \\ 1 & 3 \end{bmatrix}?$$
+}
+
+\ans{
+	This is a trick question. Eigenvalues are defined only for square matrices.
+}
+
+\qitem{
+	Consider a matrix that rotates a vector in $\mathbb{R}^2$ by $45^\circ$ counterclockwise. For instance, it rotates any vector along the x-axis to orient towards the $y=x$ line. Find its eigenvalues and corresponding eigenvectors. This matrix is given as $$\mathbf{D} = \begin{bmatrix} \cos45 & -\sin45 \\ \sin45 & \cos45 \end{bmatrix} = \dfrac{\sqrt{2}}{2} \begin{bmatrix} 1 & -1 \\ 1 & 1 \end{bmatrix}$$
+}
+\sol{Please draw a picture to show what the matrix does to a vector. Also remember we are only considering real eigenvalues, as written in the prompt of the problem.}
+
+\ans{
+	Remember that the equation $\mathbf{A}\vec{x} = \lambda\vec{x}$ geometrically means that for the matrix $\mathbf{A}$, there exist some special vectors $\vec{x}$ that are merely scaled by $\lambda$ when post-multiplied by $\mathbf{A}$. For a matrix that takes a vector and rotates it by $45^\circ$, there are no real-valued vectors that it can simply scale. This means that there are no real eigenvalues for this matrix either. 
+}
+
+\qitem{
+	What are the eigenvalues of the following matrix? $$\mathbf{E} = \begin{bmatrix} 1 & \frac{1}{2} & \frac{1}{3} \\ 0 & \frac{1}{2} & \frac{1}{3} \\ 0 & 0 & \frac{1}{3}\end{bmatrix}$$
+}
+
+\ans{
+	Remember that for upper triangular matrices, the eigenvalues can be read from the diagonal. $1, \frac{1}{2}, \frac{1}{3}$ are the three eigenvalues.
+}
+
+\qitem{
+	Can you find an eigenvalue of the following matrix without solving any equations?
+	$$\mathbf{F} = \begin{bmatrix} 1 & 0 & 0 \\ \frac{1}{3} &\frac{1}{3} &\frac{1}{3} \\\frac{1}{2} & \frac{1}{4} & \frac{1}{4}  \end{bmatrix}$$
+
+}
+\ans{
+	This is a matrix whose rows sum to 1, therefore, it has an eigenvalue 1. 
+
+	This is proven by letting $\vec{x} = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}$ be a potential eigenvector of the matrix $\mathbf{F}$.
+	Looking at the column view of matrix-vector multiplication -- 
+	$$\mathbf{F}\begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}
+	 = 1 \cdot \begin{bmatrix} 1 \\ \frac{1}{3} \\ \frac{1}{2} \end{bmatrix} + 1\cdot\begin{bmatrix} 0 \\ \frac{1}{3} \\ \frac{1}{4} \end{bmatrix} + 1\cdot\begin{bmatrix} 0 \\ \frac{1}{3} \\ \frac{1}{4}\end{bmatrix}$$ 
+	 $$\mathbf{F}\vec{x} = 1\cdot\vec{x}$$ since the rows sum to one.
+
+	 Therefore, 1 is an eigenvalue with corresponding eigenvector $\begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}$
+}
+
+\sol{
+	Make sure students see why this works generally. Essentially $\mathbf{A}\begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix} = 1\cdot\vec{v}_1 + 1\cdot\vec{v}_2 + 1\cdot\vec{v}_3 = \begin{bmatrix} 1 \\ 1 \\ 1\end{bmatrix}$, where $\vec{v}_i$ are the columns of $\mathbf{A}$, and the sum equals $\begin{bmatrix} 1 \\ 1 \\ 1\end{bmatrix}$ because each row sums to one. 
+}
+
+\qitem{Show that a matrix and its transpose have the same eigenvalues
+
+Hint: The determinant of a matrix is the same as the determinant of its transpose}
+
+
+
+\ans{
+	For any matrix $\mathbf{M}$, 
+	$$det(\mathbf{M}) = det(\mathbf{M}^T)$$
+
+	Eigenvalues are found by solving the equation $det(\mathbf{M} - \lambda\mathbf{I}) = 0$. \\
+
+	Note that $(\mathbf{M} - \lambda\mathbf{I})^T = \mathbf{M}^T - \lambda\mathbf{I}^T = \mathbf{M}^T - \lambda\mathbf{I}$. \\
+
+	Let $\mathbf{M} - \lambda\mathbf{I} = \mathbf{G}$. 
+	$$det(\mathbf{G}) = det(\mathbf{G}^T)$$
+	$$det(\mathbf{M} - \lambda\mathbf{I}) = det(\mathbf{M}^T - \lambda\mathbf{I})$$
+	If we set the left hand side to 0 to solve for the lambdas, we also extract the lambdas corresponding to the right hand side. Therefore, $\mathbf{M}$ and its transpose have the same eigenvalues.
+}
+
+\qitem{
+	Consider a matrix whose columns sum to one. What is one possible eigenvalue of this matrix?
+}
+
+\ans{
+	We showed that for any matrix like $\mathbf{F}$ whose rows sum to 1, one eigenvalue is 1. We also showed that a matrix and its transpose have the same eigenvalues. Consider $\mathbf{F}^T$. It has columns summing to 1. Therefore, 1 is an eigenvalue of $\mathbf{F}^T$ too, and by extension of all matrices whose columns sum to one. 
+}
+\end{enumerate}

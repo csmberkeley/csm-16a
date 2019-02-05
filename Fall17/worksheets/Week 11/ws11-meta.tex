@@ -1,0 +1,30 @@
+\documentclass[11pt]{article}
+\usepackage{../../ee16}
+\usepackage{../../markup}
+\usepackage{tikz}
+\usetikzlibrary{calc,shapes.geometric,arrows,automata}
+\usepackage{color,hyperref,listings,enumitem}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{tkz-euclide}
+\usepackage{physics}
+\usepackage{pgfplots}
+\usepackage[american,siunitx]{circuitikz}
+\lstset{basicstyle=\ttfamily}
+\newcommand{\fillin}[1]{\underline{\hskip #1}}
+\newcommand{\doublehrule}{\hrule \vskip 0.02in \hrule}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{`'
+  \node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+\newcommand{\sol}[1]{{\color{blue} \textbf{Meta: } #1}} % solutions in blue
+\newcommand{\meta}[1]{{\color{blue} \textbf{Meta: } #1}}
+%\newcommand{\sol}[1]{} % no solution sketches
+jos
+\definecolor{blueish}{rgb}{0.7,0.1,.7}
+%\newcommand{\ans}[1]{} % no numeric solutions
+\newcommand{\ans}[1]{{\color{blueish} \textbf{Answer: } #1}} % numeric solutions
+
+%\newcommand{\solans}[1]{}
+\newcommand{\solans}[1]{{\color{blueish} \textbf{Answer: } #1}} %appears in both; use with caution
+
+\input{body}

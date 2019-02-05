@@ -1,0 +1,111 @@
+% Author: Mudit Gupta
+% Email: mudit+csm16a@berkeley.edu
+
+\qns{Series equivalence... or not?}
+
+\sol{Prereq: The fact that Q=CV, and the series and parallel equivalence formula for capacitors. \\
+Description: Problem shows that capacitors sometimes look like they're in series but they're not.}
+
+\begin{enumerate}
+\qitem
+Consider the following 2 circuits. What is the charge on the positive and negative plates of the two capacitors?
+
+\begin{center}
+\begin{circuitikz}
+\draw(0,0) 
+	to[short] ++(3,0)
+	to[C=$C_1$, v<=$ $] ++(0,3)
+	to[short] ++(-3,0)
+	to[V=$V_s$] ++(0,-3)
+	to[short] node[ground] {} ++(0,-1);
+
+\draw(6,0)
+	to[short] ++(3,0)
+	to[C=$C_2$, v<=$ $] ++(0,3)
+	to[short] ++(-3,0)
+	to[V=$V_s$] ++(0,-3)
+	to[short] node[ground] {} ++(0,-1);
+
+\end{circuitikz}
+\end{center}
+
+
+\ans{
+	The charge on the positive plate of $C_1$ is $C_1V_s$. The charge on the negative plate is then $-C_1V_s$. \\
+	The charge on the positive plate of $C_2$ is $C_2V_s$. The charge on the negative plate is then $-C_2V_s$.
+}
+
+\qitem{
+	Now consider that we first cut the capacitors off from their voltage sources and the ground nodes as such:
+
+	\begin{center} 
+	\begin{circuitikz}[line width=1pt]
+	\draw(0,0)
+		to[short] ++(0,0.75)
+		to node[left, color=blue]{$-C_1V_s$} ++(0,0.25)
+		to[C, l_=$C_1$, v<=$ $] ++(0,1)
+		to node[left, color=red]{$C_1V_s$} ++(0,0.25)
+		to[short] ++(0,0.75);
+	\draw(3,0)
+		to[short] ++(0,0.75)
+		to node[left, color=blue]{$-C_2V_s$} ++(0,0.25)
+		to[C, l_=$C_2$, v<=$ $] ++(0,1)
+		to node[left, color=red]{$C_2V_s$} ++(0,0.25)
+		to[short] ++(0,0.75);
+	\end{circuitikz}
+	\end{center}
+
+	Next, we will connect these two capacitors as such:
+
+	\begin{center}
+	\begin{circuitikz}
+	\draw(0,0)
+		to[short] ++(1,0)
+		to node[above, color=red] {$C_1V_s$} ++(0.25, 0)
+		to[C, l_=$C_1$, v=$ $] ++(1,0)
+		to node [above, color=blue] {$-C_1V_s$} ++(0.25,0)
+		to[short] ++(1,0)
+		to node[above, color=red] {$C_2V_s$} ++(0.25,0)
+		to[C, l_=$C_2$, v=$ $] ++(1,0)
+		to node[above, color=blue] {$-C_2V_s$} ++(0.25,0)
+		to[short] ++(1,0);
+	\end{circuitikz}
+	\end{center}
+
+	Question: Can the charges on the positive plate of the capacitor $C_1$ move?
+}
+
+\ans{
+	No, because charges cannot jump across the plates of a capacitor and there is no path for these charges to escape.
+}
+
+\qitem{What about the charges on the negative plate of $C_1$ and the positive plate of $C_2$?}
+
+\ans{
+	In theory, these charges could redistribute... but look at the answer to the parts below.
+}
+
+\qitem{What about the charges on the negative plates of $C_2$?}
+
+\ans{These also cannot move similar to the charges on the positive plate of $C_1$.}
+
+\qitem{Here is a fundamental fact: If a capacitor's positive plate has $x$ charge, then the negative plate must have $-x$ charge! 
+\\ Question: These two capacitors look like they're in series, but we know they don't have the same charge. Show how in this case, the series capacitance formula doesn't apply.}
+
+\ans{The capacitors 'look' like they're in series, and they are if looked at as electrical components. However, let's go through the derivation of the 'series equivalence formula' for capacitors.\\
+
+\textbf{Derivation}:
+$$V = V_1 + V_2 + \ldots + V_n$$ where $V$ is the voltage drop across the branch of capacitors in series, and $V_i$ are the individual voltage drops.
+$$\dfrac{Q_{eq}}{C_{eq}} = \dfrac{Q_1}{C_1} + \dfrac{Q_2}{C_2} + \ldots + \dfrac{Q_n}{C_n}$$ where $Q_{eq}$ is the charge on the equivalent capacitor, $C_{eq}$ is the equivalent capacitance, $Q_i$ is the charge on each individual capacitor and $C_i$ is the capacitance of each individual capacitor. \\
+\textbf{Since we know that the charge on each individual capacitor is the same and the charge on the equivalent capacitor is also equal to this charge, $Q_{eq} = Q_1 = Q_2 = \ldots = Q_n = Q$ (say)} 
+$$\dfrac{1}{C_{eq}} = \dfrac{1}{C_1} + \dfrac{1}{C_2} + \ldots + \dfrac{1}{C_n}$$ 
+
+Notice that in this derivation we \textit{assume} that the charge on capacitors in series is the same, which leads to the formula. So capacitors having the same charge $\implies$ capacitors in series equivalence formula holds, not capacitors as components in series $\implies$ the series equivalence formula holds. The formula holds if and only if the capacitors are either discharged to begin with, or have the same charge on them to begin with!! \\
+
+Intuitively, in this case, the capacitors do not have the same charge because the positive charges from $C_1$ and the negative charges from $C_2$ cannot move. This \textbf{forces} the negative charges of $C_1$ to stay where they are the positive charges of $C_2$ to stay where they are!! 
+}
+
+\sol{Mentors: please make sure to go through the derivation. This part is so important that it must be drilled in. \\}
+
+
+\end{enumerate}

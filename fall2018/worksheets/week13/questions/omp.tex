@@ -1,0 +1,116 @@
+% Author: Varsha Ramakrishnan
+% Email: vio@berkeley.edu
+
+\qns{Orthogonal Matching Pursuit - new and improved with Gram Schmidt}
+
+% Mudit's post-section thoughts on this question for future semesters:
+
+% 2. The solution to part ‘d’ says that “since each of our songs are only mostly orthogonal to each other,...” — this is one of the two reasons that there will be some residue from the more dominant song. The other reason is also simply the fact that noise scales with the ‘magnitude’ of the signal. Perhaps this part requires a little more careful treatment of why it is that subtracting out larger songs could mess up the smaller songs (something math-y, maybe). 
+% 4. In part i, it is not clear that r_original is used in the least square procedure and NOT r_new, and that r_new is only used to cross correlate and find the shift. Also, it is not clear that the value for the first message (for s40) most likely IMPROVES (or at least changes) — since our A matrix is now ‘more correct’ than before. This is actually the ‘orthogonal’ part of OMP, since there are other matching pursuits where you don’t improve previous allows (those are faster computationally, but less accurate).
+% 5. Perhaps we could talk a little bit about WHY ‘almost’ orthogonal, although, EE16A breaks this by introducing gram schmidt as a way to speed up OMP, but I think is rather silly.
+
+% \textcolor{red}{Please see comment under the title in the .tex}
+
+You are a rebel leader, trying to decode messages sent to you by your various subordinates over special radio signals. Each of your $M$ subordinates sends their own signature signal (which we will refer to as their "song") $\vec{S_i}$, which repeats with a period of $N$. Each signal is also shifted by some amount $N_i$ (because the signal takes time to get to you), and is attenuated by some scalar $a_i$, which is the message that particular subordinate is sending to you. There is also an unknown amount of noise added to each signal. \\
+
+As the rebel leader, you know all the $M$ songs, and you also know that all the songs are mostly orthogonal to each other, and mostly orthogonal to shifted versions of themselves. \\
+
+How can you figure out which message (scalar attenuation value) is being sent by which subordinate, and what those messages are?
+
+
+
+\begin{enumerate}
+
+
+\qitem{Imagine there was only one subordinate. The subordinate is still sending a song vector that you know beforehand, with an unknown shift and an attenuation value that you're trying to recover. Write an expression for the received signal and describe how you could recover the attenuation}
+
+\ans{$\vec{r} = a_0\vec{S_0}^{N_0}$. You could recover the attenuation value by performing a cross correlation of the received signal with the song that you already know. Look for the shift of the song that produces the maximum correlation, and normalize that correlation by dividing by $N$, the number of elements in the signal. Plotting these correlation values in a graph should give you something like this.
+
+\begin{center}
+  \makebox[\linewidth]{\includegraphics[width=250]{{"Fall17/worksheets/Week 13/questions/crosscorrelation1"}.png}}
+\end{center}
+
+}
+
+\qitem{Now let's return to the case with $m$ different subordinates. Using the variables above, give an expression for the signal you receive.}
+
+\ans{
+$\vec{r} = \sum_{i=0}^{m-1}a_i\vec{S_i}^{N_i}$
+}
+
+
+\qitem{How could you use cross correlation to find the shift values for each message sent?}
+
+\ans{Crosscorrelate the received signal with all possible shifts of each song, and find the shift that corresponds to the largest peak value when cross correlation is performed.}
+
+\qitem{From here, we could simply subtract out the most dominant song (the one with the largest attenuation value) from our received signal, then repeat to find the next largest signal, and so on. What is the main problem with this method?}
+
+\ans{Since each of our songs are only \textit{mostly} orthogonal to each other, even if we subtract out the larger songs, there will still be some "residue" from the more dominant songs left over in the signal when we try to figure out the smaller attenuation values. If the attenuation values being sent are widely different (Ex: one subordinate sends 100 and another sends 1), the smaller signals will be impossible to recover.}
+
+\meta{The message is "stored" in the attenuation.}
+
+\qitem{You need a better way to recover signals, or you'll never be able to stage that rebellion. Fortunately, OMP exists! Orthogonal Matching Pursuit attempts to recover the attenuation of combined signals by using Least Squares ($\vec{x} = (\mathbf{A}^T\mathbf{A})^{-1}\mathbf{A}^T\vec{b}$). In preparation, rewrite the received signal equation from above in matrix-vector form, or $\mathbf{A}\vec{x} = \vec{b}$}
+
+\ans{
+$$\m{A} = \begin{bmatrix}
+   \vec{S_0}^{N_0} & \vec{S_1}^{N_1} &
+   \dots &
+   \vec{S_k}^{N_k}
+\end{bmatrix}
+\begin{bmatrix}
+    a_0  \\
+    a_1 \\
+    \dots \\
+    a_k
+\end{bmatrix} = \vec{r} $$}
+
+
+\qitem{Let's now assume an example signal of $\vec{r} = a_{40}\vec{S_{40}}^{13} + a_{100}\vec{S_{100}}^{8}$, where $a_{40} = 100 $ and $ a_{100} = 10$ Our first step would be to find the vector that has the highest correlation with $\vec{r}$. How would we do this, and which vector would this give us?}
+
+\ans{We would cross correlate with all the circular shifts of the songs, like we did before, and this would give us the vector $\vec{S_{40}}^{13}$
+}
+
+\qitem{The next step is to use Least Squares ($\vec{x} = (\mathbf{A}^T\mathbf{A})^{-1}\m{A}^T\vec{b}$) to solve for $\vec{x}$, where $\vec{b}$ is the received signal and $\m{A}$ is a one column matrix containing just $\begin{bmatrix} \vec{S_{40}}^{13}
+\end{bmatrix}$. What would our received $\vec{x}$ be, and what does it represent?}
+
+\ans{$\vec{x} \approx 100$, as it is the attenuation factor of that signal. Note that this value could be off by even plus or minus $10$, because of noise. This represents the "orthogonal projection of the least squares solution onto the subspace spanned by $\m{A}$."
+}
+
+\qitem{Next we remove the part of the signal that we've just identified, $\m{A}\vec{x}$, from the received signal. How can we do this?}
+
+\ans{We just need to subtract. $\vec{r}_{new} = \vec{r}_{original} - \m{A}\vec{x}$}
+
+\qitem{Finally, we'll repeat the above steps by first finding the next strongest signal by cross correlating, concatenating that signal horizontally to the $\m{A}$ matrix, and solving for $\vec{x}$ using Least Squares. What will the next strongest signal be, what does the new $\m{A}$ matrix look like, and what solution will we get for $\vec{x}$?}
+
+\ans{The next strongest signal is $\vec{S_{100}}^{8}$, the new $\m{A}$ matrix is $\begin{bmatrix} \vec{S_{40}}^{13} & \vec{S_{100}}^{8}
+\end{bmatrix}$, and the solution we should get for $\vec{x}$ will be $\approx \begin{bmatrix} 100 \\ 10
+\end{bmatrix}$. We can stop now because we know there are only two signals being sent. Generally, we would keep going until we've accounted for all the signals we know were sent, or until the norm of the residual is below some threshold value (because you'll know then that the residual only contains noise.)
+}
+
+\qitem Performing Least-Squares at every iteration is very computationally expensive. Fortunately, there exists another method for extracting the signal and updating the residual. Instead of doing the projection method with Least-Squares, we can instead maintain a matrix of orthonormal vectors, and thus projecting onto this matrix becomes projecting onto each of the individual vectors. 
+
+Describe what changes happen to the above OMP algorithm. 
+
+\ans{
+
+Parts (d), (e), (f), (g), (h) get changed to the following: 
+
+\begin{itemize}
+\item Perform Gram Schmidt on $Q$ and $\vec{v_j}$ \begin{enumerate}
+\item Find $\vec{e_j}$ which is $\vec{v_j} - $ projection of $\vec{v_j}$ onto $Q$ : $\vec{e_j} = \vec{v_j} - \left(\vec{v_j}^T \vec{q}_1\right) \vec{q_1} - \dots - \left(\vec{v_j}^T \vec{q}_{j-1}\right) \vec{q_{j-1}}$
+\item Find $\vec{q_j}$ : $\vec{q}_{j} = \frac{\vec{e}_{j}}{\norm{\vec{e}_{j}}}$
+\item Column concatenate matrix $Q$ with $\vec{q_j}$: $Q = [Q \ | \ \vec{q_j}]$
+\end{enumerate}
+\item Now that vectors are orthonormal, can simply project received signal onto newest column and add: 
+$\vec{b_j} = \vec{b_{j-1}} + \left(\vec{x}^T \vec{q}_j\right) \vec{q_j}$
+\item Update the residual value $\vec{r}$ by subtracting: $\vec{r} = \vec{x} - \vec{b_j}$
+
+\end{itemize}
+
+
+
+}
+
+
+
+\end{enumerate}

@@ -1,0 +1,174 @@
+% Author: Mudit Gupta, Yannan Tuo
+% Email: mudit+csm16a@berkeley.edu, ytuo@berkeley.edu
+
+\qns{Basic Circuit Components}
+
+\sol{
+Description: Introduction to basic circuit components.
+Mentors: do a mini lecture on what is charge, what is voltage, and what is current. See lecture notes for definitions. 
+}
+
+In this problem, we will introduce the fundamental circuit components. 
+
+\begin{enumerate}
+
+\qitem{
+What is a voltage source?
+}
+
+\ans{
+Firstly, a voltage source is represented in this manner: 
+\begin{center}
+    \begin{circuitikz}
+        \draw(0,0)
+	    to[V=$V$] ++(1,0);
+    \end{circuitikz}
+\end{center}
+
+Essentially, a voltage source \textbf{guarantees} that the potential at its positive end will be $V$ more than the potential at its negative end, no matter what. 
+}
+
+\qitem{
+ What is a current source?  
+}
+
+\ans{
+A current source is represented in this manner: 
+\begin{center}
+    \begin{circuitikz}
+        \draw(0,0)
+	     to[I, l=$I$] ++(1,0);
+    \end{circuitikz}
+\end{center}
+A current source \textbf{guarantees} that the current passing through the unit in the direction of the arrow will be its designated value. 
+}
+
+\qitem{What is voltage? What is a voltage drop?}
+
+\ans{
+For our discussion, it suffices to think of voltage as a kind of driver for current. Current is the movement of charges. A voltage difference forces current to move from the point (node) that has higher voltage, to the point that has lower voltage. 
+
+Voltage drop is the voltage lost (decline of nodal voltage) across a circuit component. 
+}
+
+\qitem{What happens in this case if $V_1 \neq V_2$?
+
+\begin{center}
+    \begin{circuitikz}
+    \draw(0,4)
+	%to[short] ++(0,-1)
+	to[V_=$V_1$] ++(0,-4)
+	to[short] node[ground] {} ++(0,-1);
+	
+	\draw(0,4)
+	to[short] ++(2,0)
+	to[V_=$V_2$] ++(0,-4)
+	to[short] ++(-2,0);
+    \end{circuitikz}
+\end{center}
+
+}
+
+\ans{
+Let us designate the potential at the positive end of $V_1$ to be $V^+_1$, the potential at the negative end of $V_1$ to be $V^-_1$, the potential at the positive end of $V_2$ to be $V^+_2$, and the potential at the negative end of $V_2$ to be $V^-_2$. $V^-_1$ and $V^-_2$ are equal to 0 because of the ground. Then, the potential across $V_1$ is $V^+_1$, and the potential across $V_2$ is $V^+_2$. Since $V^+_1$ and $V^+_2$ are connected by a wire, they must be the same voltage; we know that a wire does not affect a circuit's behavior, so the voltage must stay constant across it. 
+This means that $V^+_1 = V^+_2$. However, we know that the voltage potential $V^+_1 - V^-_1$ is not equal to $V^+_2 - V^-_1$ as given in the question. Hence, we see that we cannot have two voltage sources connected in this configuration.
+}
+
+\qitem {What happens in this case if $I_1 \neq I_2$?
+\begin{center}
+    \begin{circuitikz}
+    \draw(0,0) 
+    to[I=$I_1$] ++(0,2)
+    to[I=$I_2$] ++(0,2);
+    \end{circuitikz}
+\end{center}
+}
+
+\ans{
+The current source at the bottom guarantees that through that wire there will be $I_1$ current going through, and the current source at the top guaranteed that $I_2$ current goes through that wire. This is a contradiction, and is not theoretically possible in a circuit. 
+
+Also, look at the point in between the two current sources. $I_1$ enters on one end, and $I_2$ leaves on the other end. This is impossible.
+}
+
+\qitem{
+What is a resistor? 
+}
+
+\ans{
+A resistor is represented in this manner: 
+\begin{center}
+	\begin{circuitikz}
+
+	\draw(0,0)
+	to[R, v=$ $, i=$ $] ++(3,0);
+	\end{circuitikz}
+	\end{center}
+A resistor is a circuit unit designed to 'resist' the flow of current. Following convention, there is a "voltage drop" across a resistor from the positive end to the negative end. The voltage drop across a resistor is $V_R = I_R R$, where $V_R$ is the voltage drop, $I_R$ is the current through the resistor and $R$ is the resistance of the resistor. 
+}
+
+\qitem{What is resistance?
+}
+
+\ans{
+Resistance is a physical property that conductors have. This resistance is what impedes the flow of current by producing a voltage drop across the path of the current (think about Ohm's Law).
+
+The value of resistance can be altered by using different materials in the construction of the component, or by modifying the physical dimensions of the conductor.
+
+For a wire of uniform cross area, the resistance is calculated as follows
+$$
+R=\frac{\rho\cdot l}{A}
+$$
+The resistance is proportional to the length $l$ of the wire, inversely proportional to the cross sectional area $A$, and proportional to the material resistivity $\rho$. Intuitively, this makes sense because the longer the wire, the more impedance the current face flowing through, and the larger the cross sectional area, the easier it is for current to flow through.
+
+}
+
+\qitem{If we have a wire with cross-sectional area $2 cm^2$ and $\rho=10 \Omega \cdot cm$, how long does the wire need to be to have a resistance of $2k\Omega$
+
+}
+
+\ans{
+We can take the values and plug them in the formula above.
+$$
+R=\frac{\rho\cdot l}{A}
+$$
+$$
+2000\cdot 2 = 10l
+$$
+$$
+l = 4m
+$$
+}
+
+\qitem{What is power?}
+
+\ans{
+Power is the rate at which work is done, where work is in terms of electrical energy. For circuits, the power consumed/generated by a device is $P = VI$. 
+}
+
+\qitem{What is the passive sign convention?}
+
+\sol{Mentors please note that is a walkthrough question. Students will most likely not know anything about this, so in that case, don't bother giving them time to work on it by themselves}
+
+\ans{
+Passive components (such as resistors) have positive power, and active components (such as current and voltage sources) have negative power. Positive power indicates that power is being consumed, whereas negative power indicates that power is being generated.
+
+In order to be consistent with this, we have to be careful when analyzing circuits in the following manner: when trying to figure out the direction of the current through a resistor and the voltage drop across it, mark one end of the resistor to the 'positive' end and the other end to the 'negative' end. You can do this arbitrarily. 
+
+Then, we define the direction of the current to be from the positive end to the negative end. 
+
+We define the voltage drop across the resistor to be $V^+ - V^-$, where $V^+$ is the voltage of the node we marked negative, and $V^-$ is the voltage that we marked negative. 
+
+One consequence of this convention is that one of two things will happen, (1) both the voltage drop and the current through a resistor will end up having negative values (which ensures that power = $VI$ is positive). What this case means is that the direction we assumed for the current was incorrect, and that current actually goes in the opposite direction!
+(2) both the voltage drop and the current through a resistor will end up being positive, and power will still be positive. 
+
+Also, a final note is that to maintain this convention, for voltage sources and current sources, we mark current going from the negative end to the positive end. 
+
+
+
+}
+
+
+
+
+
+\end{enumerate}

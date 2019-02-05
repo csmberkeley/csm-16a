@@ -1,0 +1,149 @@
+% Author: Aditya Baradwaj, Emily Gosti, Yannan Tuo
+% Email: adbaradwaj@berkeley.edu, egosti@berkeley.edu, ytuo@berkeley.edu
+
+\qns{Eigenvalues and Flow}
+
+In this question, we will examine how the eigenvalues of a matrix relate to how it actually acts on vectors. We will also try to interpret this in terms of flow of water between reservoirs.
+
+For each of the following parts, assume that you have a matrix $\m{A}$ with the listed eigenvalues and eigenvectors. Give the output of $\lim_{n \to \infty} \m{A}^n \vec{x}$ for the provided vectors $\vec{x}$ which have all nonnegative entries (i.e. they represents some distribution of water in reservoirs). How can you interpret each of these matrices in terms of reservoirs and pumps? What must be true of the sums of elements in the columns?
+
+
+\begin{enumerate}[label=(\alph*)]
+    \item \begin{flalign*}
+    & \lambda_1 = \frac{1}{2}, \vec{v}_1 = \begin{bmatrix}-2 & 1 & 0\end{bmatrix}^T &\\
+    & \lambda_2 = \frac{1}{3}, \vec{v}_2 = \begin{bmatrix}1 & 1 & 1\end{bmatrix}^T &\\
+    & \lambda_3 = \frac{1}{4}, \vec{v}_3 = \begin{bmatrix}-1 & 1 & -2\end{bmatrix}^T &\\
+    & \vec{x} = \begin{bmatrix}0 & 5 & 1\end{bmatrix}^T
+    \end{flalign*}
+    
+    \ans{
+    We can write the vector $\vec{x}$ as a linear combination of the eigenvectors of $\m{A}$. Since we know how $\m{A}$ acts on each of the eigenvectors, we can use this to get an expression for $\m{A}\vec{x}$.\\
+    Let $\begin{bmatrix}0 \\ 5 \\ 1\end{bmatrix} = a\begin{bmatrix}-2 \\ 1 \\ 0\end{bmatrix} + b\begin{bmatrix}1 \\ 1 \\ 1\end{bmatrix} + c\begin{bmatrix}-1 \\ 1 \\ -2\end{bmatrix}$
+    
+    We have the following equations:
+    $$-2a + b -c = 0$$
+    $$a + b + c = 5$$
+    $$b - 2c = 1$$
+    Solving them, we get that $a = 1, b = 3,$ and $c = 1$. So, $\begin{bmatrix}0 \\ 5 \\ 1\end{bmatrix} = \begin{bmatrix}-2 \\ 1 \\ 0\end{bmatrix} + \begin{bmatrix}3 \\ 3 \\ 3\end{bmatrix} + \begin{bmatrix}-1 \\ 1 \\ -2\end{bmatrix}$ 
+    
+    And, 
+    \begin{align*}
+    \m{A}^n\vec{x} &= \m{A}^n \begin{bmatrix}-2 \\ 1 \\ 0\end{bmatrix} + \m{A}^n \begin{bmatrix}3 \\ 3 \\ 3\end{bmatrix} + \m{A}^n \begin{bmatrix}-1 \\ 1 \\ -2\end{bmatrix} \\
+    &= \lambda_1^n \begin{bmatrix}-2 \\ 1 \\ 0\end{bmatrix} + \lambda_2^n \begin{bmatrix}3 \\ 3 \\ 3\end{bmatrix} + \lambda_3^n \begin{bmatrix}-1 \\ 1 \\ -2\end{bmatrix} \\
+    &= (\frac{1}{2})^n \begin{bmatrix}-2 \\ 1 \\ 0\end{bmatrix} + (\frac{1}{3})^n \begin{bmatrix}3 \\ 3 \\ 3\end{bmatrix} + (\frac{1}{4})^n \begin{bmatrix}-1 \\ 1 \\ -2\end{bmatrix} \\
+    \end{align*}
+    
+    All three components will decay to 0 as $\n\to\infty$, because $(\frac{1}{2})^n$, $(\frac{1}{3})^n$, and $(\frac{1}{4})^n$ are (exponentially) decreasing functions.
+    
+    How can we interpret this in terms of pipes and reservoirs? In this case, we have leaky pipes, since at each timestep the amount of water (and the entries of the vector) decreases, and given long enough, all the water will drain out of the system.
+    
+    \sol{Mentors: See if you want out the fact that no matter what, if $\vec{x} \in \mathbb{R}^3$, it will always go to $\vec{0}$. This is because any $\vec{x} \in \mathbb{R}^3$ can be written as a linear combination of the three linearly independent eigenvectors.}
+    }
+    
+    \item \begin{flalign*}
+    & \lambda_1 = 2, \vec{v}_1 = \begin{bmatrix}-1 & -1 & 0\end{bmatrix}^T &\\
+    & \lambda_2 = 1, \vec{v}_2 = \begin{bmatrix}2 & 3 & 2\end{bmatrix}^T &\\
+    & \lambda_3 = \frac{1}{2}, \vec{v}_3 = \begin{bmatrix}0 & -1 & -1\end{bmatrix}^T &\\
+    & \vec{x}_1 = \begin{bmatrix}1 & 1 & 1\end{bmatrix}^T \text{and } \vec{x}_2 = \begin{bmatrix}2 & 2 & 1\end{bmatrix}^T
+    \end{flalign*}
+    
+    \ans{
+    We can write the vector $\vec{x}_1$ as a linear combination of the eigenvectors of $\m{A}$. Since we know how $\m{A}$ acts on each of the eigenvectors, we can use this to get an expression for $\m{A}\vec{x}_1$.
+    
+    Let $\begin{bmatrix}1 \\ 1 \\ 1\end{bmatrix} = a\begin{bmatrix}-1 \\ -1 \\ 0\end{bmatrix} + b\begin{bmatrix}2 \\ 3 \\ 2\end{bmatrix} + c\begin{bmatrix}0 \\ -1 \\ -1\end{bmatrix}$
+    
+    We have the following equations:
+    $$-a + 2b = 1$$
+    $$-a + 3b - c = 1$$
+    $$2b - c = 1$$
+    Solving them, we get that $a = b = c = 1$. So, $\begin{bmatrix}1 \\ 1 \\ 1\end{bmatrix} = \begin{bmatrix}-1 \\ -1 \\ 0\end{bmatrix} + \begin{bmatrix}2 \\ 3 \\ 2\end{bmatrix} + \begin{bmatrix}0 \\ -1 \\ -1\end{bmatrix}$ 
+    
+    And, 
+    \begin{align*}
+    \m{A}^n\vec{x}_1 &= \m{A}^n \begin{bmatrix}-1 \\ -1 \\ 0\end{bmatrix} + \m{A}^n \begin{bmatrix}2 \\ 3 \\ 2\end{bmatrix} + \m{A}^n \begin{bmatrix}0 \\ -1 \\ -1\end{bmatrix} \\
+    &= \lambda_1^n \begin{bmatrix}-1 \\ -1 \\ 0\end{bmatrix} + \lambda_2^n \begin{bmatrix}2 \\ 3 \\ 2\end{bmatrix} + \lambda_3^n \begin{bmatrix}0 \\ -1 \\ -1\end{bmatrix} \\
+    &= (2)^n \begin{bmatrix}-1 \\ -1 \\ 0\end{bmatrix} + (1)^n \begin{bmatrix}2 \\ 3 \\ 2\end{bmatrix} + (\frac{1}{2})^n \begin{bmatrix}0 \\ -1 \\ -1\end{bmatrix} \\
+    \end{align*}
+    
+    The reason why we are finding $\lim_{n \to \infty} \m{A}^n x$ is because each multiplication by $A$ represents one step forward in time, and taking the limit as $n\to\infty$ gives us the 'steady-state' distribution of water in the reservoirs.
+    
+    The first component will become larger as $\n\to\infty$, because $2^n$ is an (exponentially!) increasing function.
+    The second component will stay the same as $\n\to\infty$, because $1^n = 1$.
+    The third component will decay to 0 as $\n\to\infty$, because $\frac{1}{2}^n$ is an (exponentially) decreasing function.
+    
+    Therefore, in this case, the first term will dominate, and all components in the resulting sum will go to infinity.
+    However, what if the input vector did not have a component in the direction of $\vec{v}_1$? Then, the vector would not blow up. Instead, one component would decay to 0, while the other would stay the same.
+    
+    How can we interpret this in terms of pipes and reservoirs? In the case of a 'stochastic matrix', where all the columns sum to 1, we saw that none of the eigenvalues can have absolute value greater than 1. In this case, we know that there must be at least one column that sums to more than 1. This can be interpreted as pipes that add some extra water to the system at each timestep (the opposite of leaky pipes). This is the only way that the total amount of water in the system (and therefore the sum of the entries of the vector) can increase over time.
+    
+    Here is an example of a matrix which has the provided eigenvalues (but not the same eigenvectors!):
+    \begin{bmatrix}
+    2 & 1 & 1 \\
+    0 & 1 & 1 \\
+    0 & 0 & \frac{1}{2} \\
+    \end{bmatrix}
+    In this case, in fact, all the columns sum to a number greater than 1!
+    
+    \\
+    \\For $\vec{x}_2 = \begin{bmatrix}2 & 2 & 1\end{bmatrix}^T$
+    
+    We can follow the same procedure as for $\vec{x}_1$
+    
+    Let $\begin{bmatrix}2 \\ 2 \\ 1\end{bmatrix} = a\begin{bmatrix}-1 \\ -1 \\ 0\end{bmatrix} + b\begin{bmatrix}2 \\ 3 \\ 2\end{bmatrix} + c\begin{bmatrix}0 \\ -1 \\ -1\end{bmatrix}$
+    
+    We have the following equations:
+    $$-a + 2b = 2$$
+    $$-a + 3b - c = 2$$
+    $$2b - c = 1$$
+    Solving them, we get that $a = 0$, $b = 1$, and $c = 1$. So, $\begin{bmatrix}2 \\ 2 \\ 1\end{bmatrix} = \begin{bmatrix}2 \\ 3 \\ 2\end{bmatrix} + \begin{bmatrix}0 \\ -1 \\ -1\end{bmatrix}$ 
+    
+    And, 
+    \begin{align*}
+    \m{A}^n\vec{x}_2 &= \m{A}^n \begin{bmatrix}-1 \\ -1 \\ 0\end{bmatrix} + \m{A}^n \begin{bmatrix}2 \\ 3 \\ 2\end{bmatrix} + \m{A}^n \begin{bmatrix}0 \\ -1 \\ -1\end{bmatrix} \\
+    \end{align*}
+    However, recall that the coefficient of the first vector is 0. Hence, we actually have
+    \begin{align*}
+    \m{A}^n\vec{x}_2 &= \lambda_2^n \begin{bmatrix}2 \\ 3 \\ 2\end{bmatrix} + \lambda_3^n \begin{bmatrix}0 \\ -1 \\ -1\end{bmatrix} \\
+    &= (1)^n \begin{bmatrix}2 \\ 3 \\ 2\end{bmatrix} + (\frac{1}{2})^n \begin{bmatrix}0 \\ -1 \\ -1\end{bmatrix} \\
+   \end{align*}
+  We no longer have a $2^n$ term that will approach infinity as n approaches infinity. $\frac{1}{2}^n$ still approaches 0, and $1^n = 1$ as n approaches infinity, so plugging this in, we get that $$\m{A}^n\vec{x}_2 = \begin{bmatrix}2 \\ 3 \\ 2\end{bmatrix}$$ as n approaches infinity; the system converges.
+    }
+    
+    \item \begin{flalign*}
+    & \lambda_1 = -1, \vec{v}_1 = \begin{bmatrix} 1 & 1 & 0\end{bmatrix}^T &\\
+    & \lambda_2 = \frac{1}{2}, \vec{v}_2 = \begin{bmatrix}3 & 1 & 1\end{bmatrix}^T &\\
+    & \lambda_3 = \frac{1}{4}, \vec{v}_3 = \begin{bmatrix}2 & 1 & 4\end{bmatrix}^T &\\
+    & \vec{x} = \begin{bmatrix}1 & 2 & 3\end{bmatrix}^T
+    \end{flalign*}
+    
+    \ans{
+    We can write the vector $x$ as a linear combination of the eigenvectors of $\m{A}$. Since we know how $\m{A}$ acts on each of the eigenvectors, we can use this to get an expression for $\m{A}\vec{x}$.\\
+    Let $\begin{bmatrix}1 \\ 2 \\ 3\end{bmatrix} = a\begin{bmatrix}1 \\ 1 \\ 0\end{bmatrix} + b\begin{bmatrix}3 \\ 1 \\ 1\end{bmatrix} + c\begin{bmatrix}2 \\ 1 \\ 4\end{bmatrix}$
+    
+    We have the following equations:
+    $$a + 3b + 2c = 1$$
+    $$a + b + c = 2$$
+    $$b + 4c = 3$$
+    Solving them, we get that $a = 2, b = -1,$ and $c = 1$. So, $\begin{bmatrix}1 \\ 2 \\ 3\end{bmatrix} = \begin{bmatrix}2 \\ 2 \\ 0\end{bmatrix} + \begin{bmatrix}-3 \\ -1 \\ -1\end{bmatrix} + \begin{bmatrix}2 \\ 1 \\ 4\end{bmatrix}$ 
+    
+    And, 
+    \begin{align*}
+    \m{A}^n\vec{x}_1 &= \m{A}^n \begin{bmatrix}2 \\ 2 \\ 0\end{bmatrix} + \m{A}^n \begin{bmatrix}-3 \\ -1 \\ -1\end{bmatrix} + \m{A}^n \begin{bmatrix}2 \\ 1 \\ 4\end{bmatrix} \\
+    &= \lambda_1^n \begin{bmatrix}2 \\ 2 \\ 0\end{bmatrix} + \lambda_2^n \begin{bmatrix}-3 \\ -1 \\ -1\end{bmatrix} + \lambda_3^n \begin{bmatrix}2 \\ 1 \\ 4\end{bmatrix} \\
+    &= (-1)^n \begin{bmatrix}2 \\ 2 \\ 0\end{bmatrix} + (\frac{1}{2})^n \begin{bmatrix}-3 \\ -1 \\ -1\end{bmatrix} + (\frac{1}{4})^n \begin{bmatrix}2 \\ 1 \\ 4\end{bmatrix} \\
+    \end{align*}
+    
+    The first component will oscillate between a negative and positive value because of the $(-1)^n$. The next two terms will decay to 0 as $\n\to\infty$, because $(\frac{1}{2})^n$ and $(\frac{1}{4})^n$ are (exponentially) decreasing functions.
+    
+    The first term will therefore dominate, resulting in the entire system oscillating as n approaches infinity.
+    
+    How can we interpret this in terms of pipes and reservoirs? Consider a pump system of two pumps, $\m{A}$ and $\m{B}$, where at each cycle, all the water from $\m{A}$ goes to $\m{B}$ and all the water from $\m{B}$ goes to $\m{A}$. The system never converges; as time approaches infinity, the system will oscillate between all the water being stored in tank $\m{A}$ and all the water being stored in tank $\m{B}$.
+    
+    Here is an example of the matrix that would represent such a system (eigenvalues and eigenvectors are not associated with the provided examples)
+    \begin{bmatrix}
+    0 & 1 \\
+    1 & 0  \\
+    \end{bmatrix}
+    }
+\end{enumerate}
+

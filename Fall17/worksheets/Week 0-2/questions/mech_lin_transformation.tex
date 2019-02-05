@@ -1,0 +1,70 @@
+% Author: Mudit Gupta
+% Email: mudit@berkeley.edu
+
+% Credits: https://www.mathway.com/examples/algebra/linear-transformations/proving-a-transformation-is-linear?id=266
+
+\qns{Are you linear?}
+
+\begin{enumerate}
+\qitem{Consider a matrix $\mathbf{S}$ that transforms a vector $\vec{x} = \begin{bmatrix} a \\ b \\ c\end{bmatrix}$ to $\vec{y} = \begin{bmatrix} a - b - c \\ a-b-c \\ a-b+c\end{bmatrix}$. Note that $a, b, c$ can take on any values in $\mathbb{R}$. In other words, $\mathbf{S}\vec{x} = \vec{y}$. Is this transformation linear?}
+
+\sol{Prereq: Knowledge of transformations and linearity (definitions, examples, and proofs).
+
+Description: Please note that this might be the first time students are thinking of matrices as transformations. Let this settle in. The fact that a matrix is essentially a function that takes one vector and makes it a different vector. This is no different from a real-valued function like $f(x) = x^2$, except the only difference is that $x$ is a vector, and $f$ is a matrix. It might also be useful to show simple (non-matrix) examples of linear and non-linear transformations. A simple example of a non-linear transformation is something that squares each component of the vector. A simple example of a linear transformation is the 0 transformation.}
+
+\ans{
+	To prove whether a transformation is linear, we must check whether it preserves scalar multiplication, addition and the zero vector. \\
+
+	\textbf{Scalar multiplication} \\
+	Let $\alpha \in \mathbb{R}$. Is $\mathbf{S}(\alpha\vec{x}) = \alpha\vec{y}?$ \\
+	$\mathbf{S}\begin{bmatrix}\alpha a \\ \alpha b \\ \alpha c \end{bmatrix} = \alpha \begin{bmatrix} a - b - c \\ a-b-c \\ a-b+c\end{bmatrix}$. Try it! \\ \\
+
+	\textbf{Addition} \\
+	Is $\mathbf{S}(\vec{x}_1 + \vec{x}_1) = \mathbf{S}\vec{x}_1 + \mathbf{S}\vec{x}_2?$ \\
+	Let $\vec{x}_1 = \begin{bmatrix} a_1 \\ b_1 \\ c_1 \end{bmatrix}$ and $\vec{x}_2 = \begin{bmatrix} a_2 \\ b_2 \\ c_2 \end{bmatrix}$. Then $\mathbf{S}(\vec{x}_1 + \vec{x}_2) = \mathbf{S}\vec{x}_1 + \mathbf{S}\vec{x}_2.$ Try it out!
+
+	\textbf{Zero vector} \\
+	Is $\mathbf{S}\cdot\vec{0} = \vec{0}$? Yes. \\
+
+	This proves that $\mathbf{S}$ is indeed a linear transformation.
+}
+
+\sol{At the end of this, get the students to ask you "well... but... since matrix-vector multiplication is linear, of course every matrix is a linear operator!!" This should be the next question they ask. Bonus: If every matrix is a linear operator, can we also say that every linear operator is a matrix?}
+
+\qitem{
+	Now let's consider another matrix $\mathbf{Q}$ which takes a vector $\vec{x} = \begin{bmatrix} a \\ b \\ c \end{bmatrix}$ to $\begin{bmatrix} a + 5 \\ b \\ c \end{bmatrix}$. Is this matrix a linear operator? 
+}
+
+\sol{
+	There might be a couple of students who immediately see the answer that the zero vector won't be preserved, but try to make sure they don't just blurt out the answer. Let everyone realize this by themselves.
+}
+
+\ans{
+	Let's try the preservation of the zero vector first. Is $\mathbf{Q}\cdot\vec{0} = \vec{0}?$ Nope, it is $\begin{bmatrix} 5 \\ 0 \\ 0 \end{bmatrix}$. This matrix is not a linear operator! Notice that even though matrix-vector multiplication is generally linear 
+}
+
+\qitem{
+	Let's dive deeper. Write out the matrix $\mathbf{S}$ and $\mathbf{Q}$. Are they invertible? 
+}
+
+\ans{
+	$\mathbf{S} = \begin{bmatrix} 1 & -1 & -1 \\ 1 & -1 & -1 \\ 1 & -1 & 1 \end{bmatrix}$. This matrix is not invertible, but it was still linear! \\ \\
+
+	Writing out the matrix for $\mathbf{Q}$ is actually a trick question. There is no easy way to do this. In fact, you cannot write it just using numbers. Try it out. Let the first row of $\mathbf{S}$ be some $\begin{bmatrix} \alpha_1 & \alpha_2 & \alpha_3 \end{bmatrix}$. Consider the first equation in the matrix vector multiplication: $\alpha_1a + \alpha_2b + \alpha_3c = a+5$. Using $\alpha_i$s from $\mathbb{R}$, there are no $\alpha_i$s that satisfy this equation. Since it isn't possible to write such a matrix, the invertibility question is invalid.}
+
+\sol{
+Make sure students try writing out $\mathbf{Q}$ and realize it isn't possible. Also, don't present the next part in section. Let students see it if they want online.
+}
+
+\ans{ 
+	\textbf{Disclaimer: Read the following with caution. It abuses notation, and matrices in EE16A are not typically seen in the way that they are presented below (with their rows being functions of vectors).}
+	You cannot simply write $\mathbf{Q}$ without considering the context in which it is being used. Say that the context is multiplication with a vector. \\
+	$$\mathbf{Q}\begin{bmatrix} a \\ b \\ c\end{bmatrix} = \begin{bmatrix} a + 5 \\ b \\ c \end{bmatrix}$$ In this case, $$\mathbf{Q} = \begin{bmatrix} 1 & \dfrac{5}{b} & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}$$ 
+	Notice how it is impossible to write the matrix out entirely using just numbers and that we need to use either $a$, $b$ or $c$ inside the matrix itself. 
+	Finally, note that the first row of this matrix could be written in other ways too. It could be $\begin{bmatrix} 1 + \dfrac{5}{a} & 0 & 0\end{bmatrix}$, or $\begin{bmatrix} 1 & \dfrac{3}{b} & \dfrac{2}{c}\end{bmatrix}$ too. But the essential idea is that a \textbf{non-linear transformation matrix cannot be expressed using just scalars}. \\
+	So it is invertible? We can't say. 
+}
+
+
+
+\end{enumerate}

@@ -1,0 +1,172 @@
+% Author: Mudit Gupta
+% Email: mudit+csm16a@berkeley.edu
+
+\qns{Null space drill}
+
+\sol{Prereq: Introduction to nullspaces. A mini-lecture gets you ready.  \\
+Description: First a proof about nullspaces, and then lots of mechanical practice on nullspaces.}
+
+In this question, we explore intuition about null spaces and a recipe to compute them. Recall that the nullspace of a matrix $\mathbf{M}$ is the set of all vectors, $\vec{x}$ such that $\mathbf{M}\vec{x} = \vec{0}$.
+
+\begin{enumerate}
+
+\qitem{First, we begin by proving that a null $\text{space}$ is indeed a subspace. Show that any nullspace of a matrix $\mathbf{M}$ with $n$ rows and $n$ columns is a subspace. \\
+Steps for reference:
+\begin{enumerate}
+ \item claim subset of X
+ \item claim X is known vector space
+ \item closures and 0 
+ \begin{enumerate}
+ \item closure under addition
+ \item closure under scalar multiplication
+ \item existence of the zero element.
+ \end{enumerate}	
+ \end{enumerate} }
+
+\ans{
+	\begin{enumerate}
+	\item A nullspace of a matrix with $n$ rows and $n$ columns must contain vectors of $n$ elements. These vectors clearly form a subset of $\mathbb{R}^n$. 
+	\item $\mathbb{R}^n$ is a known vector space. 
+	\item Closures and 0
+	\begin{enumerate} \item Consider two elements, $\vec{x_1}$ and $\vec{x_2}$ in the nullspace of $\mathbf{M}$. By definition, we know that $\mathbf{M}\vec{x_1} = \vec{0}$ and $\mathbf{M}\vec{x_2} = \vec{0}$. 
+	Now consider the vector $\vec{x_1} + \vec{x_2}$. Is $\mathbf{M}(\vec{x_1} + \vec{x_2}) \stackrel{?}{=} \vec{0}$. $\mathbf{M}\vec{x_1} + \mathbf{M}\vec{x_2} = \vec{0} + \vec{0} = \vec{0}$. Done. 
+	\item Consider another element, $\vec{x_3}$ in the nullspace of $\mathbf{M}$. Consider a scalar $a \in \mathbb{R}$. Is $a\vec{x_2}$ in the nullspace of $\mathbf{M}$, i.e., is $\mathbf{M}(a\vec{x_3}) \stackrel{?}{=} \vec{0}$. Yes, because $a\mathbf{M}\vec{x_3} = 0$ since $\vec{x_3}$ is in the nullspace. 
+	\item Is $\vec{0}$ in the nullspace of $\mathbf{M}?$ Yes, because $\mathbf{M}\vec{0} = \vec{0}$. 
+\end{enumerate}
+\end{enumerate}
+	Therefore, a nullspace is indeed a subspace.
+}
+
+\qitem{Now we will explore a recipe to compute null spaces. Let's start with some 3x3 matrices. \\
+
+$$\mathbf{A} = \begin{bmatrix} 1 & -3 & 1 \\ 2 & -8 & 8 \\ -6 & 3 & -15 \end{bmatrix}$$
+$\mathbf{A^\prime}$ is the row reduced matrix $\mathbf{A}$.
+$$\mathbf{A^{\prime}} = \begin{bmatrix} 1 & -3 & 1 \\ 0 & -1 & 3 \\ 0 & 0 & -18 \end{bmatrix}$$
+Compute the nullspace of $\mathbf{A}$.
+ }
+
+\ans{
+Since the row reduced matrix $\mathbf{A^\prime}$ has a pivot in every column, the matrix has a trivial nullspace. The nullspace is the vector $\vec{0}$.
+
+Let's look at this in more depth, however. Remember that a nullspace is the set of vectors such that $\mathbf{A}{\vec{x}} = \vec{0}.$ Let's solve this as linear equations. 
+
+$$\begin{bmatrix} 1 & -3 & 1 \\ 2 & -8 & 8 \\ -6 & 3 & -15 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}$$
+
+To solve this, we row reduce. This results in
+
+$$\begin{bmatrix} 1 & -3 & 1 \\ 0 & -1 & 3 \\ 0 & 0 & -18 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}$$
+
+Let's convert this back to linear equations:
+
+$$x_1 - 3x_2 + x_3 = 0$$ 
+$$ -x_2 + x_3 = 0$$
+$$ -18x_3 = 0$$
+
+The third equation is only satisfied by $x_3 = 0$. The second equation implies that $x_2 = x_3 = 0$. And finally, the first equation is also only satisfied by $x_1 = 0$. Therefore, $\begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix}$ is the only vector which satisfies these equations
+
+}
+
+\qitem{
+	Consider another matrix $$\mathbf{B} = \begin{bmatrix} 1 & -1 & 2 \\ 4 & 4 & -2 \\ -2 & 2 & -4 \end{bmatrix}$$ $\mathbf{B^\prime}$ is row reduced $\mathbf{B}$. $$\mathbf{B^\prime} = \begin{bmatrix} 1 & -1 & 2 \\ 0 & 8 & -10 \\ 0 & 0 & 0 \end{bmatrix}$$
+
+	What is the null space of $\mathbf{B}$? What is the dimension of the row space of $\mathbf{B}$?
+}
+
+\ans{
+	Think of this as linear equations once again. Let the first column correspond to $x$, the second to $y$ and the third to $z$. In equation form, the row reduced matrix becomes 
+
+	\begin{equation} \label{nullpractice:1} x - y + 2z = 0 \end{equation}
+	\begin{equation} \label{nullpractice:2} 8y - 10z = 0 \end{equation}
+	\begin{equation} \label{nullpractice:3} 0x + 0y + 0z = 0 \end{equation}
+
+	Equation \ref{nullpractice:3} gives us no information -- it is always true. So we ignore it. \\
+
+	Equation \ref{nullpractice:2} says that $4y = 5z$. Let's set $z = t$ (let $z$ be a free variable that can take on any value). Then $y = \frac{5}{4} t$. \\
+
+	Equation \ref{nullpractice:1} is then $x - \frac{5}{4}t + 2t = 0 \implies x = \frac{-3}{4}t$. The nullspace is then all vectors of the form $t\begin{bmatrix} \frac{-3}{4} \\ \frac{5}{4} \\ 1 \end{bmatrix}$, where $t$ is any real number. Another way to say this is that the nullspace is spanned by the vector 
+
+	\begin{equation} \label{nullpractice:4} \begin{bmatrix} \frac{-3}{4} \\ \frac{5}{4} \\ 1 \end{bmatrix} \end{equation} 
+
+	The dimension of the nullspace, i.e., the minimum number of vectors required to span it is $1$. 
+
+	From the rank-nullity theorem, we know that Dim(Rowspace($\mathbf{B}$)) + Dim(Nullspace($\mathbf{B}$)) = Number of columns in $\mathbf{B}$. Therefore, the dimension of the rowspace of $\mathbf{B}$ is 2. 
+
+}
+
+\sol{Mentors: State the rank nullity theorem without proof. For any matrix, $\mathbf{A}$, Rank($\mathbf{A}$) + Nullity($\mathbf{A}$) = number of columns in $\mathbf{A}$. Rank($\mathbf{A}$) = dim(colspace($\mathbf{A}$)) = dim(rowspace($\mathbf{A}$)). Nullity($\mathbf{A}$) = dim(nullspace($\mathbf{A}$))}
+
+\qitem{In the previous part, we chose one of the variables and set it to be a free variable. Can we choose any variable as our free variable?}
+
+\ans{Let's investigate this question by choosing each variable as a free variable. We know $z$ works from the solution to the previous part. \\
+
+Let's consider $y$. If we set $y = t$ instead, then we get, from Equation (\ref{nullpractice:2}) $5z = 4t \implies z = \frac{4}{5}t$. \\
+
+Equation (\ref{nullpractice:1}) then gives us $x - t + 2\frac{4}{5}t = 0 \implies x - \frac{5t}{5} + \frac{8t}{5} = 0 \implies x = \frac{-3t}{5}$. \\
+
+The nullspace is then spanned by the vector $\begin{bmatrix} \frac{-3}{5} \\ 1 \\ \frac{4}{5} \end{bmatrix}$ \\
+
+Note that this vector is $\frac{4}{5}$ times the vector we found in (\ref{nullpractice:4}). \\ 
+
+}
+
+\sol{At this point, stress that the choice of free variable doesn't change the null space. Since subspaces are closed under scalar multiplication, the fact that this vector is a multiple of the previous shouldn't be a surprise to students. If it is, explain why this is the case.}
+
+\ans{
+
+Now, let's see what happens if we set $x=t$ instead. We can't use Equation (\ref{nullpractice:2}) yet, so let's try using Equation (\ref{nullpractice:1}). $t - y + 2z = 0$. Now what? How do we find the value for $y$ or $z$ in terms of $t$? ...We can't. So $x$ does not work...
+
+}
+
+\qitem{How can we know which variables can be used as free variables?}
+
+\ans{Pick your free variables are by looking at columns with no pivots. Although, sometimes, other variables might work (like $y$ above), the variables with no pivots will always work!}
+
+\qitem{
+	Now consider another matrix, $\mathbf{C} = \begin{bmatrix} 1 & -2 & -6 & 12 \\ 2 & 4 & 12 & -17 \\ 1 & -4 & -12 & 22 \end{bmatrix}$
+	Without doing any math, will this matrix have a trivial nullspace, i.e. consisting of only $\vec{0}$?
+}
+
+\ans{No! A 3x4 matrix can simply not have 4 pivots. So at least one of the variables will need to be free!}
+
+\qitem{
+	Consider another matrix, $\mathbf{D} = \begin{bmatrix} 1 & -2 & -6 & 12 \\ 0 & -2 & -6 & 10 \\ 0 & 0 & 0 & -1 \end{bmatrix}$. Find vector(s) that span the nullspace.
+}
+
+\ans{
+	In terms of equations, let the variables for cols 1-4 be $a$ to $d$ respectively. Column 3 does not have a pivot. So $c$ is free. Let $c = t$. At this point, we should feel comfortable reading the matrix as its equations without explicitly writing the equations! \\
+
+	Row 3 of the matrix says that $-d = 0$, or that $d = 0$. \\
+
+	Row 2 says that $-2b -6c + 10d = 0 \implies -2b -6t = 0 \implies b=-3t$. \\
+
+	Row 1 says that $a - 2b -6c + 12d = 0 \implies a + 6t -6t = 0 \implies a=0$. \\
+
+	The vector that spans this nullspace is $\begin{bmatrix} 0 \\ -3 \\ 1 \\ 0\end{bmatrix}$
+
+	}
+\sol{
+	Students could be confused about 'pivots'. Column 3 doesn't have a pivot because it has a 0 in the place of the 'diagonal' instead. Also, ask them which column doesn't have a pivot in this case: $\begin{bmatrix} 1 & -2 & -6 & 12 \\ 0 & -2 & -6 & 10 \\ 0 & 0 & -1 & 9 \end{bmatrix}$ (note that the last row is different.) Basically, column 4 doesn't a pivot, because that pivot would have been in the 4th row which doesn't exist. \textit{Make sure these concepts about pivots settle in}.
+
+}
+\qitem{Consider one final matrix, $\mathbf{E} = \begin{bmatrix} 1 & -2 & -6 & 12 \\ 0 & -2 & -6 & 10 \\ 0 & 0 & 0 & 0\end{bmatrix}$. What are the vector(s) that span this nullspace?}
+
+\ans{
+	Again, let the variables for the columns be $a$ to $d$ respectively. Columns 3 and 4 don't have pivots. So let's set both of them to be free! \\
+
+	Let $c = t, d = s$. \\
+
+	Row 2 says $-2b -6c + 10d = 0 \implies -2b = 6t - 10s \implies b = -3t + 5s$. \\
+
+	Row 1 says $a -2b -6c + 10d = 0 \implies a = 0$. \\
+
+	The general form of vectors in the nullspace is then $\begin{bmatrix} 0 \\ -3t + 5s \\ t \\ s \end{bmatrix}$. This needs to be rewritten by splitting the free variables $s\begin{bmatrix} 0 \\ 5 \\ 0 \\ 1 \end{bmatrix} + t\begin{bmatrix} 0 \\ -3 \\ 1 \\ 0\end{bmatrix}$. \\
+
+	Finally we conclude that the vectors that span the nullspace are $\begin{bmatrix} 0 \\ 5 \\ 0 \\ 1 \end{bmatrix}$ and $\begin{bmatrix} 0 \\ -3 \\ 1 \\ 0 \end{bmatrix}$. \\
+
+	Observation: notice that the number of free variables = number of columns without pivot = number of vectors required to span the nullspace = dimension of the nullspace!
+}
+
+
+
+
+\end{enumerate}

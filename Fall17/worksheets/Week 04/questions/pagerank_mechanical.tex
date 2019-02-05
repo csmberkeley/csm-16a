@@ -1,0 +1,115 @@
+% author: Aditya Baradwaj
+% email: abaradwaj@berkeley.edu
+
+\qns{Page Rank}
+
+% \begin{enumerate}[label=(\alph*)]
+%     \item Prove that any matrix and its transpose have the same eigenvalues. I.e. suppose you have some matrix $\m{A}$. Prove that A and $\m{A}^T$ have the same eigenvalues. \textit{Hint: Recall that the eigenvalues of a matrix can be found by solving the equation $det(\m{A} - \lambda \m{I}) = 0$, and that a matrix and its transpose have the same determinant}
+    
+%     \meta{
+%     Students will probably be new to the 'volume of a parallelipiped' interpretation of the determinant. So it might be a good idea to go through this with them, instead of asking them to try and solve it.
+%     }
+    
+%     \ans{
+%     The eigenvalues of $\m{A}$ are the solutions to the equation $det(A - \lambda I) = 0$. A matrix and its transpose will have the same determinant, because they represent the same transformation, except they rotate in opposite directions but keep the same scaling, and therefore the same volume is enclosed by the parallelepiped. This means that
+%     $$det((\m{A} - \lambda \m{I})^T) = 0 \implies det(\m{A}^T - \lambda \m{I}^T) = 0 \implies det(\m{A}^T - \lambda \m{I}) = 0$$. But this equation gives us the eigenvalues of $\m{A}^T$! And since we have proved that these equations are the same, so their solutions must be the same, and the eigenvalues must also be the same.
+%     }
+% \end{enumerate}
+
+Now suppose we have a network consisting of 3 websites connected as shown below. Each of the weights on the edges represent the probability of a user taking that edge.
+
+\usetikzlibrary{positioning}
+\definecolor {processblue}{cmyk}{0.96,0,0,0}
+
+\begin{center}
+\begin{tikzpicture}[-latex, auto, node distance=4 cm and 5cm , on grid, semithick, state/.style ={circle, draw, minimum width=1 cm}]
+\node[state] (C)
+{$3$};
+\node[state] (A) [above left=of C] {$1$};
+\node[state] (B) [above right =of C] {$2$};
+\path (A) edge [loop left] node[left] {$1$} (A);
+\path (C) edge node[below =0.15 cm] {$1/3$} (A);
+\path (C) edge [bend left =15] node[below =0.15 cm] {$1/3$} (B);
+\path (C) edge [loop below] node[below] {$1/3$} (C);
+\path (B) edge [bend right = -25] node[below =0.15 cm] {$1/2$} (C);
+\path (B) edge node[below =0.15 cm] {$1/2$} (A);
+\end{tikzpicture}
+\end{center}
+
+\begin{enumerate}[label=(\alph*)]
+    \item Write down the probability transition matrix for this graph, and call it $\m{P}$. Can you say something about the eigenalues/eigenvectors of $\m{P}^T$? (\textit{Hint: Try to recall the properties of transition matrices}).
+    
+    \meta{ Mentors: Explain how $\m{P}$ being a transition matrix relates to $\m{P}^T$ as a transition matrix, and depending on how comfortable students are with eigenvalues, mention that the eigenvalues of transposed matrices are always the same as original matrices.}
+    
+    \ans{
+    The transition matrix is:
+    $$\begin{bmatrix}
+    1 & \frac{1}{2} & \frac{1}{3} \\
+    0 & \frac{1}{2} & \frac{1}{3} \\
+    0 & 0 & \frac{1}{3} \\
+    \end{bmatrix}$$
+    We know that the columns of a probability transition matrix must sum to 1. This means that the rows of $\m{P}^T$ must sum to 1. So, we have that the matrix-vector product $\m{P}^T \begin{bmatrix}1 \\ 1 \\ 1\end{bmatrix} = \begin{bmatrix}1 \\ 1 \\ 1\end{bmatrix}$. This means that $1$ must be an eigenvalue of the matrix $\m{P}^T$, and therefore from part (a), it must also be an eigenvalue of $\m{P}$. This is true for any probability transition matrix.
+    }
+    
+    \item We want to rank these webpages in order of importance. But first, find the eigenvector of $\m{P}$ corresponding to eigenvalue 1.
+    
+    \meta{This is largely a mechanical question, so ensure that students understand (i) the purpose of this calculation, and (ii) the techniques involved in it.}
+    
+    \ans{
+    \begin{align*}
+    P - I &=
+    \begin{bmatrix}
+    1 & \frac{1}{2} & \frac{1}{3} \\
+    0 & \frac{1}{2} & \frac{1}{3} \\
+    0 & 0 & \frac{1}{3} \\
+    \end{bmatrix}
+    - \begin{bmatrix}
+    1 & 0 & 0 \\
+    0 & 1 & 0 \\
+    0 & 0 & 1 \\
+    \end{bmatrix}
+    \\
+    &=
+    \begin{bmatrix}
+    0 & \frac{1}{2} & \frac{1}{3} \\
+    0 & -\frac{1}{2} & \frac{1}{3} \\
+    0 & 0 & -\frac{2}{3} \\
+    \end{bmatrix}
+    \\
+    &\xrightarrow[R1 \leftrightarrow R2, R2 \leftrightarrow R3]{R1 \rightarrow R1 + R2 + R3}
+    \begin{bmatrix}
+    0 & -\frac{1}{2} & \frac{1}{3} \\
+    0 & 0 & -\frac{2}{3} \\
+    0 & 0 & 0 \\
+    \end{bmatrix}
+    \end{align*}
+    We can see that the pivots lie in the second and third columns. So, we want to solve the equation
+    \begin{flalign*}
+    & \begin{bmatrix}
+    0 & -\frac{1}{2} & \frac{1}{3} \\
+    0 & 0 & -\frac{2}{3} \\
+    0 & 0 & 0 \\
+    \end{bmatrix}
+    \begin{bmatrix} x_1 \\ x_2 \\ x_3 \end{bmatrix} = 0 &\\
+    & -\frac{1}{2}x_2 + \frac{1}{3}x_3 = 0 \text{ and } -\frac{2}{3}x_3 = 0 &\\
+    & \implies x_3 = 0 \text{ and } x_2 = 0
+    \end{flalign*}
+    This means that the eigenvector is of the form $\begin{bmatrix}x_1 \\ 0 \\ 0\end{bmatrix} = \begin{bmatrix}1 \\ 0 \\ 0\end{bmatrix}x_1$. And since $x_1$ is a free variable, the eigenvectors corresponding to eigenvalue $1$ must belong in $\text{span} \{\begin{bmatrix}1 \\ 0 \\ 0\end{bmatrix}\}$
+    }
+    
+    \item Now looking at the matrix $\m{P}$, can you identify what its other eigenvalues are?
+    
+    \meta{Ask students about why the eigenvalues of an upper-triangular matrix are at its diagonals, and optionally walk though a sketch proof.}
+    
+    \ans{
+    $\m{P}$ is an upper-triangular matrix, which means that the diagonal elements are the eigenvalues. So, the eigenvalues are $1, \frac{1}{2}, and \frac{1}{3}$ (we already found the eigenvalue 1 in part (b) through a different method).
+    }
+    
+    \item Suppose that we start with 90 users evenly distributed among the websites. What is the steady-state number of people who will end up at each website?
+    
+    \meta{Ensure that the students understand why components with smaller eigenvalues will die out. Optionally, also explain why in any transition matrix no eigenvalue can be greater than 1, and so every component without eigenvalue one will die out.}
+    
+    \ans{
+    The initial vector of people is $\vec{x} = \begin{bmatrix}30 \\ 30 \\ 30\end{bmatrix}$. We know that since the other eigenvalues are less than $1$, those components will die out as we keep applying $\m{P}$ to $\vec{x}$. So we only care about the component of $\vec{x}$ that is in the direction of $\begin{bmatrix}1 \\ 0 \\ 0\end{bmatrix}$. This is just the first component of the vector, which is $\begin{bmatrix}30 \\ 0 \\ 0\end{bmatrix}$. However, the total number of people must be conserved, so we multiply by 3 so that the total is 90, the same as before. So, the steady-state distribution is $\begin{bmatrix}90 \\ 0 \\ 0\end{bmatrix}$
+    }
+\end{enumerate}

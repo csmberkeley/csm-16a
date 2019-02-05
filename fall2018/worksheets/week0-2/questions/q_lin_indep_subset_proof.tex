@@ -1,0 +1,31 @@
+% Author: Mudit Gupta
+% Email: mudit+csm16a@berkeley.edu
+
+\qns{First Proof}
+
+\sol{Prereq: Knowing what linear independence and dependence are \\
+Description: A very simple and basic proof about linear independence.}
+
+
+Prove that a subset of a finite linear independent set of vectors is linearly independent.
+
+\sol{This is probably pretty early for when students will see proof. Very carefully introduce general proving techniques. Take the question, write down what is given in mathematical notation, and write out what needs to be proven in mathematical notation. A proof is essentially going from the 'given' to the 'to prove'. \\
+Another note is that remember to assume that students have not taken CS70. Assume that they do not know proof techniques such as proof by contradiction, direct proof, induction, etc. This question is a proof by contradiction, so introduce it as such. \\
+Proof by contradiction is  not taught in 16A, so it is a good idea to go over the general structure of a proof in this format - assuming the negation of the statement you are trying to prove, and then using reductions to show an impossible scenario/contradiction.
+Final note: explain the 'without loss of generality' in the 'To Prove' section. Why }
+
+\ans{
+	$\textbf{Given:}$
+	$\vec{v}_1, \vec{v}_2, \ldots, \vec{v}_n$ are linearly independent. This, by definition of linear independence, means that if there exist $\alpha_1, \alpha_2, \ldots, \alpha_n$, such that:
+	 $$\alpha_1\vec{v}_1 + \alpha_2\vec{v}_2 + \ldots + \alpha_n\vec{v}_n = 0$$ then  $$\alpha_1=\alpha_2=\ldots=\alpha_n=0$$ 
+	 In other words, the only solution to the above $\alpha$s is that the $\alpha$s are all $0$.\\
+	$\textbf{To Prove:}\ \beta_1\vec{v}_1 + \beta_2\vec{v}_2 + \ldots + \beta_k\vec{v}_k = 0 \implies \beta_1=\beta_2=\ldots=\beta_k=0$. \\ Note that $\vec{v}_1, \vec{v}_2, \ldots, \vec{v}_k$ are a subset of $\vec{v}_1, \vec{v}_2, \ldots, \vec{v}_n$.
+
+	Assume that $ \beta_1\vec{v}_1 + \beta_2\vec{v}_2 + \ldots + \beta_k\vec{v}_k = 0 $ is true but not $\beta_1=\beta_2=\ldots=\beta_k=0$. 
+
+	Consider $\beta_1\vec{v}_1 + \beta_2\vec{v}_2 + \ldots + \beta_k\vec{v}_k + 0\vec{v}_{k+1} + 0\vec{v}_{k+2} + \ldots + 0\vec{v}_n$. If $\beta_1\vec{v}_1 + \beta_2\vec{v}_2 + \ldots + \beta_k\vec{v}_k = 0$ then 
+
+	$$\beta_1\vec{v}_1 + \beta_2\vec{v}_2 + \ldots + \beta_k\vec{v}_k + 0\vec{v}_{k+1} + 0\vec{v}_{k+2} + \ldots + 0\vec{v}_n = 0$$ 
+
+	However, since we assumed that not all $\beta_1, \beta_2, \ldots, \beta_k$ are 0, this means that the set $\{\vec{v}_1, \vec{v}_2, \ldots, \vec{v}_n\}$ is not linearly independent, which is a contradiction because it is given that the set is linearly independent. Therefore, $\beta_1=\beta_2=\ldots=\beta_k=0$ must have been true. 
+}

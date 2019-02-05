@@ -1,0 +1,168 @@
+% Daniel Aranki <daranki@cs.berkeley.edu>
+% Alan Dong <alan_dong@berkeley.edu>
+% Kimmy Ko <ko.kimmy@berkeley.edu>
+
+% Henry Sun <tigerhs1998@berkeley.edu> Reformatted for CSM
+
+\newcommand{\stateRankTransMatrix}{\ensuremath{\begin{bmatrix}
+\frac{7}{10} & \frac{1}{10} & \frac{1}{10} \\
+\frac{1}{10} & \frac{6}{10} & \frac{1}{10} \\
+\frac{2}{10} & \frac{3}{10} & \frac{8}{10}
+\end{bmatrix}}}
+
+\qns{StateRank Car Rentals (21 points)}
+
+You are an analyst at StateRank Car Rentals, which operates in California, Oregon, and Nevada.
+You are hired to analyze the number of rental cars going into and out of each of the three states (CA, OR, and NV).
+The number of cars in each state on day $n \in \{0,1,\ldots\}$ can be represented by the state vector $\vec{s}[n] = \begin{bmatrix} s_\text{CA}[n] \\ s_\text{OR}[n] \\ s_\text{NV}[n] \end{bmatrix}$.
+The state vector follows the state evolution equation $\vec{s}[n+1] = \mathbf{A}\vec{s}[n], \forall n \in \{0,1,\ldots\}$, where the transition matrix, $\mathbf{A}$, of this linear dynamic system is
+\[
+\mathbf{A} = 
+\stateRankTransMatrix.
+\]
+
+\sol {Depending on the familiarity level of the students with flow matrices, the instructor may wish to first draw out the flow diagram. This is also a good time to go over definitions like column-stochastic matrix; but most importantly, there should be an overview of how eigenvalues and eigenvectors control the stability, or the end result, of the system. \\
+\begin{center}
+\begin{tikzpicture}[>=stealth]
+
+    \tikzset{main node/.style={circle,draw,minimum size=1.5cm,inner sep=0pt,align=center}}
+
+    \node[main node] (ca) {CA};
+
+    \node[main node] (or) [below left = 3cm and 3cm of ca]  {OR};
+
+    \node[main node] (nv) [below right = 3cm and 3cm of ca] {NV};
+
+
+
+    \path[->,draw,thick]
+
+	(ca) edge [loop above, ultra thick] node [above,sloped] {\fbox{$\frac{7}{10}$}} (ca)
+
+    (ca) edge [bend right=45, ultra thick] node [left=7pt] {\fbox{$\frac{1}{10}$}} (or)
+
+    (ca) edge [bend left=45, ultra thick] node [right=7pt] {\fbox{$\frac{2}{10}$}} (nv)
+
+	(or) edge [bend right=25, ultra thick] node [above left=-7pt] {\fbox{$\frac{1}{10}$}} (ca)
+
+	(or) edge [loop below, ultra thick] node [below,sloped] {\fbox{$\frac{6}{10}$}} (or)
+
+	(or) edge [bend left=10, ultra thick] node [below,sloped] {\fbox{$\frac{3}{10}$}} (nv)
+
+	(nv) edge [bend left=25, ultra thick] node [above right=-7pt] {\fbox{$\frac{1}{10}$}} (ca)
+
+	(nv) edge [bend left=30, ultra thick] node [below,sloped] {\fbox{$\frac{1}{10}$}} (or)
+
+	(nv) edge [loop below, ultra thick] node [below,sloped] {\fbox{$\frac{8}{10}$}} (nv);
+
+\end{tikzpicture}
+\end{center}
+}
+
+\begin{enumerate}
+
+\qitem {We denote the eigenvalue/eigenvector pairs of the matrix $\mathbf{A}$ by
+\[
+\left(
+\lambda_1=1,
+\vec{u}_1 = \begin{bmatrix}
+50\\40\\110
+\end{bmatrix}
+\right)
+,
+\left(
+\lambda_2,
+\vec{u}_2 = \begin{bmatrix}
+0\\-10\\10
+\end{bmatrix}
+\right)
+, \text{ and }
+\left(
+\lambda_3,
+\vec{u}_3 = \begin{bmatrix}
+-10\\0\\10
+\end{bmatrix}
+\right).
+\]
+
+\textbf{Find the eigenvalues $\lambda_2$ and $\lambda_3$ corresponding to the eigenvectors $\vec{u}_2$ and $\vec{u}_3$, respectively.}
+Note that since $\lambda_1=1$ is given, you don't have to calculate it.
+}
+
+\ans{
+
+Recall that if $\vec{u},\lambda$ are an eigenpair of a matrix $\mathbf{A}$, then $\mathbf{A} \vec{u} = \lambda \vec{u}$.
+By left-multiplying the eigenvectors by $\mathbf{A}$, we get:
+\begin{enumerate}
+\item $
+\stateRankTransMatrix
+\begin{bmatrix}
+0\\-10\\10
+\end{bmatrix} = \begin{bmatrix}
+0\\-5\\5
+\end{bmatrix} = 0.5 \cdot \begin{bmatrix}
+0\\-10\\10
+\end{bmatrix}$, which means that $\lambda_2 = 0.5 = \frac{1}{2}$.
+\item $
+\stateRankTransMatrix
+\begin{bmatrix}
+-10\\0\\10
+\end{bmatrix} = \begin{bmatrix}
+-6\\0\\6
+\end{bmatrix} = 0.6 \cdot \begin{bmatrix}
+-10\\0\\10
+\end{bmatrix}$, which means that $\lambda_3 = 0.6 = \frac{3}{5}$.
+\end{enumerate}
+}
+
+\qitem {
+Suppose that the initial number of rental cars in each state on day $0$ is
+\[\vec{s}[0] = \begin{bmatrix}
+7000\\5000\\8000
+\end{bmatrix}
+=
+100 \vec{u}_1 - 100 \vec{u}_2 - 200 \vec{u}_3,
+\]
+where $\vec{u}_1, \vec{u}_2$ and $\vec{u}_3$ are the eigenvectors from part (a).
+
+After a very large number of days $n$, how many rental cars will there be in each state?\\
+\textbf{That is, i) calculate
+\[
+\vec{s}^* = \lim_{n\to\infty} \vec{s}[n]
+\]
+\underline{and} ii) show that the system will indeed converge to $\vec{s}^*$ as $n\rightarrow \infty$ if it starts from $\vec{s}[0]$.}
+
+\textit{Hint:} If you didn't solve part (a), the eigenvalues satisfy $\lambda_1=1, |\lambda_2|<1$ and $|\lambda_3|<1$.
+}
+
+\ans{
+
+We know that $\vec{s}[n] = \mathbf{A}^n \vec{s}[0]$.
+We also know that $\vec{s}[0] = 100 \vec{u}_1 - 100 \vec{u}_2 -200 \vec{u}_3$.
+
+Therefore, we can write:
+\begin{align*}
+\vec{s}[n] &= \mathbf{A}^n \vec{s}[0] \\
+&= \mathbf{A}^n \left( 100 \vec{u}_1 - 100 \vec{u}_2 -200 \vec{u}_3 \right) \\
+&= 100 \mathbf{A}^n \vec{u}_1 - 100 \mathbf{A}^n \vec{u}_2 - 200 \mathbf{A}^n \vec{u}_3 \\
+&= 100 \lambda_1^n \vec{u}_1 - 100 \lambda_2^n \vec{u}_2 - 200 \lambda_3^n \vec{u}_3
+\end{align*}
+
+From that, we can write:
+\[\lim_{n\to\infty} \vec{s}[n] = \lim_{n\to\infty} 100 \lambda_1^n \vec{u}_1 - 100 \lambda_2^n \vec{u}_2 - 200 \lambda_3^n \vec{u}_3\]
+
+Since $|\lambda_2| < 1$ and $|\lambda_3| < 1$, we know that:
+\[\lim_{n\to\infty} \left(- 100 \lambda_2^n \vec{u}_2 - 200 \lambda_3^n \vec{u}_3\right) = \vec{0}\]
+
+From that and the fact that $\lambda_1 = 1$, we are left with:
+\begin{align*}
+\lim_{n\to\infty} \vec{s}[n] &= \lim_{n\to\infty} 100 \lambda_1^n \vec{u}_1 \\
+&= \lim_{n\to\infty} 100 \cdot 1^n \vec{u}_1 \\
+&= 100 \vec{u}_1 \\
+&= \begin{bmatrix}
+5000\\4000\\11000
+\end{bmatrix}
+\end{align*}
+}
+
+\end{enumerate}
