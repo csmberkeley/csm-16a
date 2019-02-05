@@ -88,9 +88,10 @@ target/
 *.aux
 *.out
 *.nav
-#*.pdf
+*.pdf
 *.snm
 *.toc
+*.annotations
 
 # MacOS
 .DS_STORE
