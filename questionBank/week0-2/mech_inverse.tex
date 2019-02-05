@@ -1,0 +1,156 @@
+% Author: Anwar Baroudi, Elena Herbold
+% Email:eherbold@berkeley.edu
+\qns{Inverses!}
+
+\sol{ \textbf{prereqs} for this problem include being comfortable with Gaussian Elimination, comfortable with the idea of an inverse in general (use 
+scalar numbers like 5 and one-fifth, for example, and then extrapolate to matrices), comfortable with inverses \textit{not} existing. Some examples of inverses not existing: 
+\begin{itemize}
+    \item the number zero
+    \item functions that are not one-to-one (sine, $x^2$, etc.)
+\end{itemize}
+}
+\begin{enumerate}
+\qitem Find the inverse of: \\
+	$$\begin{bmatrix}
+	 1 & 3 \\
+	 2 & 5 \end{bmatrix}$$ \\
+\sol{ Students may not know the shortcut formula and may instead use row reduction of this matrix alongside an identity matrix. They usually are eager to learn the shortcut, but then you may have to derive it for them so it makes sense.
+
+If you don't have time to derive it, and they don't care about the shortcut, instead of the below answer, solve with GE - augment the matrix with the identity and row reduce. 
+    
+
+}
+\ans{
+	We know that for $2 \times 2$ matrices, we can simply use the formula for the inverse. The inverse of $\begin{bmatrix} a & b \\ c & d \end{bmatrix}$ is $\dfrac{1}{ad - bc} \begin{bmatrix} d & -b \\ -c & a \end{bmatrix}$.
+
+	$$\dfrac{1}{ad - bc} \begin{bmatrix} d & -b \\ -c & a \end{bmatrix}= \dfrac{1}{(1)(5) - (3)(2)} \begin{bmatrix} 5 & -3 \\ -2 & 1 \end{bmatrix} = \begin{bmatrix}
+	-5 & 3 \\
+	2 & -1 \end{bmatrix}$$ \\
+}
+
+\qitem Find the inverse of: \\
+	$$\begin{bmatrix}
+	1 & 3 & 5 \\
+	2 & 4 & 6 \\
+	3 & 6 & 8 \end{bmatrix}$$ \\
+	using Gaussian Elimination.
+\\
+
+\sol{ Students have been taught to augment the matrix they are trying to find the inverse of with the identity matrix, and then perform row operations until the original matrix looks like the identity. However, they may not know the intuition behind this. Be sure to show how this is  valid.\\
+If they ask about using cofactor expansion, tell them to use this method instead.
+
+}
+
+\ans{
+	To find the inverse of a matrix, start with the equation $$\mathbf{A} = \mathbf{I}\mathbf{A}$$ 
+	Do row operations on the left hand side of this equation, to end up with $$\mathbf{I} = \mathbf{A}^{-1}\mathbf{A}$$
+
+	$$\begin{bmatrix}
+	1 & 3 & 5 \\
+	2 & 4 & 6 \\
+	3 & 6 & 8 \end{bmatrix} = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}\mathbf{A}$$
+
+	$$R_2 = R_2 - 2R_1$$ $$and$$ $$R_3 = R_3 - 3R_1.$$
+	$$\begin{bmatrix} 
+	1 & 3 & 5 \\
+	0 & -2 & -4 \\
+	0 & -3 & -7 \end{bmatrix} = 
+	\begin{bmatrix} 
+	1 & 0 & 0 \\
+	-2 & 1 & 0 \\ 
+	-3 & 0 & 1 \end{bmatrix}
+	\mathbf{A}$$
+
+
+	$$R_2 = -0.5R_2$$
+	$$\begin{bmatrix} 
+	1 & 3 & 5 \\
+	0 & 1 & 2 \\
+	0 & -3 & -7 \end{bmatrix} = 
+	\begin{bmatrix} 
+	1 & 0 & 0 \\
+	1 & \dfrac{-1}{2} & 0 \\ 
+	-3 & 0 & 1 \end{bmatrix}
+	\mathbf{A}$$
+
+	$$R_1 = R_1 - 3R_2$$ $$and$$ $$R_3 = R_3 + 3R_2.$$
+	$$\begin{bmatrix} 
+	1 & 0 & -1 \\
+	0 & 1 & 2 \\
+	0 & 0 & -1 \end{bmatrix} = 
+	\begin{bmatrix} 
+	-2 & \dfrac{3}{2} & 0 \\
+	1 & \dfrac{-1}{2} & 0 \\ 
+	0 & \dfrac{-3}{2} & 1 \end{bmatrix}
+	\mathbf{A}$$
+
+	$$R_3 = -1R_3$$
+	$$\begin{bmatrix} 
+	1 & 0 & -1 \\
+	0 & 1 & 2 \\
+	0 & 0 & 1 \end{bmatrix} = 
+	\begin{bmatrix} 
+	-2 & \dfrac{3}{2} & 0 \\
+	1 & \dfrac{-1}{2} & 0 \\ 
+	0 & \dfrac{3}{2} & -1 \end{bmatrix}
+	\mathbf{A}$$
+
+	$$R_1 = R_1 + R_3$$ $$and$$ $$R_2 = R_2 - 2R_3$$
+	$$\begin{bmatrix} 
+	1 & 0 & 0 \\
+	0 & 1 & 0 \\
+	0 & 0 & 1 \end{bmatrix} = 
+	\begin{bmatrix} 
+	-2 & 3 & -1 \\
+	1 & \dfrac{-7}{2} & 2 \\ 
+	0 & \dfrac{3}{2} & -1 \end{bmatrix}
+	\mathbf{A}$$
+
+Now this equation looks like $\mathbf{I} = \mathbf{A}^{-1}\mathbf{A}$
+
+
+	$$\begin{bmatrix}	
+	-2 & 3 & -1 \\
+	1 & -3.5 & 2 \\
+	0 & 1.5 & -1 \end{bmatrix}$$ \\
+} 
+
+
+A rotation matrix is a matrix that takes a vector and rotates it by some number of degrees. That matrix looks like: \\
+  $$\begin{bmatrix}
+  \cos{\theta} & -\sin{\theta} \\
+  \sin{\theta} & \cos{\theta} \end{bmatrix}$$ \\
+
+  for some angle $\theta$.
+  For example, if we had a rotation matrix with $\theta=45^{\circ}$, and we multiplied it with the vector [.5, .5], what would you expect? \\
+
+\sol{Go over a couple of examples of what this matrix does to a vector. Consider the x-axis and the y-axis for instance. If you are good at drawing on the board, it is SUPER helpful for students to see transformations in action. \\
+Also, rotation/reflection matrices are a cool example of a type of matrix where you can find an inverse without using cofactors/GE/etc., so make sure to let the students know that so they can build intuition for transformations.}
+
+\qitem Find the inverse of this matrix: \\
+	$$\begin{bmatrix}
+	\dfrac{\sqrt{3}}{2} & \dfrac{-1}{2} \\
+	\dfrac{1}{2} & \dfrac{\sqrt{3}}{2} \end{bmatrix}$$ \\
+
+\ans{
+	$$\begin{bmatrix}
+	\dfrac{\sqrt{3}}{2} & \dfrac{1}{2} \\
+	\dfrac{-1}{2} & \dfrac{\sqrt{3}}{2} \end{bmatrix}$$ \\
+	Note that you don't have to actually do the normal math for finding inverses (and are probably pretty sad if you did). Instead think of what the inverse of a rotation matrix should probably do. What is the inverse of rotating 30 degrees? Rotating -30 (or 330) degrees! So by plugging -30 or 330 into the general form of the rotation matrix you can get the correct answer
+} 
+
+\qitem
+\begin{enumerate}
+
+\item Will a rotation matrix always have an inverse? Why or why not? \\
+\item Consider a matrix that mirrors a vector across the x-axis. Will it always have an inverse? \\
+\item Consider a matrix flattens a vector on to the x-axis (so for example [3, 5]$^\top$ becomes [3, 0]$^\top$). Will it have an inverse? 
+\end{enumerate}
+
+\ans{
+	i) Yes, you can always rotate in the opposite direction. \\
+	ii) Yes, you can always invert back (In fact, the inverse would be itself) \\
+	iii) No, since the transformation loses information, there probably is NOT an inverse. 
+}
+\end{enumerate}
+

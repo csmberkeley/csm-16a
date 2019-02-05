@@ -1,0 +1,130 @@
+% Author: Aditya, Yannan, Emily
+% Email: abaradwaj@berkeley.edu, ytuo@berkeley.edu, egosti@berkeley.edu
+
+
+\qns{Nullspaces and projections}
+
+Assume that the vector $\vec{x} = \begin{bmatrix}x_0 \\ x_1\end{bmatrix}$. For each of the following matrices $\m{A} \in \mathbb{R}^{n \times m}$, answer the following:
+\begin{itemize}
+    \item Compute the matrix product $\mathbf{A}\vec{x}$. Explain in words how the matrix transforms the vector.
+    \item Suppose you know that $A$ transforms $\vec{x}$ to give $\vec{y}$. Given $\vec{y}$, can you find what the original vector $\vec{x}$ was?
+    \item Is the matrix $\mathbf{A}$ invertible? How do you know? If it is invertible, find the inverse.
+    \item Verify that (dimension of nullspace) + (dimension of column space) = min(n, m)
+\end{itemize}
+\begin{enumerate}
+\qitem $\mathbf{A} = \begin{bmatrix}
+	 1 & 0 \\
+	 0 & 0
+	 \end{bmatrix}, \vec{y} = \begin{bmatrix}2 \\ 0\end{bmatrix}$\\
+\ans{
+	\begin{itemize}
+        \item $\m{A}\vec{x} = \begin{bmatrix}x_0 \\ 0 \end{bmatrix}$. We can see that this matrix keeps $x_0$ and turns $x_1$ to 0. In other words, the matrix \textbf{projects} the vector $\vec{x}$ to the $x$-axis.
+        
+        \item No. We can figure out $x_0$, since the value does not change, but the transformation converts all the $x_1$ values to 0. Given 0 as an output, $x_1$ could have been any value, so we cannot determine the original vector $\vec{x}$. As a rule of thumb, if there isn't a one-to-one mapping of inputs to outputs for the elements of $\vec{x}$, we cannot find the original vector after the transformation.
+        
+        \item No, $\m{A}$ is not invertible, since the columns are linearly dependent, or there is no way to turn it into an upper triangular matrix using Gaussian elimination. Intuitively, we cannot retrieve a vector to its original state after applying the matrix, and therefore we cannot "invert" the operation.
+        
+        \item The dimension of the nullspace is 1, or the number of elements that cannot be retrieved after the matrix transformation. The column space is dimension 1, since there is only one pivot in the matrix. Adding both together, we get 1 + 1 = 2, which is equal to min(2, 2) = 2.
+    \end{itemize}
+}
+
+\qitem $\m{A} = \begin{bmatrix}
+	\frac{1}{2} & \frac{1}{2} \\
+	\frac{1}{2} & \frac{1}{2}
+	\end{bmatrix}, y = \begin{bmatrix}1 \\ 1\end{bmatrix}$
+
+\ans{
+\begin{itemize}
+        \item $\m{A}\vec{x} = \frac{1}{2}\begin{bmatrix}x_0 + x_1 \\ x_0 + x_1 \end{bmatrix}$
+        The first and second entries of the resulting vector have the same value; $x_0 = x_1$. We can consider the first entry to be equivalent to "x" and the second to "y", Hence, it is a projection onto y = x. Note that the constants are $\frac{1}{2}$ so that the x vector is not scaled.
+        \item No, we cannot retrieve the original values because when we write out the equations represented by the transformation, the two equations that are the same (linearly dependent), so we only have one equation to work with. This is not enough information to retrieve the original information; we are trying to solve for two variables with one equation.
+        \item No; this goes hand-in-hand with the whether or not we can retrieve the original values; the matrix has linearly dependent columns so we cannot invert it. We also know that we cannot invert matrices with determinant equal to 0, and it is clear that this transformation matrix has determinant 0. 
+        \item The column space of the matrix is 1 since we retrieved one linearly independent equation from earlier. To calculate the nullspace, we first row reduce the matrix, giving us 
+        $\begin{bmatrix} 1 & 1 \\ 0 & 0 \end{bmatrix}$. Then we solve for $\begin{bmatrix} 1 & 1 \\ 0 & 0 \end{bmatrix} \cdot \begin{bmatrix}x_0 \\ x_1\end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix}$
+        \\This gives us the equation $x_0 + x_1 = 0$. Solving this equation, we get $x_0 = -x_1$, so the nullspace is $\begin{bmatrix} 1 \\ -1 \end{bmatrix}$. Hence, we have one vector in the column space and one vector in the nullspace; 1 + 1 = 2, the rank of the original transformation, so everything is accounted for.
+    \end{itemize}
+}
+
+\qitem {$\m{A} = \begin{bmatrix}
+	\frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \\
+	\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \end{bmatrix}$, $\vec{y} = \begin{bmatrix}\sqrt{2} \\ 0\end{bmatrix}$}
+
+\ans{
+    \begin{itemize}
+        \item $\m{A}\vec{x} = \frac{1}{\sqrt{2}}\begin{bmatrix}x_0 - x_1 \\ x_0 + x_1 \end{bmatrix}$. However, this does not offer us much insight into what the matrix actually \textbf{does}. For that, we notice that this is actually the rotation matrix corresponding to an angle of $\theta = \frac{\pi}{4}$.
+        $\m{A} = \begin{bmatrix}
+                \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \\
+                \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}
+            \end{bmatrix}
+          = \begin{bmatrix}
+                \cos{\frac{\pi}{4}} & -\sin{\frac{\pi}{4}} \\
+                \sin{\frac{\pi}{4}} & \cos{\frac{\pi}{4}}
+            \end{bmatrix}$
+        So, we can interpret this matrix as being a transformation that takes a vector and shifts it counterclockwise by $45^\circ$.
+        
+        \item Yes. We know that $x_0 - x_1 = 2$ and $x_0 + x_1 = 0$. Solving these, we get $\vec{x} = \begin{bmatrix}1 \\ -1\end{bmatrix}$. This makes sense, since we can think of the vector $\begin{bmatrix}\sqrt{2} \\ 0\end{bmatrix}$ as being a 45-degree-rotated version of the vector $\begin{bmatrix}1 \\ -1\end{bmatrix}$.
+        \item Yes, the matrix is invertible. We know this because the columns are linearly independent (replace row 2 with row 2 - row 1 to get an upper triangular matrix). This also makes sense intuitively, because we know that we can reverse a rotation by applying its inverse rotation (a clockwise rotation by 45 degrees). So, in this case, the inverse matrix will be
+        $\m{A}^{-1} = \begin{bmatrix}
+            \cos{-\frac{\pi}{4}} & -\sin{-\frac{\pi}{4}} \\
+            \sin{-\frac{\pi}{4}} & \cos{-\frac{\pi}{4}}
+        \end{bmatrix}
+         = \begin{bmatrix}
+            \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\
+            -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}
+        \end{bmatrix}$.
+        You can verify that $\begin{bmatrix}
+            \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\
+            -\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}
+        \end{bmatrix}
+        \cdot \begin{bmatrix}
+            \frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}} \\
+            \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}
+        \end{bmatrix}
+        = \begin{bmatrix}
+            1 & 0 \\
+            0 & 1
+        \end{bmatrix}$
+        \item Because this matrix is invertible, it has a nullspace of dimension 0. And since it is full rank (rows are lin. ind.), its column space has dimension 2. Their sum is equal to min(2, 2) = 2. Thus the equation is verified.
+    \end{itemize}
+}
+
+\qitem{ $\m{A} = \begin{bmatrix}
+        1 & 0 \\
+        0 & 2
+        \end{bmatrix}$, $\vec{y} = \begin{bmatrix}2 \\ 4\end{bmatrix}$}
+
+\ans{
+    \begin{itemize}
+        \item $\m{A}\vec{x} = \begin{bmatrix}x_0 \\ 2x_1 \end{bmatrix}$. This is a diagonal matrix, and performs component-wise scaling. We can interpret this as a transformation that scales the first component by 1, and the second component by 2.
+        \item Yes. We know that $x_0 = 2$ and $2x_1 = 4$. Solving these, we get $\vec{x} = \begin{bmatrix}2 \\ 2\end{bmatrix}$. This makes sense, because the components are getting scaled by 1 and 2 respectively.
+        \item Yes, the matrix is invertible. We know this because the columns are linearly independent (the matrix is already in upper triangular form). We also know that all diagonal matrices with nonzero entries are invertible. This also makes sense intuitively, because we know that we can reverse each component's scaling by applying its inverse scaling. So, in this case, the inverse matrix will be
+        $A^{-1} = \begin{bmatrix}
+            1 & 0 \\
+            0 & \frac{1}{2}
+        \end{bmatrix}$.
+        You can verify that $\begin{bmatrix}
+            1 & 0 \\
+            0 & \frac{1}{2}
+        \end{bmatrix}
+        \cdot \begin{bmatrix}
+            1 & 0 \\
+            0 & 2
+        \end{bmatrix}
+        = \begin{bmatrix}
+            1 & 0 \\
+            0 & 1
+        \end{bmatrix}$
+        \item Because this matrix is invertible, it has a nullspace of dimension 0. And since it is full rank (rows are lin. ind.), its column space has dimension 2. Their sum is equal to min(2, 2) = 2. Thus the equation is verified.
+    \end{itemize}
+}
+
+\sol{
+\begin{itemize}
+    \item Get the students to intuitively understand what each of these transformations mean. These are all fundamental transformations, so it is important that students understand what they mean physically
+    \item Another main point is that matrices are invertible when they represent 'reversible' operations. Try to get students to understand why the examples in (a) and (b) are not invertible, while those in (c) and (d) are. 
+    \item For part (b), DO NOT mention the determinant, because students will have not covered that yet. Instead, just talk about how the rows are linearly dependent.
+\end{itemize}
+}
+
+\end{enumerate}
+

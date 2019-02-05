@@ -1,0 +1,145 @@
+% Authors: Emily Gosti, Yannan Tuo, Sukrit Arora
+% Emails: egosti@berkeley.edu, ytuo@berkeley.edu
+
+
+\qns{Gram-Schmidt Practice}
+
+\meta{\\
+Prereqs: Knowledge of bases
+}
+
+\ans{\\
+Description: Describe the Gram-Schmidt process and what it does, and how to perform it. The objective of the Gram-Schmidt process is to take a set of linearly independent vectors that are not necessarily orthogonal, and create a set of vectors that span the same space and are orthogonal and of unit length. The motivation behind this is that it is often easier to work with vectors that are orthogonal and of unit length.
+}
+
+\begin{enumerate}
+\qitem{
+What does it mean for a set of vectors to be orthonormal?
+}
+    
+
+\ans{
+Orthonormal is a portmanteau of "orthogonal" and "normal;" a set of vectors are mutually orthonormal if every pair of vectors in the set are orthogonal to each other (their inner product equals 0, ie the angle between the vectors is 90$^\circ$), and if each vector is of unit length.
+}
+
+\qitem{
+In the previous part, we have to invert the matrix $\m{A^T A}$ each time we perform least squares. That's a lot of inversions! Suppose that $\m{A}$ was an orthonormal matrix. Does this make our job easier?
+}
+
+\ans{
+Yes. If $\m{A}$ is orthonormal, then $\m{A^T A} = \m{I}$. So, we don't need to do the work of inverting a matrix. The least squares solution becomes a simple projection: $\m{A}^T \vec{b}$.
+}
+
+\qitem{
+Suppose we replace $\m{A}$ with an orthonormal matrix. What must be true of this matrix in order for it to give us the same least squares result?
+}
+
+\ans{
+It must span the same space as $\m{A}$, because least squares is equivalent to projecting $b$ onto the span (column space) of $\m{A}$.
+}
+
+\qitem{
+% does this wording make sense? delete o/w. following notes: https://inst.eecs.berkeley.edu/~ee16a/fa16/lecture/Note_Lin_Alg_Release17.pdf
+Give a justification as to why span($\vec{v_1}$, $\vec{v_2}$) is equivalent to the subspace span($\vec{v_1}$, $\vec{v_2} - \alpha\vec{v_1}$).
+}
+
+\meta{\\
+The idea is to give intuition as to why Gram-Schmidt gives us a set of vectors that spans the same space.
+}
+
+\ans{
+    %please check, but pretty sure this makes sense
+    The span of ($\vec{v_1}$, $\vec{v_2}$) is all vectors that can be written as a linear combination of the two vectors, i.e. all $\vec{v_x}$ s.t. 
+    \[\vec{v_x} = \beta_1 \vec{v_1} + \beta_2 \vec{v_2} \text{ for all real }  \beta_1, \beta_2\]
+    We can write out the span($\vec{v_1}$, $\vec{v_2}-\alpha \vec{v_1}$) as follows:
+    \begin{align*}
+    span(\vec{v_1}, \vec{v_2}-\alpha \vec{v_1}) &= \beta_3 \vec{v_1} + \beta_4 (\vec{v_2} - \alpha \vec{v_1}) &\text{for real $\beta_3, \beta_4$, def. of span} \\
+    &= \beta_3 \vec{v_1} + \beta_4 \vec{v_2} - \beta_4\alpha \vec{v_1} &\text{distribute $\beta_4$}\\
+    &= (\beta_3 - \beta_4\alpha) \vec{v_1} + \beta_4 \vec{v_2} &\text{combine the $\vec{v_1}$s}
+    \end{align*}
+    
+    Note that $(\beta_3 - \beta_4\alpha)$ and $\beta_4$ are both real numbers, so we have an expression that looks like the first one. In fact, by setting $\beta_4 = \beta_2$ and $\beta_3 = \beta_1 + \alpha\beta_2$, we can get the exact same expression with our new vectors as we had with our old ones no matter what (real) numbers our $\beta$s and $\alpha$ are.
+    
+    %or use this as a hint for part e) instead, w/o justification
+}
+
+\qitem{
+We want to start building our new orthonormal set of vectors from scratch. Starting with just one vector from our original set, how can we generate a vector for our new set such that it spans the same space as the single vector from the original set and keeps the new set orthonormal?
+}
+
+%plug in numerical values alongside each step of the problem?
+\meta{\\
+Step 1 of Gram-Schmidt: Pick an arbitrary vector in the set and normalize it.
+}
+
+\ans{
+Let us denote the $i^\text{th}$ vector in the original set as $v_i$, and the $i^\text{th}$ vector in the orthonormal set as $w_i$. To generate our first vector in the orthnormal set $w_1$, we can choose an arbitrary vector from our original set, and simply normalize it; there are currently no other vectors in the orthonormal set that we have to worry about with regards to orthogonality. Hence: $$w_1 = \frac{v_1}{\norm{v_1}}$$
+    }
+
+\qitem{
+   Given two linearly independent vectors $\vec{a}$ and $\vec{b}$ how can we "remove" the $\vec{a}$ component of $\vec{b}$ from $\vec{b}$? 
+
+}
+
+
+\ans{
+% a visual representation would be ideal; show the resulting vector of subtracting the projection from the original vector.
+   The projection of $\vec{b}$ onto $\vec{a}$ can be considered the $\vec{a}$ component of $\vec{b}$.Recall that the formula for projection of a vector $\vec{u}$ onto $\vec{v}$ can be expressed as proj$_v$u = $\frac{u \cdot v}{\norm{v}^2} v$, where the $\norm{v}^2$ serves to maintain the magnitude of the original vector by multiplying a normalized version of $\vec{v}$. Hence, if we are normalizing the entire vector later regardless, we can ignore this and consider the projection to just be $(\vec{u} \cdot \vec{v}) \vec{v}$. We want to subtract this resulting projection from $\vec{b}$.
+}
+    
+    
+\qitem{
+Using your answer from part d), how can we generate a second vector for our orthonormal set? Hint: span($\vec{v_1}$, $\vec{v_2}$) is equivalent to the subspace span($\vec{v_1}$, $\vec{v_2} - \alpha\vec{v_1}$).
+}
+
+\meta{\\
+Step 2 of Gram-Schmidt: to find the orthonormalized second vector in the new orthonormal set, calculate the projection of the original second vector onto the orthonormalized first vector, and subtract this value from the original second vector. Normalize the vector.
+}
+
+
+\ans{
+Starting with the second vector in our original set, we want to remove any 'trace' of $w_1$ from the second vector so that the resulting vectors are mutually orthogonal, but still span the same space.
+\\Let us call the resulting vector $\vec{p_2}$. Then, $\vec{p_2} = \vec{v_2} - (\vec{v_2}^T\vec{w_1}){\vec{w_1}}$. (Our $\alpha$ is thus the projection of $v_2$ onto $w_1$). We want to normalize this vector before we add it to our new set, so $$\vec{w_2} = \frac{p_2}{\norm{p_2}}$$
+
+}
+
+\qitem{
+For every subsequent vector that we add to our orthonormal set, we want to ensure that it is orthogonal to the rest of the $\vec{w}$'s that we have already added to our new set. Therefore, we must subtract the projection of the original vector onto each of the $\vec{w}$'s from its original value, similar to what we did in the last step. Derive an expression for the calculating the third vector in the orthonormal set.
+}
+
+\meta{\\
+Step 3 of Gram-Schmidt: For every subsequent vector, repeat the same process, but subtract the projection of the current vector onto every other orthnormalized vector from the current vector. 
+}
+
+\ans{
+Let us call the non-normalized, orthogonal vector $\vec{p_3}$. Then $\vec{p_3} = \vec{v_3} - (\vec{v_3}^T\vec{w_2}){\vec{w_2}} -  (\vec{v_3}^T\vec{w_1}){\vec{w_1}}$, where $(\vec{v_3}^T\vec{w_2}){\vec{w_2}}$ is the projection of the original third vector $\vec{v_3}$ onto the second orthonormal vector $\vec{w_2}$, and $(\vec{v_3}^T\vec{w_1}){\vec{w_1}}$ is the projection of the original third vector onto the first orthonormal vector $\vec{w_1}$ of our new set. Again, we want to normalize the resulting vector, so $$\vec{w_3} = \frac{p_3}{\norm{p_3}}$$
+}
+
+
+%Alternatively, example walk through with three vectors
+\qitem{
+Perform Gram-Schmidt on the following vectors to create an orthonormal basis that spans the same space:
+\[\vec{v_1} = \begin{bmatrix}1\\-1\\1\end{bmatrix}
+\vec{v_2} = \begin{bmatrix}1\\0\\1\end{bmatrix}
+\vec{v_3} = \begin{bmatrix}1\\1\\2\end{bmatrix} \]
+}
+
+\ans{
+For the first step, we just take the first vector in the original set, and set it as the first vector in our orthonormal set:
+\[w_1 = \frac{v_1}{\norm{v_1}} = \frac{1}{\sqrt{3}}\begin{bmatrix}1\\-1\\1\end{bmatrix} = \begin{bmatrix}\frac{1}{\sqrt{3}}\\-\frac{1}{\sqrt{3}}\\\frac{1}{\sqrt{3}}\end{bmatrix} \]
+
+Next, let's find $p_2$, the un-normalized second vector for our orthonormal set, using $v_2$:
+\[p_2 = v_2 - (v_2^{\top}w_1)w_1 = \begin{bmatrix}1\\0\\1\end{bmatrix} - (\begin{bmatrix}1 & 0 & 1\end{bmatrix}\begin{bmatrix}\frac{1}{\sqrt{3}}\\-\frac{1}{\sqrt{3}}\\\frac{1}{\sqrt{3}}\end{bmatrix})\begin{bmatrix}\frac{1}{\sqrt{3}}\\-\frac{1}{\sqrt{3}}\\\frac{1}{\sqrt{3}}\end{bmatrix} = \begin{bmatrix}\frac{1}{3}\\\frac{2}{3}\\\frac{1}{3}\end{bmatrix} \]
+
+If we want to add this vector to our orthonormal set, we have to normalize it:
+\[w_2 = \sqrt{\frac{3}{2}}\begin{bmatrix}\frac{1}{3}\\\frac{2}{3}\\\frac{1}{3}\end{bmatrix} = \begin{bmatrix}\frac{\sqrt{6}}{6}\\\frac{\sqrt{6}}{3}\\\frac{\sqrt{6}}{6}\end{bmatrix}
+\]
+
+Finally, we repeat the same process to find $p_3$ and $w_3$.
+\[p_3 = v_3 - (v_3^T w_1)w_1 - (v_3^T w_2)w_2 = \begin{bmatrix}1\\1\\2\end{bmatrix} - (\begin{bmatrix}1 & 1 & 2\end{bmatrix}\begin{bmatrix}\frac{1}{3}\\\frac{2}{3}\\\frac{1}{3}\end{bmatrix})\begin{bmatrix}\frac{1}{3}\\\frac{2}{3}\\\frac{1}{3}\end{bmatrix} - (\begin{bmatrix}1 & 1 & 2\end{bmatrix}\begin{bmatrix}\frac{\sqrt{6}}{6}\\\frac{\sqrt{6}}{3}\\\frac{\sqrt{6}}{6}\end{bmatrix})\begin{bmatrix}\frac{\sqrt{6}}{6}\\\frac{\sqrt{6}}{3}\\\frac{\sqrt{6}}{6}\end{bmatrix} = \begin{bmatrix}\frac{-1}{2}\\0\\\frac{1}{2}\end{bmatrix}\]
+\[w_3 = \sqrt{2}\begin{bmatrix}\frac{-1}{2}\\0\\\frac{1}{2}\end{bmatrix} = \begin{bmatrix}\frac{-\sqrt{2}}{2}\\0\\\frac{\sqrt{2}}{2}\end{bmatrix}\]
+}
+
+
+    
+\end{enumerate}

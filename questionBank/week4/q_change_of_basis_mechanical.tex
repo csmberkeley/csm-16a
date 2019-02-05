@@ -1,0 +1,228 @@
+% Author: Henry Sun, Emily Gosti
+% Email: tigerhs1998@berkeley.edu, egosti@berkeley.edu
+
+\qns{Change of Basis - Mechanical}
+
+\begin{enumerate}
+
+\qitem{
+When we denote a vector $\vec{v} =
+\begin{bmatrix}
+\alpha\\
+\beta\\
+\end{bmatrix}$, we usually mean it in terms of the standard basis vectors in $\R^2$, or $\begin{bmatrix}
+1 \\
+0 \\
+\end{bmatrix}$
+and
+$\begin{bmatrix}
+0 \\
+1 \\
+\end{bmatrix}$. How can we write $\vec{v}$ in terms of these two basis vectors?
+}
+
+\ans{
+We can rewrite $\vec{v}$ as 
+$$
+\vec{v} = 
+\begin{bmatrix}\alpha \\ \beta \end{bmatrix}
+= \alpha\begin{bmatrix}
+1 \\
+0\\
+\end{bmatrix}
+ + \beta\begin{bmatrix}
+0 \\
+1 \\
+\end{bmatrix}
+$$
+}
+
+\qitem{
+
+Say we have matrix $ \mathbf{B} = 
+\begin{bmatrix}
+1 & 1 \\
+-1 & 1 \\
+\end{bmatrix}
+$.
+For an arbitrary vector, 
+$
+\vec{v} = 
+\begin{bmatrix}\alpha \\ \beta \end{bmatrix}
+$.
+Rewrite the product $\mathbf{B}\vec{v}$ as a linear combination of $\mathbf{B}$'s column vectors. Hint: Look at part (a). We can denote this as 
+$$
+ \begin{bmatrix}\alpha \\ \beta \end{bmatrix}_\beta
+$$
+$\vec{v}_\beta$ is known as the coordinates in the basis of the column vectors of $\mathbf{B}$.
+%How to put subscripts on bmatrices???
+}
+
+\ans{
+Just like in part a), we can rewrite $\mathbf{B}\vec{v}_\beta$ as 
+$$
+\mathbf{B}\vec{v}_\beta = 
+\begin{bmatrix}
+1 & 1 \\
+-1 & 1 \\
+\end{bmatrix}
+\begin{bmatrix}\alpha \\ \beta \end{bmatrix}_\beta
+= \alpha\begin{bmatrix}
+1 \\
+-1\\
+\end{bmatrix}
+ + \beta\begin{bmatrix}
+1 \\
+1 \\
+\end{bmatrix}
+$$
+}
+
+\qitem{
+Let $\vec{v} =
+\begin{bmatrix}
+3 \\
+4 \\
+\end{bmatrix}$ and
+$\m{B} = 
+\begin{bmatrix}
+1 & 1 \\
+-1 & 1 \\
+\end{bmatrix}$. Find $\vec{v}_\beta$, or $\vec{v}$ in terms of the new basis vectors given by $\m{B}$.
+}
+
+\ans{
+To find $\vec{v}$ in terms of new new basis vectors, we are trying to find
+$\begin{bmatrix}
+\alpha \\
+\beta \\
+\end{bmatrix}$ such that
+$$\begin{bmatrix}
+3 \\
+4 \\
+\end{bmatrix} =
+\alpha\begin{bmatrix}
+1 \\
+-1\\
+\end{bmatrix}
+ + \beta\begin{bmatrix}
+1 \\
+1 \\
+\end{bmatrix}
+$$
+This is the same as
+$$
+\begin{bmatrix}
+3 \\
+4 \\
+\end{bmatrix}
+= \begin{bmatrix}
+1 & 1\\
+-1 & 1\\
+\end{bmatrix}
+\begin{bmatrix}
+\alpha \\
+\beta \\
+\end{bmatrix}
+$$
+To find $\begin{bmatrix}
+\alpha \\
+\beta \\
+\end{bmatrix}$, we take $\m{B}^{-1}$ and multiply it to both sides.
+$$
+\begin{bmatrix}
+\frac{1}{2} & -\frac{1}{2}\\
+\frac{1}{2} & \frac{1}{2}\\
+\end{bmatrix}
+\begin{bmatrix}
+3 \\
+4 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+\alpha \\
+\beta \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+-\frac{1}{2} \\
+\frac{7}{2} \\
+\end{bmatrix}
+$$
+Therefore, $\vec{v}_\beta = \begin{bmatrix}
+-\frac{1}{2} \\
+\frac{7}{2} \\
+\end{bmatrix}$.
+
+% Write the answer in terms of the column vectors of $\m{B}$, or the new basis vectors, and then multiply it out.
+% $$
+% \mathbf{B}\vec{v} = 
+% \begin{bmatrix}
+% 1 & 1 \\
+% -1 & 1 \\
+% \end{bmatrix}
+% \begin{bmatrix}3 \\ 4 \end{bmatrix}
+% = 3\begin{bmatrix}
+% 1 \\
+% -1\\
+% \end{bmatrix}
+%  + 4\begin{bmatrix}
+% 1 \\
+% 1 \\
+% \end{bmatrix} =
+% \begin{bmatrix}
+% 3 + 4 \\
+% -3 + 4 \\
+% \end{bmatrix} =
+% \begin{bmatrix}
+% 7 \\
+% 1
+% \end{bmatrix}
+% $$ \\
+% Therefore, $\vec{v}_\beta = 
+% \begin{bmatrix}
+% 7 \\
+% 1
+% \end{bmatrix}$.
+}
+
+\qitem{
+Now that we have $\vec{v}_\beta$, find a matrix that can transform $\vec{v}_\beta$ back into $\vec{v}$.
+\\
+% Hint: $$\mathbf{B}\vec{v}_\beta = \mathbf{I}\vec{v}
+% $$
+% $$
+% \begin{bmatrix}
+% 1 & 1 \\
+% -1 & 1 \\
+% \end{bmatrix}
+% \begin{bmatrix}\alpha \\ \beta \end{bmatrix}_\beta = 
+% \begin{bmatrix}
+% 1 & 0 \\
+% 0 & 1 \\
+% \end{bmatrix}
+% \vec{v}
+% $$
+}
+
+\ans{
+% From the above equation, we can see that vector coordinates ($\vec{v}_{\beta}$) can be rewritten in Cartesian coordinates by multiplying them by their basis matrix $\mathbf{B}$.
+% By the hint, all we need to do is find the inverse of $\mathbf{B}$ to isolate $\vec{v}_\beta$ in terms of $\vec{v}$:
+
+% $$\vec{v}_{\beta} = \mathbf{B}^{-1}\vec{v}$$
+% $$\vec{v}_{\beta} = 
+% \begin{bmatrix}
+% 1/2 & -1/2 \\
+% 1/2 & 1/2 \\
+% \end{bmatrix}
+% \vec{v}
+% $$
+
+% So $\mathbf{B}^{-1}$ is our answer.
+
+
+To return to the original basis, apply the reverse operation to $\vec{v}_\beta$, or the inverse of $\m{B}^{-1}$, which is just $\m{B}$.
+$$\m{B}\vec{v}_{\beta} = \vec{v}$$
+}
+
+\end{enumerate}
