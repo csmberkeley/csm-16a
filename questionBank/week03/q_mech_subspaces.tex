@@ -1,5 +1,7 @@
 % Lydia Lee, Spring 2019
 % lydia.lee@berkeley.edu
+% Paul Shao, Spring 2019
+% paulshaoyuqiao1@berkeley.edu
 
 \qns{Subspaces}
 Determine if the following describe subspaces.
@@ -8,40 +10,66 @@ Determine if the following describe subspaces.
 	$\{\vec{x} = \begin{bmatrix}x_1 & \cdots & x_n\end{bmatrix}^T : x_i \geq 0$ $\forall i=1, \cdots, n\}$
 }
 
-\sol{Insert meta}
+\sol{When teaching this question to your students, make sure you mention the importance of generalization when determining whether a given set if a subspace. It is crucial to show that the 2 vector subspace properties (see above) hold for all vectors within the set, not just one or two numerical examples. In addition, make sure you clarify what each mathematical symbol/notation means in this question. For example, $\forall$ means "for all", and : means "such that".}
 
-\ans{Insert solution}
+\ans{We proceed to test if the set is closed under vector addition and scalar multiplication. \\ 
+1. Closed under vector addition \\
+Without loss of generality, suppose we have 2 vectors $\vec{v_1}, \vec{v_2} \in V$, since we know that both entries within the vectors are all non-negative (based on the fact that $x_i \geq 0 \forall i = 1, \cdots, n$), for their sum $\vec{v_1} + \vec{v_2}$ (we are adding pairwise entries (in the same row) from both vectors), all will be non-negative as well. This is because if $a \geq 0, b \geq 0$, then $a + b \geq 0$. Therefore, $\vec{a} + \vec{b} \in V$, and this set is \textbf{closed under vector addition}. \\
+2. Closed under scalar multiplication \\
+Suppose we have a vector $\vec{v} \in V$ and a number $\alpha \in \mathbb{R}$, notice that since $\alpha$ can be negative, when we have the vector $\alpha \vec{v}$, we are multiplying each entry in $\vec{v}$ by $\alpha$, as a result, all entries can become negative (if $\alpha < 0, x_i \geq 0$, $\alpha x_i \leq 0$). Consequently, $\alpha \vec{v}$ will no longer satisfy the condition we specify for the set (all entries must be non-negative), and $\alpha \vec{v} \notin V$. Hence, this set has failed the closed under scalar multiplication test. \\
+Conclusion: since \textbf{not all 2 tests} are satisfied, this set \textbf{is not} a vector subspace. $\square$
+}
 
 \qitem{
 	$\{\vec{0}\}$
 }
 
-\sol{Insert meta}
+\sol{When teaching this question to your students, make sure you mention the significance of a single-element set (the fact that $\vec{0}$ is the \textbf{only} vector in the set), which greatly simplifies the subspace test process.}
 
-\ans{Insert solution}
+\ans{We will again apply the same 2 tests as above. \\
+1. Closed under vector addition \\
+Since $\vec{0}$ is the only vector in this set, $\vec{0} + \vec{0} = \vec{0} \in V$. \\
+2. Closed under scalar multiplication \\
+Since $a \cdot \vec{0} = \vec{0} \: \: \forall a \in \mathbb{R}$, we have that $a \cdot \vec{0} \in V$. \\
+Since the set is closed both under vector addition and scalar multiplication, we proceed to conclude that it is a vector subspace. $\square$
+}
 
 \qitem{
 	$\left\{\begin{bmatrix}1\\0\end{bmatrix}, \begin{bmatrix}0\\1\end{bmatrix}\right\}$
 }
 
-\sol{Insert meta}
+\sol{When teaching this question, it is crucial to emphasize on the difference between a set containing 2 vectors and a set that is the \textbf{span} of 2 vectors. The former one \textbf{only contains 2 vectors}, while the latter one \textbf{contains all linear combinations of the 2 vectors}.}
 
-\ans{Insert solution}
+\ans{Let's apply the standard tests for this set. \\
+1. Closed under vector addition \\
+Clearly, we can see that 
+$$\begin{bmatrix}1\\0\end{bmatrix} + \begin{bmatrix}0\\1\end{bmatrix} = \begin{bmatrix}1\\1\end{bmatrix} \notin V$$
+this set is not closed under vector addition and has failed already one of the tests. \\
+Hence, this set is not a vector subspace.
+}
 
 \qitem{
 	span$\left(\begin{bmatrix}1\\0\end{bmatrix}, \begin{bmatrix}0\\1\end{bmatrix}\right)$
 }
 
-\sol{Insert meta}
+\sol{Again, make sure you distinguish the difference between this question and example (c), especially in terms of set notation. In addition, it might be helpful to show the students that the span notation \textbf{can be rewritten in a more mathematical/numerical way} (see solution below) so the tests can be more easily done.}
 
-\ans{Insert solution}
+\ans{We proceed to apply the same tests as above, only this time, we will approach first from the perspective of the set itself. \\
+By definition, the span of 2 vectors is the set of the linear combinations of the 2 vectors. We can rewrite the set as:
+$$\left\{a\begin{bmatrix}1\\0\end{bmatrix} + b\begin{bmatrix}0\\1\end{bmatrix} = \begin{bmatrix}a\\b\end{bmatrix}: a, b \in \mathbb{R} \right\}$$
+Now, with the new definition, we can very easily see that the set simply contains all real vectors in $\mathbb{R^2}$. (Geometrically, we can also view this as the span of both the unit vectors in $\mathbb{R^2}$ (one in the $x$-axis direction and one in the $y$-axis direction)) \\
+Now, since we know that the set of real numbers $\mathbb{R}$ is closed under addition and multiplication, we arrive at the conclusion that the set is also closed under vector addition and scalar multiplication (by the arithmetic nature for the entries during vector addition and scalar multiplication). \\ Hence, the set is a vector subspace $\square$
+}
 
 \qitem{
 	$\left\{\begin{bmatrix}x_1\\x_2\\x_3\end{bmatrix} \in \mathbb{R}^3 : x_1 + x_2 + x_3 = 1\right\}$
 }
 
-\sol{Insert meta}
+\sol{Make sure you pace out the thought process for solving this question as it will require a bit more analysis/insight. Again, emphasize the importance of applying the 2 standard tests.}
 
-\ans{Insert solution}
+\ans{Similar to the last question, we are not directly/explicitly given all the elements within the set. However, we know that the sum of all 3 entries in the vector must be equal to 1.  \\ 
+Here's the catch, the nature of this equation (the fact that the sum is constrained to a particular value) has already set a counterexample for the set to fail the subspace test. Suppose we have some vector $\vec{v}$ whose entries all sum of 1, if we multiply it by any real scalar $a$, the sum of the entries in the new vector will be $a$ instead of 1, which means $a\vec{v} \notin V$. Hence, the set fails the closed under scalar multiplication test. \\
+Therefore, this set is not a vector subspace. $\square$
+}
 
 \end{enumerate}
