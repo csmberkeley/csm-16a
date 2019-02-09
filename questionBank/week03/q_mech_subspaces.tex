@@ -111,19 +111,70 @@ Determine if the following describe subspaces.
 	Hence, the set is a vector subspace $\square$
 }
 
-\qitem{
+\qitem\label{ques:affine}{
 	$\left\{\begin{bmatrix}x_1\\x_2\\x_3\end{bmatrix} \in \mathbb{R}^3 : x_1 + x_2 + x_3 = 1\right\}$
 }
 
 \sol{
-	Make sure you pace out the thought process for solving this question as it will require a bit more analysis/insight. Again, emphasize the importance of applying the 2 standard tests.}
+	Some semesters they've been introduced to the notion of \textit{affine} spaces. If they've seen it, feel free to mention the term.
+
+	Ask your students about the graphical interpretation of this set, then draw it out.
+}
 
 \ans{
-	Rewrite solution to include the tests explicitly written out. Include graphical explanation as well (a plane that doesn't pass through the origin).
 
-	Similar to the last question, we are not directly/explicitly given all the elements within the set. However, we know that the sum of all 3 entries in the vector must be equal to 1.  \\ 
-	Here's the catch, the nature of this equation (the fact that the sum is constrained to a particular value) has already set a counterexample for the set to fail the subspace test. Suppose we have some vector $\vec{v}$ whose entries all sum of 1, if we multiply it by any real scalar $a$, the sum of the entries in the new vector will be $a$ instead of 1, which means $a\vec{v} \notin V$. Hence, the set fails the closed under scalar multiplication test. \\
-	Therefore, this set is not a vector subspace. $\square$
+
+	\textbf{Graphical Understanding}
+
+	This set describes all points on the plane that passes through $(1,0,0)$, $(0,1,0)$, and $(0,0,1)$.
+	\begin{center}
+		\begin{tikzpicture}[scale=1,tdplot_main_coords]
+		    \filldraw[
+		        draw=red,%
+		        fill=red!20,%
+		    ]          (1,0,0)
+		            -- (0,1,0)
+		            -- (0,0,1)
+		            -- cycle;
+		    \draw[thick,->] (0,0,0) -- (2,0,0) node[anchor=north east]{$x_1$};
+		    \draw[thick,->] (0,0,0) -- (0,2,0) node[anchor=north west]{$x_2$};
+		    \draw[thick,->] (0,0,0) -- (0,0,2) node[anchor=south]{$x_3$};
+		\end{tikzpicture}
+	\end{center}
+
+	(If it's not immediately clear why this is true, try thinking of the line $x_1 + x_2 = 1$.)
+
+	We know from the properties of vector spaces that one implication of closure under addition and scalar multiplication is that the vector space must contain the zero vector. Furthermore, using any two vectors in the space and adding them together disproves closure under vector addition; scaling a point in the plane by $\alpha \neq 1$ disproves closure under scalar multiplication.
+
+	\textbf{Quick Counterexample}
+	Using the endpoints $$\begin{bmatrix}1\\0\\0\end{bmatrix}, \begin{bmatrix}0\\1\\0\end{bmatrix}$$ and testing closure under scalar multiplication and addition is sufficient.
+}
+
+\qitem\label{ques:notAffine}{
+	$\left\{\begin{bmatrix}x_1\\x_2\\x_3\end{bmatrix} \in \mathbb{R}^3 : x_1 + x_2 + x_3 = 0\right\}$
+}
+
+\sol{
+
+	The process for finding the spanning vectors is the same as what they'll have seen in discussion for finding the null space.
+	
+}
+
+\ans{
+	Similar to part \ref{ques:affine}, we can gain some understanding of what this is by considering the fact that it describes a plane which passes through the origin. However, this is not sufficient to prove that this (spoiler alert) is a vector space. We can do this by seeing if we can find a set of vectors whose span is the set.
+
+	The process is identical to finding a null space given a set of linear equations.
+
+	Looking at the equation we're given
+	$$x_1 + x_2 + x_3 = 0$$
+	we have one equation but three unknowns, meaning we can choose two free variables. Any two will work, but we'll say that $x_1$ and $x_2$ are free. That means we want to write $x_3$ in terms of the other two variables:
+	$$x_3 = -x_1 - x_2$$
+	So rewriting the original vector in terms of our free variables $x_1$ and $x_2$:
+	\begin{align*}
+		\begin{bmatrix}x_1\\x_2\\x_3\end{bmatrix} &= \begin{bmatrix}x_1\\x_2\\-x_1-x_2\end{bmatrix}\\
+			&= x_1\begin{bmatrix}1\\0\\-1\end{bmatrix} + x_2\begin{bmatrix}0\\1\\-1\end{bmatrix}
+	\end{align*}
+	We can now rewrite the set as span$\left(\begin{bmatrix}1&0&-1\end{bmatrix}^T, \begin{bmatrix}0&1&-1\end{bmatrix}^T\right)$. We know from part \ref{ques:spanTwoVecs} that this set is indeed a vector space! $\square$
 }
 
 \end{enumerate}
