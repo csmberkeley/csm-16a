@@ -177,4 +177,48 @@ Determine if the following describe subspaces.
 	We can now rewrite the set as span$\left(\begin{bmatrix}1&0&-1\end{bmatrix}^T, \begin{bmatrix}0&1&-1\end{bmatrix}^T\right)$. We know from part \ref{ques:spanTwoVecs} that this set is indeed a vector space! $\square$
 }
 
+\qitem\label{ques:notAffine}{
+Let $V$ be the vector space of $n$ x $n$ matrices, and $M \in V$ a fixed matrix. We define the set $$U = \{N \in V \: | \: NM = MN \}$$ as the \textit{centralizer} of $M$ in $V$. Show that $U$ is a subspace of V.
+}
+
+\sol{This is a good example to show students that vector space/subspace doesn't have to strictly contain only vectors and that the subspace test process still remains the same!}
+
+\ans{
+\begin{itemize}
+    \item{\textit{Vector Addition: } \\ Note that the "vectors" in this case are actually matrices! Suppose we have 2 $n$ x $n$ matrices $A, B \in U$, we want to show that $A+B \in U$, meaning that it must satisfy $(A + B)M = M(A + B)$. \\
+    Starting with $(A+B)M$, we expand it out into $AM + BM$. Now, since both $A$ and $B$ are in $U$, this means that $AM = MA, BM = MB$. Hence, $(A+B)M = AM + BM = MA + MB = M(A+B)$.
+    }
+    \item{\textit{Scalar Multiplication: } \\
+    Suppose we have $N \in U$, and $c \in \mathbb{R}$. Similar to the process above, we want to in the end show that $(cN)M = M(cN)$. \\
+    Since $N \in U$, we have that $NM = MN$. Since $c$ is a real scalar, by the rule of matrix multiplication with scalars, we can move the scalar around within the expression. Hence, $(cN)M = cNM = c(NM) = c(MN) = cMN = McN = M(cN)$.
+    }
+\end{itemize}
+Hence, we can now conclude that $U$ is indeed a subspace of $V$! $\square$
+
+}
+
+\qitem \label{ques:notAffine}{
+Suppose $U$ and $V$ are both subspaces of a vector space $S$, show that $U \cap V$ is also a subspace of $S$.
+}
+
+\sol{This is one of the more abstract examples on vector subspaces that also involve some understanding on simple set relations. Make sure to show the students that the subspace test process still remains mostly unchanged. }
+
+\ans{
+\begin{itemize}
+    \item{\textit{Vector Addition: } \\
+    Consider 2 vectors $\vec{v}, \vec{u} \in U \cap V$. We want to show that $\vec{u} + \vec{v} \in U \cap V$. \\
+    To show that this is true, it seems like a direct approach might be a bit hard since it seems unclear what exactly $U \cap V$ entails about the properties of all the elements within. However, making use of the fact that $U \cap V \subset U, V$ (\textbf{The intersection of $U$ and $V$ is a subset of $U$ and $V$}) will be crucial to the proof.\\
+    Note that $\vec{u} \in U \cap V \Longrightarrow \vec{v} \in V$, and by similar logic $\vec{v} \in V$, and $V$ is a vector subspace, we know that it must be true that $\vec{u} + \vec{v} \in V$ (closed under vector addition). \\
+    Repeat the same process except this time for $U$, and we can seee that $\vec{u} + \vec{v} \in U$. \\
+    Now, let's combine our result. Since $\vec{u} + \vec{v}$ are in both $U$ and $V$, this implies that it must be in the intersection of the two, which is $U \cap V$!
+    }
+    \item{\textit{Scalar Multiplication: } \\
+    Consider a vector $\vec{v} \in U \cap V$, and a real-number scalar $c \in \mathbb{R}$. \\
+    Again, since $\vec{v} \in U \cap V \Longrightarrow \vec{v} \in V$, and $V$ is already a vector subspace, so we know that by the property of scalar multiplication for a subspace, it must be true that $c\vec{v} \in V$.\\
+    Applying the same logic again for $U$, we can see $c\vec{v} \in U$.
+    }
+\end{itemize}
+Since we've shown that the set is closed under vector addition and scalar multiplication, $U \cap V$ is also a vector subspace of $S$!  $\square$
+}
+
 \end{enumerate}
