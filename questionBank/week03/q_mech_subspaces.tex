@@ -3,7 +3,8 @@
 % Paul Shao, Spring 2019
 % paulshaoyuqiao1@berkeley.edu
 
-\qns{Subspaces}
+\qns{Subspace Drills}
+
 Determine if the following describe subspaces.
 
 \sol{
@@ -112,6 +113,8 @@ Determine if the following describe subspaces.
 }
 
 \qitem\label{ques:affine}{
+	\textbf{(PRACTICE)}
+
 	$\left\{\begin{bmatrix}x_1\\x_2\\x_3\end{bmatrix} \in \mathbb{R}^3 : x_1 + x_2 + x_3 = 1\right\}$
 }
 
@@ -151,6 +154,8 @@ Determine if the following describe subspaces.
 }
 
 \qitem\label{ques:notAffine}{
+	\textbf{(PRACTICE)}
+	
 	$\left\{\begin{bmatrix}x_1\\x_2\\x_3\end{bmatrix} \in \mathbb{R}^3 : x_1 + x_2 + x_3 = 0\right\}$
 }
 
@@ -177,15 +182,18 @@ Determine if the following describe subspaces.
 	We can now rewrite the set as span$\left(\begin{bmatrix}1&0&-1\end{bmatrix}^T, \begin{bmatrix}0&1&-1\end{bmatrix}^T\right)$. We know from part \ref{ques:spanTwoVecs} that this set is indeed a vector space! $\square$
 }
 
-\qitem\label{ques:notAffine}{
-Let $V$ be the vector space of $n$ x $n$ matrices, and $M \in V$ a fixed matrix. We define the set $$U = \{N \in V \: | \: NM = MN \}$$ as the \textit{centralizer} of $M$ in $V$. Show that $U$ is a subspace of V.
+\qitem\label{ques:matrixSpace}{
+	\textbf{(CHALLENGE PRACTICE)}
+
+	Let $V$ be the vector space of $n\times n$ matrices, and $M \in V$ a fixed matrix. We define the set $$U = \{N \in V \: | \: NM = MN \}$$ as the \textit{centralizer} of $M$ in $V$. Show that $U$ is a subspace of V.
 }
 
-\sol{This is a good example to show students that vector space/subspace doesn't have to strictly contain only vectors and that the subspace test process still remains the same!}
+\sol{
+	This is a good example to show students that vector space/subspace doesn't have to strictly contain only vectors and that the subspace test process still remains the same!}
 
 \ans{
 \begin{itemize}
-    \item{\textit{Vector Addition: } \\ Note that the "vectors" in this case are actually matrices! Suppose we have 2 $n$ x $n$ matrices $A, B \in U$, we want to show that $A+B \in U$, meaning that it must satisfy $(A + B)M = M(A + B)$. \\
+    \item{\textit{Vector Addition: } \\ Note that the ``vectors'' in this case are actually matrices! Suppose we have 2 $n \times n$ matrices $A, B \in U$, we want to show that $A+B \in U$, meaning that it must satisfy $(A + B)M = M(A + B)$. \\
     Starting with $(A+B)M$, we expand it out into $AM + BM$. Now, since both $A$ and $B$ are in $U$, this means that $AM = MA, BM = MB$. Hence, $(A+B)M = AM + BM = MA + MB = M(A+B)$.
     }
     \item{\textit{Scalar Multiplication: } \\
@@ -197,28 +205,48 @@ Hence, we can now conclude that $U$ is indeed a subspace of $V$! $\square$
 
 }
 
-\qitem \label{ques:notAffine}{
-Suppose $U$ and $V$ are both subspaces of a vector space $S$, show that $U \cap V$ is also a subspace of $S$.
+\qitem \label{ques:intersectSpaces}{
+	\textbf{(CHALLENGE PRACTICE)}
+
+	Suppose $U$ and $V$ are both subspaces of a vector space $S$, show that $U \cap V$ is also a subspace of $S$.
 }
 
-\sol{This is one of the more abstract examples on vector subspaces that also involve some understanding on simple set relations. Make sure to show the students that the subspace test process still remains mostly unchanged. }
+\sol{
+	NB: $A \cap B$ means the intersection between sets $A$ and $B$.
+	
+	This is one of the more abstract examples on vector subspaces that also involve some understanding on simple set relations. Make sure to show the students that the subspace test process still remains mostly unchanged. }
 
 \ans{
-\begin{itemize}
-    \item{\textit{Vector Addition: } \\
-    Consider 2 vectors $\vec{v}, \vec{u} \in U \cap V$. We want to show that $\vec{u} + \vec{v} \in U \cap V$. \\
-    To show that this is true, it seems like a direct approach might be a bit hard since it seems unclear what exactly $U \cap V$ entails about the properties of all the elements within. However, making use of the fact that $U \cap V \subset U, V$ (\textbf{The intersection of $U$ and $V$ is a subset of $U$ and $V$}) will be crucial to the proof.\\
-    Note that $\vec{u} \in U \cap V \Longrightarrow \vec{v} \in V$, and by similar logic $\vec{v} \in V$, and $V$ is a vector subspace, we know that it must be true that $\vec{u} + \vec{v} \in V$ (closed under vector addition). \\
-    Repeat the same process except this time for $U$, and we can seee that $\vec{u} + \vec{v} \in U$. \\
-    Now, let's combine our result. Since $\vec{u} + \vec{v}$ are in both $U$ and $V$, this implies that it must be in the intersection of the two, which is $U \cap V$!
-    }
-    \item{\textit{Scalar Multiplication: } \\
-    Consider a vector $\vec{v} \in U \cap V$, and a real-number scalar $c \in \mathbb{R}$. \\
-    Again, since $\vec{v} \in U \cap V \Longrightarrow \vec{v} \in V$, and $V$ is already a vector subspace, so we know that by the property of scalar multiplication for a subspace, it must be true that $c\vec{v} \in V$.\\
-    Applying the same logic again for $U$, we can see $c\vec{v} \in U$.
-    }
-\end{itemize}
-Since we've shown that the set is closed under vector addition and scalar multiplication, $U \cap V$ is also a vector subspace of $S$!  $\square$
+	\begin{itemize}
+	    \item{\textit{Vector Addition}: Consider 2 vectors $\vec{x}, \vec{y} \in U \cap V$. We want to show that $\vec{x} + \vec{y} \in U \cap V$.
+
+	    To show that this is true, it seems like a direct approach might be a bit hard since it seems unclear what exactly $U \cap V$ contains in terms of their properties. However, making use of the fact that $U \cap V \subset U, V$ (\textbf{The intersection of $U$ and $V$ is a subset of $U$ and $V$}) will be crucial to the proof.
+
+	    It may help to consider this graphically:
+	    \begin{center}
+	    	\input{../../questionBank/week03/q_mech_subspaces_figs/venn_diagram}
+	    \end{center}
+	    We've marked in green the intersection between sets $U$ and $V$.
+
+	    If $\vec{x}, \vec{y}\in U\cap V$, both fall in the center region of the venn diagram. This means $\vec{x}, \vec{y} \in U$ as well as $V$! The implication goes both ways; if some vector $\vec{z}$ falls in both $U$ and $V$ (the left and right circles), then it necessarily falls into their intersection, $U\cap V$.
+
+	    We're already told that $V$ and $U$ are vector spaces, meaning $\vec{x} + \vec{y} \in U$ and $V$ separately, so $\vec{x} + \vec{y} \in U\cap V$.
+	    % Note that $\vec{u} \in U \cap V \Longrightarrow \vec{u} \in V$ and $U$, and by similar logic $\vec{v} \in V$, and $V$ is a vector subspace, we know that it must be true that $\vec{u} + \vec{v} \in V$ (closed under vector addition).
+
+	    % Repeat the same process except this time for $U$, and we can seee that $\vec{u} + \vec{v} \in U$.
+
+	    % Now, let's combine our result. Since $\vec{u} + \vec{v}$ are in both $U$ and $V$, this implies that it must be in the intersection of the two, which is $U \cap V$!
+	    }
+	    \item{\textit{Scalar Multiplication:} 
+
+	    Consider a vector $\vec{x} \in U \cap V$, and a real-number scalar $c \in \mathbb{R}$.
+
+	    Again, since $\vec{x} \in U \cap V \Longrightarrow \vec{x} \in V$, and $V$ is already a vector subspace, so we know that by the property of scalar multiplication for a subspace, it must be true that $c\vec{x} \in V$.
+
+	    Applying the same logic again for $U$, we can see $c\vec{x} \in U$.
+	    }
+	\end{itemize}
+	Since we've shown that the set is closed under vector addition and scalar multiplication, $U \cap V$ is also a vector subspace of $S$!  $\square$
 }
 
 \end{enumerate}
