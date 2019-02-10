@@ -1,0 +1,12 @@
+\def\firstcircle{(-1,0) circle (1.5)}
+\def\secondcircle{(1,0) circle (1.5)}
+\begin{tikzpicture}[fill=red]
+	\draw \firstcricle node[below] {$U$};
+	\draw \secondcircle node[below] {$V$};
+	\begin{scope}
+		\clip \firstcircle;
+		\fill[green] \secondcircle;
+	\end{scope}
+	\draw \firstcircle node[below] {$U$};
+	\draw (0,0) node[above] {$U\cap V$}
+\end{tikzpicture}

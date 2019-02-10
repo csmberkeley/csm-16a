@@ -1,0 +1,39 @@
+% Lydia Lee, modified from personal correspondence Fall 2018
+% lydia.lee@berkeley.edu
+
+\sol{
+\qns{Review: Eigenvalues, Steady State, and Convergence}
+
+It helps to think of eigenspaces before thinking of eigenvalues. Given some matrix \textbf{A}, there are vectors which, when multiplied by \textbf{A}, just return scaled versions of those vectors.
+\begin{align*}
+    \textbf{A}\vec{v} &= \lambda\vec{v}
+\end{align*}
+
+The eigenvalue $\lambda$ just tells you how much it scales by. The physical significance of $\lambda$ is only really apparent when talking about steady state analysis. Say you're working with some system (not necessarily pumps, but the idea of having a vector describe the state is the same) which undergoes a transformation \textbf{A} every timestep. We'll take a look at a few cases:
+\begin{enumerate}
+    \item $\lambda = 1$: Any vector in the eigenspace associated with eigenvalue $\lambda = 1$ is a ``steady state''. In other words,
+    \begin{align*}
+        \textbf{A}\vec{v}_{\lambda=1} &= \vec{v}_{\lambda=1}
+    \end{align*}
+    So if we keep applying \textbf{A} to $\vec{v}_{\lambda=1}$, the state doesn't change.
+    \begin{align*}
+        \lim_{n\to\infty}\left(\textbf{A}^n\vec{v}_{\lambda=1}\right) &= \vec{v}_{\lambda=1}
+    \end{align*}
+    \item $\lambda = -1$: Say it has an eigenspace containing $\vec{v}_{\lambda = -1}$. If we keep applying \textbf{A} to this vector, it just bounces back and forth between the positive and negative versions of the vector:
+    \begin{align*}
+        \lim_{n\to\infty}\left(\textbf{A}^n\vec{v}_{\lambda=-1}\right) &= \lim_{n\to\infty}(-1)^n\vec{v}_{\lambda=-1}
+    \end{align*}
+    The limit doesn't exist! It just goes back and forth forever and ever, meaning if you start out the system in state $\vec{v}_{\lambda=-1}$, it will never converge. This shows up in controls when people talk about instability.
+    \item $|\lambda| < 1$: We'll say this eigenvalue has an eigenspace containing $\vec{v}_{< 1}$. Repeating the process from above:
+    \begin{align*}
+         \lim_{n\to\infty}\left(\textbf{A}^n\vec{v}_{< 1}\right) &= \lim_{n\to\infty}\lambda^n\vec{v}_{< 1}\\
+            &= \vec{0}
+    \end{align*}
+    Because $|\lambda| < 1$, multiplying it by itself repeatedly just makes the magnitude smaller and smaller. This holds whether $\lambda$ is positive or negative, and what this means is that if the system starts out in $\vec{v}_{< 1}$, after an infinite amount of time the state will approach $\vec{0}$. You can think of it as asymptotically approaching zero. For physical systems, (not in scope of the class) this is related to damping (overdamped being $\lambda > 0$ and underdamped being $\lambda < 0$).
+    \item $|\lambda| > 1$: Now we'll say this eigenvalue has an eigenspace containing $\vec{v}_{> 1}$. 
+    \begin{align*}
+         \lim_{n\to\infty}\left(\textbf{A}^n\vec{v}_{> 1}\right) &= \lim_{n\to\infty}\lambda^n\vec{v}_{> 1}
+    \end{align*}
+    In this case, the state vector just keeps increasing in size to infinity, meaning if you start out the system in state $\vec{v}_{> 1}$, your system will never converge to a steady state.
+\end{enumerate}
+}

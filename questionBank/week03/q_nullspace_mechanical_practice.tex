@@ -1,7 +1,7 @@
 % Author: Mudit Gupta
 % Email: mudit+csm16a@berkeley.edu
 
-\qns{Null space drill}
+\qns{Null Space Drill}
 
 \sol{Prereq: Introduction to nullspaces. A mini-lecture gets you ready.  \\
 Description: First a proof about nullspaces, and then lots of mechanical practice on nullspaces.}
@@ -10,18 +10,7 @@ In this question, we explore intuition about null spaces and a recipe to compute
 
 \begin{enumerate}
 
-\qitem{First, we begin by proving that a null $\text{space}$ is indeed a subspace. Show that any nullspace of a matrix $\mathbf{M}$ with $n$ rows and $n$ columns is a subspace. \\
-Steps for reference:
-\begin{enumerate}
- \item claim subset of X
- \item claim X is known vector space
- \item closures and 0 
- \begin{enumerate}
- \item closure under addition
- \item closure under scalar multiplication
- \item existence of the zero element.
- \end{enumerate}	
- \end{enumerate} }
+\qitem{First, we begin by proving that a null $\text{space}$ is indeed a subspace. Show that any nullspace of a matrix $\mathbf{M}$ with $n$ rows and $n$ columns is a subspace.}
 
 \ans{
 	\begin{enumerate}
@@ -37,7 +26,7 @@ Steps for reference:
 	Therefore, a nullspace is indeed a subspace.
 }
 
-\qitem{Now we will explore a recipe to compute null spaces. Let's start with some 3x3 matrices. \\
+\qitem{Now we will explore a recipe to compute null spaces. Let's start with some $3\times 3$ matrices. \\
 
 $$\mathbf{A} = \begin{bmatrix} 1 & -3 & 1 \\ 2 & -8 & 8 \\ -6 & 3 & -15 \end{bmatrix}$$
 $\mathbf{A^\prime}$ is the row reduced matrix $\mathbf{A}$.
@@ -129,6 +118,8 @@ Now, let's see what happens if we set $x=t$ instead. We can't use Equation (\ref
 \ans{No! A 3x4 matrix can simply not have 4 pivots. So at least one of the variables will need to be free!}
 
 \qitem{
+	\textbf{(PRACTICE)}
+	
 	Consider another matrix, $\mathbf{D} = \begin{bmatrix} 1 & -2 & -6 & 12 \\ 0 & -2 & -6 & 10 \\ 0 & 0 & 0 & -1 \end{bmatrix}$. Find vector(s) that span the nullspace.
 }
 
@@ -148,7 +139,10 @@ Now, let's see what happens if we set $x=t$ instead. We can't use Equation (\ref
 	Students could be confused about 'pivots'. Column 3 doesn't have a pivot because it has a 0 in the place of the 'diagonal' instead. Also, ask them which column doesn't have a pivot in this case: $\begin{bmatrix} 1 & -2 & -6 & 12 \\ 0 & -2 & -6 & 10 \\ 0 & 0 & -1 & 9 \end{bmatrix}$ (note that the last row is different.) Basically, column 4 doesn't a pivot, because that pivot would have been in the 4th row which doesn't exist. \textit{Make sure these concepts about pivots settle in}.
 
 }
-\qitem{Consider one final matrix, $\mathbf{E} = \begin{bmatrix} 1 & -2 & -6 & 12 \\ 0 & -2 & -6 & 10 \\ 0 & 0 & 0 & 0\end{bmatrix}$. What are the vector(s) that span this nullspace?}
+\qitem{
+	\textbf{(PRACTICE)}
+
+Consider one final matrix, $\mathbf{E} = \begin{bmatrix} 1 & -2 & -6 & 12 \\ 0 & -2 & -6 & 10 \\ 0 & 0 & 0 & 0\end{bmatrix}$. What are the vector(s) that span this nullspace?}
 
 \ans{
 	Again, let the variables for the columns be $a$ to $d$ respectively. Columns 3 and 4 don't have pivots. So let's set both of them to be free! \\
