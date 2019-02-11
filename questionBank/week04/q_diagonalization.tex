@@ -1,13 +1,15 @@
 % Author: Yannan Tuo, Varsha Ramakrishnan
 % Email: ytuo@berkeley.edu, vio@berkeley.edu
+% Edited Lydia Lee, Spring 2019
+% lydia.lee@berkeley.edu
 
 \qns{Diagonalization and Other Things Related (ish)}
 
 \begin{enumerate}
 
-\qitem{When is an $n$ x $n$ matrix diagonalizable, or able to be represented in the form $\mathbf{P}\mathbf{D}^n\mathbf{P}^{-1}$, where $\mathbf{D}$ is a diagonal matrix?}
+\qitem{When is an $n \times n$ matrix diagonalizable, or able to be represented in the form $\mathbf{P}\mathbf{D}^n\mathbf{P}^{-1}$, where $\mathbf{D}$ is a diagonal matrix?}
 
-\ans{A square matrix of size n is diagonalizable when it has $n$ linearly independent eigenvectors, or when the matrix formed by the eigenvectors is full rank. (Note that the eigenvalues do not need to be unique)}
+\ans{An $n\times n$ matrix is diagonalizable when it has $n$ linearly independent eigenvectors, or when the matrix formed by the eigenvectors is full rank. (Note that the eigenvalues do not need to be unique)}
 
 
 \qitem{Given eigenvalues $\lambda = 1, 2$, diagonalize this matrix 
@@ -21,7 +23,7 @@
 
 \meta{
 [Notice]: A mini lecture may be required before going over the diagonalization problem because students may not have seen this in lecture yet.
-For students interested, eigenvalues can be calculated by solving for when $det(A - \lambda I) = 0$ through cofactoring (not yet taught)
+For students interested, eigenvalues can be calculated by solving for when $det(A - \lambda I) = 0$ through cofactor expansion (which may not yet taught)
 $$det\mathbf{\begin{bmatrix}
   2-\lambda & 0 & 0 \\
   1 & 2-\lambda & 1 \\
@@ -113,10 +115,7 @@ $$
 
 \ans{
 \begin{enumerate} [i]
-        \item 
-        \\No, we cannot assume that a matrix that is invertible is diagonalizable.
-         \\When a matrix is invertible, it must have linearly independent columns.
-         \\For example, take the matrix A and its inverse:
+        \item No, invertibility does not imply diagonalizability. A square matrix is invertible if and only if it has linearly independent columns. For example, take the matrix A and its inverse:
          $$\mathbf{A} =
             \begin{bmatrix}
             2 & 3 \\
@@ -131,13 +130,24 @@ $$
             1 \\
             0
             \end{bmatrix}$.
-        \\We need two linearly independent vectors to form a diagonalizable matrix; hence, we have found a matrix that is invertible but not diagonalizable. 
-        \\Note: remember that one eigenvalue can map to multiple eigenvectors that are linearly independent, so do not confuse the number of eigenvalues with the number of eigenvectors.
-        \item
-        \\Consider a diagonalized representation of a matrix, with a diagonal matrix with a 0 entry. This means that one of the eigenvalues of the matrix is a 0. Multiplying $\mathbf{P}\mathbf{D}\mathbf{P}^{-1}$, we would get a column of 0s in the resulting matrix, or a matrix that lacks a pivot and is hence not invertible. For a more trivial solution, consider the $\mathbf{0}$ matrix; not invertible, but diagonalizable.
-        %\\Consider a diagonalized representation of a matrix, with a diagonal matrix with a 0 entry. This means that one of the eigenvalues of the matrix is a 0. Then, the product of the eigenvalues is 0, and the determinant of the original matrix is 0. We know that matrices with determinant 0 have no inverse. If this makes your brain hurt, then consider the 0 matrix: not invertible, but diagonalizable.
-        \\
-        \\Hence, their is no relationship between the properties of invertibility and diagonizability. 
+        
+        We need two linearly independent vectors to form a diagonalizable matrix; hence, we have found a matrix that is invertible but not diagonalizable. 
+        
+        Note: remember that one eigenvalue can map to multiple eigenvectors that are linearly independent, so do not confuse the number of eigenvalues with the number of eigenvectors.
+        \item False again! Consider the following matrix $M$:
+        \begin{align*}
+          M &= \begin{bmatrix}1&0\\
+                              0&0\end{bmatrix}\\
+            &= \begin{bmatrix}1&0\\
+                              0&1\end{bmatrix}
+                \begin{bmatrix}1&0\\
+                               0&0{\end{bmatrix}}
+                \begin{bmatrix}1&0\\
+                               0&1{\end{bmatrix}}
+        \end{align*}
+        Because $M$ is a diagonal matrix, we can pull its eigenvalues from the diagonal elements to get $\lambda = 0, 1$, and we can compute each eigenspace respectively to get $\vec{v} = \vec{e_2}, \vec{e_1}$ where $\vec{e_i}$ refers to the vector with 1 in its $i$th element and 0 elsewhere.
+
+        However, we also see that the columns (and rows, for that matter) of $M$ are linearly dependent, and so $M$ is not invertible!
         \end{enumerate}
 }
 
