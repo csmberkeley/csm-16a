@@ -94,6 +94,7 @@ target/
 *.annotations
 *.fls
 *.fdb_latexmk
+*.gz
 
 # MacOS
 .DS_STORE
