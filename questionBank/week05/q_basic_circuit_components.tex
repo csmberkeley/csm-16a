@@ -103,7 +103,7 @@ A resistor is represented in this manner:
 	to[R, v=$ $, i=$ $] ++(3,0);
 	\end{circuitikz}
 	\end{center}
-A resistor is a circuit unit designed to 'resist' the flow of current. Following convention, there is a "voltage drop" across a resistor from the positive end to the negative end. The voltage drop across a resistor is $V_R = I_R R$, where $V_R$ is the voltage drop, $I_R$ is the current through the resistor and $R$ is the resistance of the resistor. 
+A resistor is a circuit unit designed to `resist' the flow of current. Following convention, there is a ``voltage drop'' across a resistor from the positive end to the negative end. The voltage drop across a resistor is $V_R = I_R R$, where $V_R$ is the voltage drop, $I_R$ is the current through the resistor and $R$ is the resistance of the resistor. 
 }
 
 \qitem{What is power?}
@@ -112,32 +112,6 @@ A resistor is a circuit unit designed to 'resist' the flow of current. Following
 Power is the rate at which work is done, where work is in terms of electrical energy.
 
 For circuits, the power \textit{consumed} or \textit{dissipated} by a device is $P = IV$, where the current and voltage abide by passive sign convention.
-}
-
-\qitem{What is the passive sign convention?}
-
-\sol{Mentors please note that is a walkthrough question. Students will most likely not know anything about this, so in that case, don't bother giving them time to work on it by themselves}
-
-\ans{
-The passive sign convention as we deal with it means that given some arbitrary circuit element (it doesn't matter what it is), we use the following convention:
-\begin{center}
-	\begin{circuitikz}
-		\ctikzset{resistor = european}
-		\draw (0,0) to[R, v=$V_\text{element}$, i=$I_\text{element}$] ++(4,0);
-	\end{circuitikz}
-\end{center}
-We can think of this in two ways:
-\begin{itemize}
-	\item Given a voltage $V_\text{element}$, we define the current $I_\text{element}$ as entering through the node marked $+$ with respect to $V_\text{element}$.
-	\item Given a current $I_\text{element}$, we define the voltage $V_\text{element}$ such that $I_\text{element}$ enters through the node marked $+$ with respect to $V_\text{element}$.
-\end{itemize}
-
-We can then calculate the power dissipated/consumed by the element with the following (which is always true, regardless of what type of component it is):
-$$P_\text{element} = I_\text{element}V_\text{element}$$
-
-Note that this is \textit{dissipated} power. In other words, calculating a positive power value means the component is consuming power, and if we calculate the power and it comes out negative, the component is generating power.
-
-\textbf{THIS NEEDS TO BE HEAVILY REVISED AND BEEFED UP}
 
 \textbf{Common Misconceptions:}
 \begin{itemize}
@@ -153,9 +127,38 @@ Note that this is \textit{dissipated} power. In other words, calculating a posit
 		\end{circuitikz}
 	\end{center}
 	When calculating the power dissipated by the LHS voltage source, we see the current flows counterclockwise about the circuit. With passive sign convention, we calculate the power $P_{V_1} = 1\si{\volt} \times 1\si{\ampere}$, which is positive! The left-side voltage source is dissipating power.
-
-	\item Passive sign convention assumes a circuit is what we call a ``black box'' element. That is, we draw a box around it and pretend like we don't know what's going on inside. That said, you can choose $V_\text{element}$ of a voltage source to be in the opposite direction of the source's given voltage.
 \end{itemize}
+}
+
+% \qitem{What is the passive sign convention?}
+
+% \sol{Mentors please note that is a walkthrough question. Students will most likely not know anything about this, so in that case, don't bother giving them time to work on it by themselves}
+
+% \ans{
+% The passive sign convention as we deal with it means that given some arbitrary circuit element (it doesn't matter what it is), we use the following convention:
+% \begin{center}
+% 	\begin{circuitikz}
+% 		\ctikzset{resistor = european}
+% 		\draw (0,0) to[R, v=$V_\text{element}$, i=$I_\text{element}$] ++(4,0);
+% 	\end{circuitikz}
+% \end{center}
+% We can think of this in two ways:
+% \begin{itemize}
+% 	\item Given a voltage $V_\text{element}$, we define the current $I_\text{element}$ as entering through the node marked $+$ with respect to $V_\text{element}$.
+% 	\item Given a current $I_\text{element}$, we define the voltage $V_\text{element}$ such that $I_\text{element}$ enters through the node marked $+$ with respect to $V_\text{element}$.
+% \end{itemize}
+
+% We can then calculate the power dissipated/consumed by the element with the following (which is always true, regardless of what type of component it is):
+% $$P_\text{element} = I_\text{element}V_\text{element}$$
+
+% Note that this is \textit{dissipated} power. In other words, calculating a positive power value means the component is consuming power, and if we calculate the power and it comes out negative, the component is generating power.
+
+% \textbf{THIS NEEDS TO BE HEAVILY REVISED AND BEEFED UP}
+
+
+
+% 	\item Passive sign convention assumes a circuit is what we call a ``black box'' element. That is, we draw a box around it and pretend like we don't know what's going on inside. That said, you can choose $V_\text{element}$ of a voltage source to be in the opposite direction of the source's given voltage.
+% \end{itemize}
 
 
 % In order to be consistent with this, we have to be careful when analyzing circuits in the following manner: when trying to figure out the direction of the current through a resistor and the voltage drop across it, mark one end of the resistor to the 'positive' end and the other end to the 'negative' end. You can do this arbitrarily. 

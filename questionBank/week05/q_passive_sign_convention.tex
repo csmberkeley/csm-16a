@@ -1,0 +1,245 @@
+% Lydia Lee, Spring 2019
+% lydia.lee@berkeley.edu
+\qns{Passive (Aggressive) Sign Convention}
+
+For the following components, label the $V_\text{element}$ or $I_\text{element}$ given the $I_\text{element}$ or $V_\text{element}$, respectively. \textit{Hint: The value of the voltage and current sources shouldn't affect passive sign convention---remember that voltage and current can be negative!}
+
+\begin{enumerate}
+
+\qitem\label{ques:blackBox_voltage}{\ \\
+\begin{center}
+	\begin{circuitikz}
+		\ctikzset{resistor = european}
+		\draw (0,0) to[R, v=$V_\text{element}$] ++(4,0);
+	\end{circuitikz}
+\end{center}
+}
+\ans{
+\begin{center}
+	\begin{circuitikz}
+		\ctikzset{resistor = european}
+		\draw (0,0) to[R, v=$V_\text{element}$, i=$I_\text{element}$] ++(4,0);
+	\end{circuitikz}
+\end{center}
+}
+
+\qitem\label{ques:blackBox_current}{\ \\
+\begin{center}
+	\begin{circuitikz}
+		\ctikzset{resistor = european}
+		\draw (0,0) to[R, i=$I_\text{element}$] ++(4,0);
+	\end{circuitikz}
+\end{center}
+}
+\ans{
+\begin{center}
+	\begin{circuitikz}
+		\ctikzset{resistor = european}
+		\draw (0,0) to[R, v=$V_\text{element}$, i=$I_\text{element}$] ++(4,0);
+	\end{circuitikz}
+\end{center}
+}
+
+\qitem\label{ques:vSrc_voltage_forward}{\ \\
+\begin{center}
+	\begin{circuitikz}
+		\draw 
+		(0,0) to[V, v=$V_\text{S}$, invert] ++(0,3)
+			to[open] ++(.5,0)
+			to[open, v^=$V_\text{element}$] ++(0,-3);
+	\end{circuitikz}
+\end{center}
+}
+\ans{
+\begin{center}
+	\begin{circuitikz}
+		\draw 
+		(0,0) to[V, v=$V_\text{S}$, i=$I_\text{element}$, invert] ++(0,3)
+			to[open] ++(.5,0)
+			to[open, v^=$V_\text{element}$] ++(0,-3);
+	\end{circuitikz}
+\end{center}
+}
+
+\qitem\label{ques:vSrc_voltage_backwards}{\ \\
+\begin{center}
+	\begin{circuitikz}
+		\draw 
+		(0,0) to[V, v=$1\si{\volt}$, invert] ++(0,3)
+		(0,0) to[open] ++(.5,0)
+			to[open, v_=$V_\text{element}$] ++(0,3);
+	\end{circuitikz}
+\end{center}
+}
+\ans{
+\begin{center}
+	\begin{circuitikz}
+		\draw 
+		(0,0) to[V, v=$1\si{\volt}$, invert] ++(0,3)
+		(0,0) to[open] ++(.5,0)
+			to[open, v_=$V_\text{element}$] ++(0,3)
+		(0,0) to[open, i=$I_\text{element}$, invert] ++(0,4);
+	\end{circuitikz}
+\end{center}
+}
+
+\qitem\label{ques:vSrc_current_forward}{\ \\
+\begin{center}
+	\begin{circuitikz}
+		\draw 
+		(0,0) to[V, v=$V_\text{S}$, i=$I_\text{element}$, invert] ++(0,3);
+	\end{circuitikz}
+\end{center}
+}
+\ans{
+\begin{center}
+	\begin{circuitikz}
+		\draw 
+		(0,0) to[V, v=$V_\text{S}$, i=$I_\text{element}$, invert] ++(0,3)
+			to[open] ++(.5,0)
+			to[open, v^=$V_\text{element}$] ++(0,-3);
+	\end{circuitikz}
+\end{center}
+}
+
+\qitem\label{ques:vSrc_current_backwards}{\ \\
+\begin{center}
+	\begin{circuitikz}
+		\draw 
+		(0,0) to[V, v=$-1\si{\volt}$, invert] ++(0,3)
+		(0,0) to[open, i=$I_\text{element}$, invert] ++(0,4);
+	\end{circuitikz}
+\end{center}
+}
+\ans{
+\begin{center}
+	\begin{circuitikz}
+		\draw 
+		(0,0) to[V, v=$-1\si{\volt}$, invert] ++(0,3)
+		(0,0) to[open] ++(.5,0)
+			to[open, v_=$V_\text{element}$] ++(0,3)
+		(0,0) to[open, i=$I_\text{element}$, invert] ++(0,3);
+	\end{circuitikz}
+\end{center}
+}
+
+\qitem\label{ques:iSrc_voltage_forward}{\textbf{(PRACTICE)}
+
+\begin{center}
+	\begin{circuitikz}
+		\draw 
+		(0,0) to[I, l=$I_\text{S}$, invert] ++(0,3)
+			to[open] ++(.5,0)
+			to[open, v^=$V_\text{element}$] ++(0,-3);
+	\end{circuitikz}
+\end{center}
+}
+\ans{
+\begin{center}
+	\begin{circuitikz}
+		\draw 
+		(0,0) to[I, l=$I_\text{S}$, invert] ++(0,3)
+			to[open] ++(.5,0)
+			to[open, v^=$V_\text{element}$] ++(0,-3)
+		(0,3) to[open, i^=$I_\text{element}$] ++(0,-4);
+	\end{circuitikz}
+\end{center}
+}
+
+\qitem\label{ques:iSrc_voltage_backwards}{\textbf{(PRACTICE)}
+
+\begin{center}
+	\begin{circuitikz}
+		\draw 
+		(0,0) to[I, l=$I_\text{S}$, invert] ++(0,3)
+		(0,0) to[open] ++(.5,0)
+			to[open, v_=$V_\text{element}$] ++(0,3);
+	\end{circuitikz}
+\end{center}
+}
+\ans{
+\begin{center}
+	\begin{circuitikz}
+		\draw 
+		(0,0) to[I, l=$I_\text{S}$, invert] ++(0,3)			
+		(.5,0) to[open, v_=$V_\text{element}$] ++(0,3)
+		(0,0) to[open, i^=$I_\text{element}$] ++(0,4);
+	\end{circuitikz}
+\end{center}
+}
+
+\qitem\label{ques:iSrc_current_forward}{\textbf{(PRACTICE)}
+
+\begin{center}
+	\begin{circuitikz}
+		\draw 
+		(0,0) to[I, l=$I_\text{S}$, invert] ++(0,3)
+			to[open, i=$I_\text{element}$] ++(0,-4);
+	\end{circuitikz}
+\end{center}
+}
+\ans{
+\begin{center}
+	\begin{circuitikz}
+		\draw 
+		(0,0) to[I, l=$I_\text{S}$, invert] ++(0,3)
+			to[open, i=$I_\text{element}$] ++(0,-4)
+		(.5,3) to[open, v^=$V_\text{element}$] ++(0,-3);
+	\end{circuitikz}
+\end{center}
+}
+
+\qitem\label{ques:iSrc_current_backwards}{\textbf{(PRACTICE)}
+
+\begin{center}
+	\begin{circuitikz}
+		\draw 
+		(0,0) to[I, l=$I_\text{S}$, invert] ++(0,3)
+		(0,0) to[open, i=$I_\text{element}$, invert] ++(0,4);
+	\end{circuitikz}
+\end{center}
+}
+\ans{
+\begin{center}
+	\begin{circuitikz}
+		\draw 
+		(0,0) to[I, l=$I_\text{S}$, invert] ++(0,3)
+		(0,0) to[open] ++(.5,0)
+			to[open, v_=$V_\text{element}$] ++(0,3)
+		(0,0) to[open, i=$I_\text{element}$, invert] ++(0,4);
+	\end{circuitikz}
+\end{center}
+}
+
+\qitem\label{ques:resistor_current}{\textbf{(PRACTICE)}
+
+\begin{center}
+	\begin{circuitikz}
+		\draw (0,0) to[R, i=$I_\text{element}$] ++(-4,0);
+	\end{circuitikz}
+\end{center}
+}
+\ans{
+\begin{center}
+	\begin{circuitikz}
+		\draw (0,0) to[R, v=$V_\text{element}$, i=$I_\text{element}$] ++(-4,0);
+	\end{circuitikz}
+\end{center}
+}
+
+\qitem\label{ques:resistor_voltage}{\textbf{(PRACTICE)}
+
+\begin{center}
+	\begin{circuitikz}
+		\draw (0,0) to[R, v=$V_\text{element}$] ++(-4,0);
+	\end{circuitikz}
+\end{center}
+}
+\ans{
+\begin{center}
+	\begin{circuitikz}
+		\draw (0,0) to[R, v=$V_\text{element}$, i=$I_\text{element}$] ++(-4,0);
+	\end{circuitikz}
+\end{center}
+}
+\end{enumerate}
