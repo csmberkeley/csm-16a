@@ -1,0 +1,36 @@
+\sol{
+\qns{Circuit Elements Part 1}
+
+It may help to draw the $I-V$ curves for these devices.
+
+\begin{center}
+	\begin{tabular}{|>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{3cm}|>{\centering\arraybackslash}m{3cm}||>{\centering\arraybackslash}m{3cm}|}
+		\hline
+		Name & Voltage Source & Current Source & Resistor\\\hline
+		Symbol & 
+			\begin{circuitikz}
+				\draw (0,0) to[V=$V_{S}$, invert] ++(0,2);
+			\end{circuitikz}
+			&
+			\begin{circuitikz}
+				\draw (0,0) to[I, l=$I_S$] ++(0,2);
+			\end{circuitikz}
+			&
+			\begin{circuitikz}
+				\draw (0,0) to[R=$R$, v=$V_R$, i=$I_R$] ++(0,2);
+			\end{circuitikz}
+			\\\hline
+		Relevant Information & \begin{tabular}{@{}c@{}}Constant Voltage \\ Undefined Current\end{tabular} & \begin{tabular}{@{}c@{}}Constant Current \\ Undefined Voltage\end{tabular} & $V_R = I_RR$ \\\hline
+	\end{tabular}
+\end{center}
+
+\textbf{Common Misconceptions:}
+\begin{itemize}
+	\item Forgetting passive sign convention.
+	\item Trying to use Ohm's Law ($V_R = I_R R$) for components that aren't resistors.
+	\begin{itemize}
+		\item Out of Scope: Other passive components have linear relationships between their voltage and current, they simply have complex components (we call the imaginary portion reactance and the real component resistance---the full complex value is called impedance)
+		\item Out of Scope: Ohm's Law is generally interpreted as a differential (i.e. $R = \frac{dV_R}{dI_R}$), meaning it deals with the \textit{slope} of the $I-V$ curve rather than the true value. This is something they'll encounter (and need) in 16B and beyond.
+	\end{itemize}
+\end{itemize}
+}
