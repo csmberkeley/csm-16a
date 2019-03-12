@@ -1,0 +1,114 @@
+% Lydia Lee, adapted from Fall 2018 notes
+\sol{
+\qns{Negative Feedback}
+
+The classic formulation of the negative feedback problem looks like so:
+\begin{figure}[H]
+	\centering
+	\tikzstyle{block} = [draw, fill=white, rectangle, 
+      minimum height=3em, minimum width=3em]
+	\tikzstyle{sum} = [draw, fill=white, circle, node distance=1cm]
+	\tikzstyle{input} = [coordinate]
+	\tikzstyle{output} = [coordinate]
+	\tikzstyle{midoutput} = [coordinate]
+	\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
+	\begin{tikzpicture}[auto, node distance=2cm,>=latex']
+    % We start by placing the blocks
+    \node [input, label=$s_\text{in}$] (input) {$s_\text{in}$};
+    \node [sum, right of=input] (sum) { };
+    \node [block, right of=sum] (gain) {$A$};
+    % \node [midoutput, right of=gain] (midoutput) {};
+    \node [output, right of=gain, label=$s_\text{out}$] (output) {$s_\text{out}$};
+    % \draw [->] (gain) -- node[name=u] (output) {output} ;
+    \node [block, below of=gain] (F) {$f$};
+      
+   % Once the nodes are placed, connecting them is easy. 
+    \draw [draw,->] (input) -- node[pos=0.85] {$+$} node [near end] {} (sum);
+   \draw [->] (sum) -- node {$s_\text{error}$} (gain);
+   \draw [->] (gain) -- node [name=y] {} (output);
+   \draw [->] (y) |- (F);
+   \draw [->] (F) -| node[pos=0.99] {$-$} node [near end] {$s_\text{fb}$} (sum);
+  \end{tikzpicture}
+	\label{fig:nfb_block_diagram}
+	\caption{Classic negative feedback block diagram}
+\end{figure}
+For the block diagram above, the output is related to the input by 
+\begin{align*}
+	s_\text{out} &= \frac{A}{1+Af}s_\text{in}\\
+		&\approx \frac{1}{f} \text{ when }A\to\infty
+\end{align*}
+In this class, the block for $A$  often involves the use of an operational amplifier, or op amp (not to be confused with OMP!) for short. For these situations, the value of $A\to\infty$, so we can make some assumptions known as the ``Golden Rules''.
+\begin{itemize}
+	\item Always true: $i_- = i_+ = 0\si{\ampere}$
+	\item Negative feedback only: $u_+ = u_-$
+\end{itemize}
+\begin{minipage}{0.45\linewidth}
+\begin{center}
+  \begin{circuitikz}
+    \draw (0,0) node[op amp,yscale=-1] (opamp) { }
+      (-2.5, 0.5) to [short, i=$i_{+}$, o-] (opamp.+) 
+      (-2.5, -0.5) to [short, i=$i_{-}$, o-] (opamp.-) 
+      (opamp.out) node[right ] {$U_{out}$} 
+      ;
+    \node[draw=none,text=black] at (-2.8, 0.5) {$u_{+}$};
+    \node[draw=none,text=black] at (-2.8, -0.5) {$u_{-}$};
+
+    \draw (0, 0.5) to [short, -o] (0, 1.0);
+    \node[draw=none,text=black] at (0, 1.5) {$V_{DD}$};
+    \draw (0, -0.5) to [short, -o] (0, -1.0);
+    \node[draw=none,text=black] at (0, -1.5) {$V_{SS}$};
+  \end{circuitikz}
+\end{center}
+\end{minipage}
+\begin{minipage}{.45\linewidth}
+	\begin{center}
+		\textcolor{red}{This diagram may change slightly from semester to semester. We should stay consistent with the course notes to not confuse students.}
+		\begin{circuitikz}
+			% Nodes on the left
+			\node[draw=none,text=black] at (-1, 0.8) {$u_{+}$};
+			\node[draw=none,text=black] at (-1, -0.8) {$u_{-}$};
+			\node[draw=none,text=black] at (-.8, 0.3) {$+$};
+			\node[draw=none,text=black] at (-.8, -0.3) {$-$};
+			\draw (-1.5, 0.5) to [short, -o] (-1, 0.5); 
+			\draw (-1.5, -0.5) to [short, -o] (-1, -0.5); 
+			
+			% ground and variable voltage
+			\draw (0.5,-1.5) -- (0.5,-1.8) to [short, -o](0.5, -2);
+			\node[draw=none,text=black] at (1, -2) {$V_{SS}$};
+			\draw (0.5, -1.5) -- (1, -1) -- (0.5, -0.5) -- (0, -1) -- cycle;
+			\node[draw=none,text=black] at (0.5, -0.8) {$+$};
+			\node[draw=none,text=black] at (0.5, -1.2) {$-$};
+			\node[draw=none,text=black] at (1.8, -1) {$\frac{V_{DD}-V_{SS}}{2}$};
+			\draw (0.5, -0.5) -- (0.5, 0) { };
+			\draw (0.5, 0) -- (1, 0.5) -- (0.5, 1) -- (0, .5) -- cycle;
+			\node[draw=none,text=black] at (0.5, 0.7) {$+$};
+			\node[draw=none,text=black] at (0.5, 0.3) {$-$};
+			\node[draw=none,text=black] at (2, 0.5) {$A(u_{+} - u_{-})$};
+			
+			% Upwards
+			\draw (0.5, 1) -- (0.5, 1.5) to [short, -o] (3.5, 1.5);
+			\draw (3.5,-1.5) to [short, o-] (3.5,-1.8) node[ground]{ };
+			\node[draw=none,text=black] at (3.5, 1.8) {$U_{out}$};
+			\node[draw=none,text=black] at (3.9, 1) {$+$};
+			\node[draw=none,text=black] at (3.9, -1.6) {$-$};
+		\end{circuitikz}
+	\end{center} 
+\end{minipage}
+
+When dealing with feedback topologies, we often want to know two things:
+\begin{itemize}
+	\item Is it actually in negative feedback?
+	\item What is the relationship of the output signal with respect to the input signal?
+\end{itemize}
+The way we show that a system is in negative feedback involves a bit of a gedankenexperiment\footnote{\url{https://en.wikipedia.org/wiki/Thought_experiment}}.
+\begin{enumerate}
+	\item Turn off all independent sources
+	\item Perturb the output by pretending that it gets ``kicked'' up (or down)
+	\item Go around the feedback loop to see how the inputs of the op amp $u_+$ and $u_-$ are affected (i.e. do they go up or down?)
+	\item After determining how the inputs of the op amp responds to the initial stimulus, see how the output of the amp responds to the changing op amp inputs. If the system is in negative feedback, the output should be pushed in the \textit{opposite} direction as the initial stimulus! 
+\end{enumerate}
+
+\textbf{Side-Note:}
+The notion of negative feedback converging to a single stable point is analogous to a ball being at the bottom of a valley. If you push the ball left or right (analogous to ``kicking'' the output), the ball will always settle back to that stable point. The notion of electrical potential is directly analogous to mechanical potential.
+
+}

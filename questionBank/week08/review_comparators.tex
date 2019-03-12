@@ -1,0 +1,67 @@
+% Lydia Lee, Spring 2019, lydia.lee@berkeley.edu
+\sol{
+\qns{Comparators}
+
+Operational amplifiers (op amps for short) are typically drawn like the figure on the left, and their internal workings can be represented by the figure on the right.
+
+\begin{center}
+  \begin{circuitikz}
+    \draw (0,0) node[op amp,yscale=-1] (opamp) { }
+      (-2.5, 0.5) to [short, i=$i_{+}$, o-] (opamp.+) 
+      (-2.5, -0.5) to [short, i=$i_{-}$, o-] (opamp.-) 
+      (opamp.out) node[right ] {$U_{out}$} 
+      ;
+    \node[draw=none,text=black] at (-2.8, 0.5) {$u_{+}$};
+    \node[draw=none,text=black] at (-2.8, -0.5) {$u_{-}$};
+
+    \draw (0, 0.5) to [short, -o] (0, 1.0);
+    \node[draw=none,text=black] at (0, 1.5) {$V_{DD}$};
+    \draw (0, -0.5) to [short, -o] (0, -1.0);
+    \node[draw=none,text=black] at (0, -1.5) {$V_{SS}$};
+  \end{circuitikz}
+\end{center}
+
+Here, $u_+$ and $u_-$ (both potentials) are input signals, $V_{DD}$ and $V_{SS}$ are what we call the ``supply rails'', and $U_{out}$ (a potential) is the output signal. From the diagram and knowing that $U_{out}$ cannot exceed the supply rail voltages, we have a relationship between the outputs and the inputs:
+\begin{equation*}
+U_{out} =
+\begin{cases} 
+V_{SS} &  
+\hspace{1.4cm}A(u_+ - u_-) + \frac{V_{DD} +V_{SS} }{2} < V_{SS} \\
+A(u_+ - u_-) + \frac{V_{DD} +V_{SS} }{2} & 
+\hspace{0.4cm}V_{SS}\leq A(u_+ - u_-) + \frac{V_{DD} +V_{SS} }{2} \leq V_{DD} \\
+V_{DD} &  
+\hspace{0.4cm}V_{DD}<A(u_+ - u_-) + \frac{V_{DD} +V_{SS} }{2} \\
+\end{cases}
+\end{equation*}
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{axis}[
+    xmin=-120, xmax=120,
+    ymin=-120, ymax=120,
+    axis lines=center,
+    axis on top=true,
+    grid style={dashed},
+    xlabel={\emph{$u_{+} - u_{-}$}},
+    ylabel={\emph{$U_{out}$}},
+    yticklabels={,,},
+    xticklabels={,,},
+  ]
+  \addplot [draw=blue,thick] coordinates {(5, 70) (100, 70)};
+  \addplot [draw=blue,thick] coordinates {(-5, -20) (-100, -20)};
+  \addplot [draw=blue,thick] coordinates {(-5, -20) (5, 70)};
+  \addplot [
+      mark=*, blue, solid
+    ]
+    coordinates {
+            (-5, -20)
+            (5, 70)};
+
+    \node[anchor=north west] at (axis cs:-5,-20) {$(0,V_{SS})$};
+    \node[anchor=south east] at (axis cs:5,70) {$(0,V_{DD})$};
+  \end{axis}
+\end{tikzpicture}
+\end{center}
+
+Typically $A$ is quite large, meaning the the sloped region in the center is quite narrow. This is particularly useful when comparing two voltages (hence, the name \textit{comparator}), one or both of which may be variable.
+}
