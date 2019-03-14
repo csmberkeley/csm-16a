@@ -1,0 +1,18 @@
+\begin{circuitikz}
+	\draw
+	(0,0) node[op amp] (AMP) {}
+	(0,2) node[buffer,xscale=-1] (FB) {}
+	(AMP.out) to[short] (AMP.out |- FB.in)
+		to[short] (FB.in)
+	(FB.out) to[short] (FB.out -| AMP.-)
+		to[short] (AMP.-)
+		to[R,l=$R$] ++(-2,0)
+		to[sV,v_=$v_\text{in}$] ++(0,-2)
+		node[ground] () {}
+	(AMP.+) to[short] ++(-.5,0)
+		node[ground] () {}
+	(AMP.out) to[short] ++(1,0)
+		to[open,o-o,v^=$v_\text{out}$] ++(0,-1)
+		node[ground] () {}
+	(FB) node[] () {-5};
+\end{circuitikz}

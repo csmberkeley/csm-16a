@@ -1,0 +1,45 @@
+% Lydia Lee, modified from EE16A-In-A-Day Fall 2018
+\qns{Polarity Check}\ \\
+Determine if the following systems are in negative feedback.
+\begin{enumerate}
+\qitem\ \\
+	\begin{center}
+		\input{../../questionBank/week08/q_polarity_check_figs/inverting_amp_gnd}
+	\end{center}
+\ans{
+	This is in negative feedback, and in fact is a fairly well-known topology called the inverting amplifier.
+	\begin{itemize}
+		\item For our initial stimulus, we'll kick $v_\text{out}$ up
+		\item How does $u_-$ respond? Well, we can't assume $u_+ = u_-$ (because that requires the system to be in negative feedback), so we'll look at the resistors. Note that this is a voltage divider with $u_-$ in the and, $v_\text{out}$ at the top, so when $v_\text{out}$ moves upward, $u_-$ travels upward too
+		\item If $u_-$ goes up, that means $v_\text{out}$ goes down because of the op amp---the opposite direction as the iniital stimulus!
+	\end{itemize}
+}
+
+\qitem\ \\
+	\begin{center}
+		\input{../../questionBank/week08/q_polarity_check_figs/blocks}
+	\end{center}
+\ans{
+	This is \textit{not} in negative feedback! Going through the process of checking:
+	\begin{itemize}
+		\item For our initial stimulus, we'll kick $v_\text{out}$ up
+		\item With the $-5$, that means $u_-$ goes down
+		\item If $u_-$ goes down, that means $v_\text{out}$ goes up---the same direction as the initial stimulus!
+	\end{itemize}
+}
+
+
+\qitem\ \\
+	\begin{center}
+		\input{../../questionBank/week08/q_polarity_check_figs/tricky}
+	\end{center}
+
+\ans{
+	This is indeed in negative feedback! Let's go through the process of checking:
+	\begin{itemize}
+		\item For our initial stimulus, we'll kick $v_\text{out}$ up
+		\item With the $-5$, that means $u_+$ goes down
+		\item If $u_+$ goes down, that means $v_\text{out}$ goes down---the opposite direction of the initial stimulus!
+	\end{itemize}
+}
+\end{enumerate}
