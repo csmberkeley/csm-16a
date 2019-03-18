@@ -1,0 +1,142 @@
+% Lydia Lee, lydia.lee@berkeley.edu
+\qns{Live (And Die) By The Golden Rule(s)}
+\sol{
+	The purpose of this question is rote practice. While students will have seen many of these topologies, ask studenets if anyone wants things rederived.}
+\begin{enumerate}
+\qitem\label{golden_rules}
+	What are the ``golden rules'' of op amps? Do any of them have conditions which must hold for them to be true?
+
+	\begin{circuitikz}
+		\draw (0,0) node[op amp,yscale=-1] (opamp) { }
+		  (-2.5, 0.5) to [short, i=$i_{+}$, o-] (opamp.+) 
+		  (-2.5, -0.5) to [short, i=$i_{-}$, o-] (opamp.-) 
+		  (opamp.out) node[right ] {$U_{out}$} 
+		  ;
+		\node[draw=none,text=black] at (-2.8, 0.5) {$u_{+}$};
+		\node[draw=none,text=black] at (-2.8, -0.5) {$u_{-}$};
+
+		\draw (0, 0.5) to [short, -o] (0, 1.0);
+		\node[draw=none,text=black] at (0, 1.5) {$V_{DD}$};
+		\draw (0, -0.5) to [short, -o] (0, -1.0);
+		\node[draw=none,text=black] at (0, -1.5) {$V_{SS}$};
+	\end{circuitikz}
+
+\empt{
+	\vspace{1cm}}
+
+\ans{
+	The Golden Rules of op amps with their necessary preconditions are:
+	\begin{itemize}
+		\item $i_+ = i_- = 0\si{\ampere}$. This is true of all op amps.
+		\item When the op amp is in negative feedback, $u_+ = u_-$
+	\end{itemize}}
+
+
+\qitem\label{amplifier_topologies}
+	For each of the following, find $v_\text{out}$ in terms of any input sources and any other given component values. Assume the voltage rails are sufficient to not distort the output. You may safely assume that all op amps are negative feedback.
+	\begin{enumerate}
+		\item\label{buffer}\ \\
+			\input{../../questionBank/week09/q_mech_nfb_figs/buffer}
+
+			\sol{
+				\begin{align*}
+					v_\text{out} &= v_-\\
+						&= v_+\\
+						&= v_\text{in}
+				\end{align*}}
+
+			\ans{
+				$v_\text{out} = v_\text{in}$}
+		
+		\item\label{buffer_res}\ \\
+			\input{../../questionBank/week09/q_mech_nfb_figs/buffer_res}
+			
+			\sol{
+				\begin{align*}
+					v_\text{out} &= v_-\\
+						&= v_+\\
+						&= v_\text{in}
+				\end{align*}}
+
+			\ans{
+				$v_\text{out} = v_\text{in}$. Remember that no current flows into the input terminals of the op amp!}
+
+		\item\label{noninverting_amp}\ \\
+			\input{../../questionBank/week09/q_mech_nfb_figs/noninverting_amp}
+
+			\sol{
+				\begin{align*}
+					\frac{v_\text{out}-v_\text{in}}{R_\text{top}} &= \frac{v_\text{in}-V_\text{REF}}{R_\text{bottom}}\\
+					v_\text{out} &= v_\text{in} + \frac{R_\text{top}}{R_\text{bottom}}\left(v_\text{in}-V_\text{REF}\right)\\
+						&= v_\text{in}\left(1 + \frac{R_\text{top}}{R_\text{bottom}}\right) - V_\text{REF}\left(\frac{R_\text{top}}{R_\text{bottom}}\right)
+				\end{align*}}
+
+			\ans{
+				$v_\text{out} = v_\text{in}\left(1 + \frac{R_\text{top}}{R_\text{bottom}}\right) - V_\text{REF}\left(\frac{R_\text{top}}{R_\text{bottom}}\right)$}
+
+		\item\label{inverting_amp}\textit{Hint: Is this similar at all to part \ref{noninverting_amp}?}\\
+			\input{../../questionBank/week09/q_mech_nfb_figs/inverting_amp}
+
+			\sol{
+				\begin{align*}
+					\frac{v_\text{in}-V_\text{REF}}{R_s} &= \frac{V_\text{REF}-v_\text{out}}{R_f}\\
+					V_\text{REF}-v_\text{out} &= \frac{R_f}{R_s}\left(v_\text{in}-V_\text{REF}\right)\\
+					v_\text{out} &= V_\text{REF}\left(1 + \frac{R_f}{R_s}\right) - v_\text{in}\left(\frac{R_f}{R_s}\right)
+				\end{align*}}
+
+			\ans{
+				$v_\text{out} = v_\text{in}\left(-\frac{R_f}{R_s}\right) + V_\text{REF}\left(\frac{R_f}{R_s} + 1\right)$. Note that this is exactly the same as \ref{noninverting_amp} with $v_\text{in}$ and $V_\text{REF}$ switched!}
+
+		\item\label{inverting_summing_amp}\ \\
+			\input{../../questionBank/week09/q_mech_nfb_figs/inverting_summing_amp}
+		
+		\item\label{transimpedance_amp}\ \\
+			\input{../../questionBank/week09/q_mech_nfb_figs/transimpedance_amp}
+
+			\sol{
+				\begin{align*}
+					i_\text{in} &= \frac{V_\text{REF}-v_\text{out}}{R}\\
+					v_\text{out} &= V_\text{REF}-i_\text{in}R
+				\end{align*}}
+
+			\ans{
+				$v_\text{out} = i_\text{in}(-R) + V_\text{REF}$}
+		
+		\item\label{integrator_voltage}Assume you know $v_\text{out}(t_0)$.\\
+			\input{../../questionBank/week09/q_mech_nfb_figs/integrator_voltage}
+			
+			\sol{
+				\begin{align*}
+					\frac{v_\text{in}-V_\text{REF}}{R} &= C\frac{d(V_\text{REF}-v_\text{out})}{dt}\\
+						&= C\left(\frac{dV_\text{REF}}{dt} - \frac{dv_\text{out}}{dt}\right)\\
+						&= -C\frac{dv_\text{out}}{dt} \longleftarrow \frac{dV_\text{REF}}{dt} = 0\\
+					\frac{dv_\text{out}}{dt} &= -\frac{1}{RC}(v_\text{in}-V_\text{REF})\\
+					v_\text{out}(t) - v_\text{out}(t_0) &= \int_{t_0}^t-\frac{v_\text{in}-V_\text{REF}}{RC}d\tau\\
+					v_\text{out}(t) &= v_\text{out}(t_0) + \int_{t_0}^t\frac{V_\text{REF}-v_\text{in}}{RC}d\tau
+				\end{align*}}
+
+			\ans{
+				$v_\text{out}(t) = v_\text{out}(t_0) + \int_{t_0}^t\frac{V_\text{REF}-v_\text{in}}{RC}d\tau$. Note that your voltages may not be constant with respect to time!}
+
+		\item\label{integrator_current}\textbf{(PRACTICE)} Assume you know $v_\text{out}(t_0)$.\\
+			\input{../../questionBank/week09/q_mech_nfb_figs/integrator_current}
+		
+		\item\label{differentiator}\textbf{(PRACTICE)}\\
+			\input{../../questionBank/week09/q_mech_nfb_figs/differentiator}
+
+			\sol{
+				\begin{align*}
+					\frac{V_\text{REF}-v_\text{out}}{R} &= C\frac{d(v_\text{in}-V_\text{REF})}{dt}\\
+						&= C\left(\frac{d(v_\text{in}}{dt}-\frac{V_\text{REF})}{dt}\right)\\
+					v_\text{out} &= V_\text{REF} - RC\frac{dv_\text{in}}{dt} \longleftarrow \frac{dV_\text{REF}}{dt} = 0
+				\end{align*}}
+
+			\ans{
+				$v_\text{out} = V_\text{REF} - RC\frac{dv_\text{in}}{dt}$}
+		
+		\item\label{instrumentation_amp}\textbf{(CHALLENGE PRACTICE)}\\
+			\input{../../questionBank/week09/q_mech_nfb_figs/instrumentation_amp}
+	\end{enumerate}
+
+
+\end{enumerate}

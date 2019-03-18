@@ -1,0 +1,44 @@
+\begin{circuitikz}[scale=0.8, transform shape]
+	\draw
+	(0,0) node[op amp,yscale=-1] (AMP_TOP) {}
+	(0,-6) node[op amp] (AMP_BOT) {}
+	(5,-3) node[op amp] (AMP_OUT) {}
+
+	% Input voltage sources
+	(AMP_TOP.+) to[short] ++(-1,0)
+		to[sV,v_=$v_\text{in1}$] ++(0,-2)
+		node[ground] () {}
+
+	(AMP_BOT.+) to[short] ++(-1,0)
+		to[sV,v_=$v_\text{in2}$] ++(0,-2)
+		node[ground] () {}
+
+	% First layer of resistors
+	(AMP_TOP.-) to[short] ++(0,-1.5) coordinate (topMinusExtension)
+		to[short] (topMinusExtension -| AMP_TOP.out)
+		to[R=$R_1$] (AMP_TOP.out)
+	(AMP_BOT.-) to[short] ++(0,1.5) coordinate (botMinusExtension)
+		to[short] (botMinusExtension -| AMP_BOT.out)
+		to[R=$R_1$] (AMP_BOT.out)
+	(topMinusExtension -| AMP_TOP.out) to[R=$R_{\text{gain}}$] (botMinusExtension -| AMP_BOT.out)
+
+	% Second layer of resistors
+	(AMP_TOP.out) to[R=$R_2$] (AMP_TOP.out -| AMP_OUT.-)
+		to[short] (AMP_OUT.-)
+	(AMP_BOT.out) to[R=$R_2$] (AMP_BOT.out -| AMP_OUT.+)
+		to[short] (AMP_OUT.+)
+
+	% Third layer of resistors
+	(AMP_OUT.out) to[short] (AMP_OUT.out |- AMP_TOP.out)
+		to[R=$R_3$] (AMP_TOP.out -| AMP_OUT.-)
+		to[short] (AMP_OUT.-)
+	(AMP_OUT.+) to[short] (AMP_OUT.+ |- AMP_BOT.out)
+		to[R=$R_3$] (AMP_BOT.out -| AMP_OUT.out)
+		node[ground] () {}
+	
+	% Final output
+	(AMP_OUT.out) to[short] ++(1,0)
+		to[open,o-o,v^=$v_\text{out}$] ++(0,-3)
+		node[ground] () {}
+	;
+\end{circuitikz}
