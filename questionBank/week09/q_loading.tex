@@ -1,10 +1,95 @@
 % Lydia Lee, lydia.lee@berkeley.edu
 \qns{Loaded Question}
+
 \begin{enumerate}
 
-\qitem\label{}
+\qitem\label{rin}{
+	Assume you're given the following block:
+	\begin{center}
+		\begin{circuitikz}[scale=0.75, transform shape]
+			\draw
+			(0,0) node[ground] () {}
+				to[sV,l=$v_S$] ++(0,3)
+				to[short] ++(1,0)
+				to[R=$R_\text{top}$] ++(0,-1.5) coordinate (output)
+				to[R=$R_\text{bottom}$] ++(0,-1.5)
+				node[ground] () {}
 
-\sol{}
+			(output) to[short,*-] ++(2,0)
+				node[anchor=south] () {$X$}
+				to[open,o-o,v^=$v_X$] ++(0,-1.5)
+				node[ground] () {};
+		\end{circuitikz}
+	\end{center}
+	For each of the following, replace the input voltage source with the circuit above. For the full circuit, is the value of $v_X$ affected by the attachment of the second block, i.e. does it load the voltage divider?
 
-\ans{}
+	\begin{enumerate}
+		\item \ \\
+		\begin{circuitikz}[scale=0.75, transform shape]
+			\draw
+			(0,0) node[ground] () {} 
+				to[sV,l=$v_\text{in}$] ++(0,1.5)
+				to[short] ++(1.5,0)
+				to[R=$R_L$] ++(0,-1.5)
+				node[ground] () {};
+		\end{circuitikz}
+		\item \ \\
+			\input{../../questionBank/week09/q_loading_figs/buffer}
+		\item \ \\
+			\input{../../questionBank/week09/q_loading_figs/noninverting_amp}
+		\item \ \\
+			\input{../../questionBank/week09/q_loading_figs/inverting_amp}
+	\end{enumerate}
+	}
+
+\sol{
+	What this is asking for can be written in a few equivalent ways:
+	\begin{itemize}
+		\item Is the Th\'evenin resistance ($R_{\text{in}}$) from the input node of the circuit finite?
+		\item Will the circuit in question load the voltage divider above?
+		\item Does the circuit draw current from its input node?
+	\end{itemize}
+	FINISH THIS!!! - this section should have (1) the full circuit analysis (2) the computation finding the input resistance of the circuit.
+	\begin{enumerate}
+		\item 
+		\item
+		\item
+	\end{enumerate}
+}
+
+\ans{
+	\begin{enumerate}
+		\item This is a voltage buffer! It does not affect the value of $v_x$ of the voltage divider.
+		\item This is a noninverting amplifier. Note that no current is drawn from the voltage source because $i_+ = i_- = 0\si{\ampere}$; that said, it does not load the voltage follower and so does not affect the value of $v_X$ from its original value.
+		\item This is an inverting amplifier. In this case, current flows across $R_s$, meaning that the amplifier \textit{does} in fact load the voltage divider and affects the value of $v_X$!
+	\end{enumerate}
+}
+
+\qitem\label{rout}{
+	For the following blocks, determine if attaching $R_L$ between the output and ground affects $v_\text{out}$
+	\begin{enumerate}
+		\item \ \\
+			\input{../../questionBank/week09/q_loading_figs/buffer_ro}
+		\item \ \\
+			\input{../../questionBank/week09/q_loading_figs/inverting_amp_ro}
+		\item \ \\
+			\input{../../questionBank/week09/q_loading_figs/buffer_rl_series}
+		\item \ \\
+			\input{../../questionBank/week09/q_loading_figs/inverting_amp_rl_parallel}
+	\end{enumerate}
+}
+
+\sol{
+	After enough practice, students should be able to do these types of problems by inspection. Poll your class if they think yes/no. If students ask, you should be ready to work out the full solution.}
+
+\ans{
+	FINISH THIS
+	\begin{enumerate}
+		\item 
+		\item
+		\item
+		\item
+	\end{enumerate}
+}
 \end{enumerate}
+\empt{\newpage}
