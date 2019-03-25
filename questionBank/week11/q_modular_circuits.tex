@@ -1,14 +1,12 @@
 % Author: 
 % Email:
 % Modified by Aditya Baradwaj, Mudit Gupta
-
-
-\qitem{Modular Circuits}
+\qns{Modular Circuits}
 
 In this question we will explore how to look at circuits in a 'modular' way. That is, we will start to encapsulate circuit components (just like one might encapsulate code into functions) and then see how those components fit together.
 
 \begin{enumerate}[label=(\alph*)]
-    \item Here, you can see two standard voltage dividers. Find the voltage at the points $A$ and $B$ using standard nodal analysis techniques.\\
+    \qitem Here, you can see two standard voltage dividers. Find the voltage at the points $A$ and $B$ using standard nodal analysis techniques.\\
     \begin{circuitikz}
         \draw (0,-2)
             node[ground]{}
@@ -26,7 +24,7 @@ In this question we will explore how to look at circuits in a 'modular' way. Tha
             to[R=$R_4$] (12,-2)
             node[ground]{};
     \end{circuitikz}
-    
+    \empt{\vspace{2cm}}
     \ans{
     We can apply KCL at node $A$. We get:
     \begin{flalign*}
@@ -42,7 +40,8 @@ In this question we will explore how to look at circuits in a 'modular' way. Tha
     \end{flalign*}
     }
     
-    \item Now, let us modify this circuit to add a second voltage divider stage starting at A. You can think of this as cascading 2 voltage dividers: one which which has an input of $V$ and an output of $V_A$, and a second one that has an input of $V_A$ and an output of $V_B$. Find the voltage at $B$ using nodal analysis.
+    
+    \qitem Now, let us modify this circuit to add a second voltage divider stage starting at A. You can think of this as cascading 2 voltage dividers: one which which has an input of $V$ and an output of $V_A$, and a second one that has an input of $V_A$ and an output of $V_B$. Find the voltage at $B$ using nodal analysis.
     
     \begin{circuitikz}
         \draw (0,-2)
@@ -58,7 +57,7 @@ In this question we will explore how to look at circuits in a 'modular' way. Tha
             to[R=$R_4$] (8,-2)
             node[ground]{};
     \end{circuitikz}
-    
+    \empt{\vspace{3cm}}
     \ans{
     We can apply KCL at node $A$ and at node $B$. We get the equations:
     \begin{flalign*}
@@ -85,8 +84,9 @@ In this question we will explore how to look at circuits in a 'modular' way. Tha
     \end{flalign*}
     }
     
-    \item Compare your answer with what you get when you multiplying the amplification factors of each individual voltage divider. Are they the same or different? Does this surprise you? Why or why not?
     
+    \qitem Compare your answer with what you get when you multiplying the amplification factors of each individual voltage divider. Are they the same or different? Does this surprise you? Why or why not?
+    \empt{\vspace{1cm}}
     \ans{
     They are clearly not the same! The next part explains why.
     
@@ -113,8 +113,8 @@ In this question we will explore how to look at circuits in a 'modular' way. Tha
     \\
     And so the KCL equation we wrote at node $A$ is no longer valid.
     }
-    
-    \item In order to solve this problem, we can introduce a "buffer" op-amp in between both stages of the amplifier.
+    \empt{\newpage}
+    \qitem In order to solve this problem, we can introduce a "buffer" op-amp in between both stages of the amplifier.
     
     \begin{circuitikz}
         \draw (0,-2)
