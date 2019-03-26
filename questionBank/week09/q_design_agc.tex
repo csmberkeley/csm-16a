@@ -3,7 +3,7 @@
 
 \begin{enumerate}
 \qitem\label{amp}{
-	Design a circuit where $V_\text{out} = 10V_\text{in}$. You are allowed to use
+	Design a circuit where $V_\text{out} = -10V_\text{in}$. You are allowed to use
 	\begin{itemize}
 		\item op amps: $\leq$1. You do not need to specify rail voltages for this subpart.
 		\item resistors: as many as you want
@@ -50,8 +50,8 @@
 \qitem\label{vga}{
 	Using your answer from parts \ref{amp} and \ref{resistorDAC}, design a circuit where
 	$$V_\text{out} = \begin{cases}
-						5V_\text{in} & \phi = 0\\
-						10V_\text{in} & \phi = V_{DD}
+						-5V_\text{in} & \phi = 0\\
+						-10V_\text{in} & \phi = V_{DD}
 					\end{cases}$$
 }
 \empt{
@@ -71,12 +71,12 @@
 		\item op amps: as many as you want
 		\item switches: as many as you want
 		\item resistors: as many as you want
-		\item ideal voltage source: $\leq 1$ not including the provided rails $\pm 5\si{\volt}$
+		\item ideal voltage source: as many as you want, not including the provided rails $\pm 5\si{\volt}$
 	\end{itemize}
 	design a circuit which adjusts the gain setting depending on the input level:
 	$$V_\text{out} = \begin{cases}
-						5V_\text{in} & V_\text{in} > 0.49\si{\volt}\\
-						10V_\text{in} & V_\text{in} < 0.49\si{\volt}
+						-5V_\text{in} & |V_\text{in}| > 0.49\si{\volt}\\
+						-10V_\text{in} & |V_\text{in}| < 0.49\si{\volt}
 					\end{cases}$$
 }
 \empt{
