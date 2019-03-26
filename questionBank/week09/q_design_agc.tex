@@ -6,10 +6,10 @@
 	Design a circuit where $V_\text{out} = -10V_\text{in}$. You are allowed to use
 	\begin{itemize}
 		\item op amps: $\leq$1. You do not need to specify rail voltages for this subpart.
-		\item resistors: as many as you want
+		\item resistors: as many as you want, so long as they have positive values
 		\item capacitors: as many as you want
-	\end{itemize}
-}
+	\end{itemize}}
+
 \empt{
 	\vspace{1.5cm}
 	\begin{circuitikz}
@@ -20,40 +20,65 @@
 	\end{circuitikz}
 	\vspace{1.5cm}}
 
+\ans{
+	This is one possible solution:
+	\begin{center}
+		\input{../../questionBank/week09/q_design_agc_figs/sol_amp}
+	\end{center}}
+
 \qitem\label{no_rail}{
 	Your design was provided voltage rails at $5\si{\volt}$ and $-5\si{\volt}$, and that your input signal looks like so:
 	\begin{center}
 		\input{../../questionBank/week09/q_design_agc_figs/no_rail_input}
 	\end{center}
-	Will your signal be faithfully amplified? That is, will your op amp distort the output because of railing/clipping?
-}
+	Will your signal be faithfully amplified when $V_\text{out} = -10V_\text{in}$? That is, will your op amp distort the output because of railing/clipping?}
+
 \empt{\vspace{2cm}}
+
+\ans{
+	The signal will be faithfully amplified.
+
+	Our output is going to be limited to $\pm 5\si{\volt}$, meaning that with an amplifier gain $\frac{V_\text{out}}{V_\text{in}} = 10$, we can have an input no larger than $0.5\si{\volt}$ in the positive or negative direction.}
 
 \qitem\label{yes_rail}{
 	Again, your design has voltage rails at $\pm 5\si{\volt}$. Your input signal now looks like so:
 	\begin{center}
 		\input{../../questionBank/week09/q_design_agc_figs/yes_rail_input}
 	\end{center}
-	With this input signal, will your amplifier distort the output due to railing/clipping?
-}
+	With this input signal and $V_\text{out} = -10V_\text{in}$, will your amplifier  distort the output due to railing/clipping?}
+
 \empt{\vspace{2cm}}
 
+\ans{
+	The output will experience railing. From the explanation for part \ref{no_rail}, we know our input can swing no further than $0.5\si{\volt}$, and in this case the swing is $1\si{\volt}$.}
+
 \qitem\label{resistorDAC}{
-	Design a circuit which can have a resistance $R$ when an input signal $\phi$ is low and a resistance $nR$ ($n > 1$) when $\phi$ is high. You may use:
+	Design a circuit which can have a resistance $R$ when an input signal $\phi$ is high and a resistance $nR$ ($n > 1$) when $\phi$ is low. You have access to:
 	\begin{itemize}
 		\item ideal switches: as many as you want
-		\item resistors: $\leq 2$
-	\end{itemize}
-}
+		\item resistors with positive values: $\leq 2$
+		\item the signal $\phi$ and its complement, $\overline{\phi}$
+	\end{itemize}}
+
 \empt{\vspace{4cm}}
+
+\ans{
+	One possible solution is to place the resistor in series and short it out when $\phi$ is high:
+	\begin{center}
+		\input{../../questionBank/week09/q_design_agc_figs/rDAC_series}
+	\end{center}
+
+	Another possible solution is to place the resistor in parallel and place a switch in series with it to close whenever $\phi$ is high. Remember that in parallel, the resistance decreases!
+	\begin{center}
+		\input{../../questionBank/week09/q_design_agc_figs/rDAC_parallel}
+	\end{center}}
 
 \qitem\label{vga}{
 	Using your answer from parts \ref{amp} and \ref{resistorDAC}, design a circuit where
 	$$V_\text{out} = \begin{cases}
-						-5V_\text{in} & \phi = 0\\
-						-10V_\text{in} & \phi = V_{DD}
-					\end{cases}$$
-}
+						-5V_\text{in} & \phi = \text{high}\\
+						-10V_\text{in} & \phi = \text{low}
+					\end{cases}$$}
 \empt{
 	\vspace{2cm}
 
@@ -65,20 +90,63 @@
 	\end{circuitikz}
 	\vspace{2cm}}
 
+\ans{
+	Using the symbol for a variable resistor,
+	\begin{center}
+		\input{../../questionBank/week09/q_design_agc_figs/sol_vga}
+	\end{center}
+	we can replace $R_\text{var}$ with our answer to part \ref{resistorDAC}.
+}
+% \qitem\label{positive_agc}{
+% 	We know what we want, but how do we get the signal $\phi$? In the real world, we often have to generate this ourselves. You may assume your answer from part \ref{amp} works as intended. Design a circuit whose output $\phi_\text{high-side}$ has the following traits:
+% 	$$\phi_\text{high-side} = \begin{cases}
+% 				V_{DD} & V_\text{in} > 0.49\si{\volt}\\
+% 				V_{SS} & V_\text{in} < 0.49\si{\volt}
+% 			\end{cases}$$
+% 	You may use:
+% 	\begin{itemize}
+% 		\item op amps: as many as you want
+% 		\item ideal voltage source: $\leq 1$ not including the provided $\pm 5\si{\volt}$ rails
+% 	\end{itemize}
+% 	}
+
+% \empt{
+% 	\vspace{1cm}
+
+% 	\begin{circuitikz}
+% 		\draw
+% 		(0,0) to[short] ++(-2,0)
+% 			to[sV,v_=$V_\text{in}$] ++(0,-2)
+% 			node[ground] () {};
+% 	\end{circuitikz}}
+
+% \ans{}
+
 \qitem\label{agc}{
-	Now let's put it all together. Using
-	\begin{itemize}
-		\item op amps: as many as you want
-		\item switches: as many as you want
-		\item resistors: as many as you want
-		\item ideal voltage source: as many as you want, not including the provided rails $\pm 5\si{\volt}$
-	\end{itemize}
-	design a circuit which adjusts the gain setting depending on the input level. You may assume all feedback loops are infinitely fast.
+	Now let's put it all together. Design a circuit which lowers the gain setting when the input swing exceeds $0.49\si{\volt}$ (we usually like to leave some wriggle room just in case). You may assume all feedback loops are infinitely fast.
 	$$V_\text{out} = \begin{cases}
 						-5V_\text{in} & |V_\text{in}| > 0.49\si{\volt}\\
 						-10V_\text{in} & |V_\text{in}| < 0.49\si{\volt}
 					\end{cases}$$
-}
+	You may use
+	\begin{itemize}
+		\item op amps: as many as you want
+		\item switches: as many as you want
+		\item resistors with positive values: as many as you want
+		\item ideal voltage source: as many as you want, not including the provided rails $\pm 5\si{\volt}$
+		\item a device which returns the maximum of its two inputs: $\leq 1$
+		\begin{center}
+			\begin{circuitikz}
+				\draw (0,0) node[or port] (OR) {}
+				(OR.in 1) node[anchor=east] () {$V_\text{in1}$}
+				(OR.in 2) node[anchor=east] () {$V_\text{in2}$}
+				(OR.out) node[anchor=west] () {$V_\text{max}$};
+			\end{circuitikz}
+		\end{center}
+	\end{itemize}
+	\textit{Hint: It may be helpful to consider the single-sided case when $V_\text{in} > 0.49\si{\volt}$ first, then start worrying about the negative case $V_\text{in} < -0.49\si{\volt}$.}}
+	
+
 \empt{
 	\vspace{2cm}
 
@@ -89,4 +157,21 @@
 			node[ground] () {};
 	\end{circuitikz}
 	\vspace{2cm}}
+
+\sol{
+	This may be a large jump for your students. If they're stumped, try prompting them in this order:
+	\begin{enumerate}
+		\item What component generates a high or low voltage depending on which input is larger/smaller? (Almost like we're going to \textit{compare} the inputs)
+		\item What would we do if we only wanted to change the gain setting when $V_\text{in} > 0.49\si{\volt}$ and not worry about the negative case?
+		\item How about the negative-only case, i.e. when $V_\text{in} < -0.49\si{\volt}$?
+		\item How can we combine these?
+	\end{enumerate}}
+
+\ans{
+	One possible solution:
+	\begin{center}
+		\input{../../questionBank/week09/q_design_agc_figs/sol_agc}
+	\end{center}
+	Another possible solution has it where the input to the comparators are connected to $V_\text{in}$ and the comparator voltage references are $\pm0.49\si{\volt}$ instead. In real-world circuit design, it's usually easier to work with larger signals (which is a reason to put the comparator inputs at the output of the amplifier), but this often comes at the expense of delay (nonzero response time for the amplifier, etc.).
+	\textcolor{red}{This solution needs some serious beefing: (1) do we need to add an intermediate subpart for the single-sided case? (2) Analysis of how the circuit works}}
 \end{enumerate}

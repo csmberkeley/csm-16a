@@ -1,0 +1,10 @@
+\begin{circuitikz}[scale=0.8, transform shape]
+	\draw
+	(0,0) to[short,o-] ++(1,0) coordinate (leftSide) 
+		to[R=$(n-1)R$] ++(2,0) coordinate(rightSide)
+		to[R=$R$] ++(2,0)
+		to[short,-o] ++(1,0)
+	(leftSide) to[short] ++(0,1.5) coordinate (topLeft)
+		to[spst,l=$\phi$] (topLeft -| rightSide)
+		to[short] (rightSide);
+\end{circuitikz}

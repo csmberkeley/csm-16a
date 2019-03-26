@@ -1,0 +1,29 @@
+\begin{circuitikz}[scale=0.8, transform shape]
+	\draw
+	(0,0) node[op amp] (AMP) {}
+	(5,-2.5) node[op amp,yscale=-1] (COMP_HI) {}
+	(5,2.5) node[op amp] (COMP_LO) {}
+	(9,0) node[or port] (OR) {}
+	(AMP.-) to[short] ++(0,1) coordinate (topLeft)
+		to[vR,l=$R_\text{var}$] (topLeft -| AMP.out)
+		to[short] (AMP.out)
+		to[short] ++(1,0) coordinate (connector)
+	(connector) to[short] (connector |- COMP_HI.+)
+		to[short] (COMP_HI.+)
+	(connector) to[short] (connector |- COMP_LO.-)
+		to[short] (COMP_LO.-)
+	(AMP.-) to[R,l_=$R$] ++(-2,0)
+		to[sV,v_=$V_\text{in}$] ++(0,-2)
+		node[ground] () {}
+	(AMP.+) to[short] ++(0,-1)
+		node[ground] () {}
+	(COMP_HI.-) to[V=$4.9\si{\volt}$] ++(0,-2)
+		node[ground] () {}
+	(COMP_LO.+) to[V=$-4.9\si{\volt}$] ++(0,-2)
+		node[ground] () {}
+	(COMP_HI.out) to[short] (COMP_HI.out |- OR.in 2)
+		to[short] (OR.in 2)
+	(COMP_LO.out) to[short] (COMP_LO.out |- OR.in 1)
+		to[short] (OR.in 1)
+	(OR.out) node[anchor=west] () {$\phi$};
+\end{circuitikz}
