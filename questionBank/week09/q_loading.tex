@@ -83,12 +83,11 @@
 	After enough practice, students should be able to do these types of problems by inspection. Poll your class if they think yes/no. If students ask, you should be ready to work out the full solution.}
 
 \ans{
-	FINISH THIS
 	\begin{enumerate}
-		\item 
-		\item
-		\item
-		\item
+		\item The configuration shown in this part is a voltage buffer. Attaching $R_L$ between output and ground won't affect $v_{out}$ because the output voltage remains the same across nodes.
+		\item As shown, we essentially have an inverting amplifier for this configuration. However, $r_{\rho}$ is within the output node of the amplifier, attaching $R_L$ will have the same effect as in the previous part. The output voltage still remains the same.
+		\item Since we connect $r_o$ outside the output of the amplifier, once we attach $R_L$ between the end node and the ground, we have essentially built a voltage divider with the 2 resistors, which decreases the output voltage!
+		\item For this circuit, when we attach $R_L$ between the output and the ground, we can see that $r_l$ and $R_L$ are both in parallel, and the positive end of $v_out$ can be seen directly connected to the output node of the amplifier, which isn't affected by any resistor(s) along the way. Hence, the output voltage won't change.
 	\end{enumerate}
 }
 \end{enumerate}
