@@ -21,7 +21,7 @@
 				node[ground] () {};
 		\end{circuitikz}
 	\end{center}
-	For each of the following, replace the input voltage source with the circuit above. For the full circuit, is the value of $v_X$ affected by the attachment of the second block, i.e. does it load the voltage divider?
+	For each of the following, replace the input voltage source with the circuit above. For the full circuit, is the value of $v_X$ affected by the attachment of the second block, i.e. does the second block load the voltage divider?
 
 	\begin{enumerate}
 		\item \ \\
@@ -49,12 +49,48 @@
 		\item Will the circuit in question load the voltage divider above?
 		\item Does the circuit draw current from its input node?
 	\end{itemize}
-	FINISH THIS!!! - this section should have (1) the full circuit analysis (2) the computation finding the input resistance of the circuit.
-	\begin{enumerate}
-		\item 
-		\item
-		\item
-	\end{enumerate}
+	As with all things in circuits, there are a number of different and entirely valid ways to solve this. You can also combine these in various ways to come to the same conclusion.
+
+	\textbf{Method 1: Th\'evenin Equivalent of the Voltage Divider}
+
+		Let's consider the Th\'evenin equivalent circuit of the voltage divider:
+		\begin{center}
+			\begin{circuitikz}
+				\draw
+				(0,0) node[anchor=west] () {$v_X$}
+					to[R,l_=$R_\text{Th}$,o-] ++(-2,0)
+					to[sV,v_=$v_\text{Th}$] ++(0,-2)
+					node[ground] () {};
+			\end{circuitikz}
+		\end{center}
+		\begin{align*}
+			R_\text{Th} &= R_\text{bottom} || R_\text{top}\\
+			v_\text{Th} &= v_S\left(\frac{R_\text{bottom}}{R_\text{bottom} + R_\text{top}}\right)
+		\end{align*}
+		For each of the circuits, we now replace $v_\text{in}$ with our Th\'evenin equivalent circuit above and see if any current flows from $v_\text{Th}$.
+		
+	\textbf{Method 2: Th\'evenin Resistance Looking Into the Loading Circuit}
+
+		This particular method is a bit more advanced, but nonetheless good practice. We're interested in the resistance looking \textit{into} the input node of the amplifier topology. That is, if you attach a test voltage at the input of the second circuit, what Th\'evenin resistance do we see? If $R_\text{Th} = \infty$, we know that it doesn't load the voltage divider and so doesn't affect $v_X$. 
+
+		For clarity, relabel your $v_\text{in}$ as $v_\text{test}$ in the diagrams
+		\begin{enumerate}
+			\item We immediately know that $R_\text{Th} = R_L$, which can be a finite value, so unless $R_L = \infty$, this does affect $v_X$/
+			\item $i_\text{test} = 0\si{\ampere}$, so $R_\text{Th} = \frac{v_\text{test}}{0} = \infty\si{\ohm}$! In other words, this looks like an open circuit looking in from its input and it doesn't affect $v_X$.
+			\item This problem gets a bit more complicated, but we can still solve it! Applying a test voltage \textbf{with all independent sources turned off} and assuming an ideal op amp for simplicity,
+			\begin{align*}
+				i_\text{test} &= \frac{v_\text{test}}{R_s}\\
+				\frac{v_\text{test}}{i_\text{test}} &= R_s\\
+				R_\text{Th} &= R_s
+			\end{align*}
+			And we see that we have a finite input equivalent resistance! That means that this \textit{will} load the circuit!
+			\item Once again, $i_\text{test} = 0\si{\ampere} \Longrightarrow R_\text{Th} = \infty\si{\ohm}$ and it doesn't affect $v_X$/
+
+		\end{enumerate}
+
+	\textbf{Method 3: Brute Force}
+
+		Developing an understanding of how to quickly answer these types of problems by inspection will be extremely useful down the line.
 }
 
 \ans{
@@ -70,7 +106,7 @@
 	\begin{enumerate}
 		\item \ \\
 			\input{../../questionBank/week09/q_loading_figs/buffer_ro}
-		\item \ \\
+		\item\label{rout:inverting_amp_ro} \ \\
 			\input{../../questionBank/week09/q_loading_figs/inverting_amp_ro}
 		\item \ \\
 			\input{../../questionBank/week09/q_loading_figs/buffer_rl_series}
@@ -80,15 +116,37 @@
 }
 
 \sol{
-	After enough practice, students should be able to do these types of problems by inspection. Poll your class if they think yes/no. If students ask, you should be ready to work out the full solution.}
+	After enough practice, students should be able to do these types of problems by inspection. Poll your class if they think yes/no. If students ask, you should be ready to work out the full solution. The analysis is below for reference if you don't want to do it on the fly.
+	\begin{enumerate}
+		\item \ \\
+			\begin{align*}
+				v_\text{out} &= v_-\\
+					&= v_+\\
+					&= v_\text{in}
+			\end{align*}
+		\item \ \\
+			\begin{align*}
+				\frac{v_\text{in}-V_\text{REF}}{R_s} &= \frac{V_\text{REF}-v_\text{out}}{R_f}
+			\end{align*}
+			At this point, we can see that we have all the information we need to find $v_\text{out}$, and $r_o$ isn't in it. Ergo, $r_o$ does not have an affect on $v_\text{out}$
+		\item Let's call the voltage at the output of the op amp $v_x$.
+			\begin{align*}
+				v_x &= v_-\\
+					&= v_+\\
+					&= v_\text{in}\\
+				v_\text{out} &= v_x\left(\frac{R_L}{R_L + r_\ell}\right)\\
+					&= v_\text{in}\left(\frac{R_L}{R_L + r_\ell}\right)
+			\end{align*}
+			There is a dependence on $r_\ell$!
+		\item This problem is quite similar to part \ref{rout:inverting_amp_ro}, and in fact the analysis is identical! To get some intuition behind this, we can think back to the model of the ideal op amp---that is, that it has an ideal (dependent) voltage source at the input. We know that the variable that said voltage source depends on does not depend on $r_\ell$, and as such its output (which is directly connected to $v_\text{out}$) will not depend on $r_\ell$.
+	\end{enumerate}}
 
 \ans{
 	\begin{enumerate}
-		\item The configuration shown in this part is a voltage buffer. Attaching $R_L$ between output and ground won't affect $v_{out}$ because the output voltage remains the same across nodes.
-		\item As shown, we essentially have an inverting amplifier for this configuration. However, $r_{\rho}$ is within the output node of the amplifier, attaching $R_L$ will have the same effect as in the previous part. The output voltage still remains the same.
-		\item Since we connect $r_o$ outside the output of the amplifier, once we attach $R_L$ between the end node and the ground, we have essentially built a voltage divider with the 2 resistors, which decreases the output voltage!
-		\item For this circuit, when we attach $R_L$ between the output and the ground, we can see that $r_l$ and $R_L$ are both in parallel, and the positive end of $v_out$ can be seen directly connected to the output node of the amplifier, which isn't affected by any resistor(s) along the way. Hence, the output voltage won't change.
-	\end{enumerate}
-}
+		\item The configuration shown in this part is a voltage buffer. Attaching $R_L$ between output and ground won't affect $v_\text{out}$ because the output voltage remains the same across nodes.
+		\item As shown, we essentially have an inverting amplifier for this configuration. However, $r_o$ is within the output node of the amplifier, attaching $R_L$ will have the same effect as in the previous part. The output voltage still remains the same.
+		\item Since we connect $r_\ell$ outside the output of the amplifier, once we attach $R_L$ between the end node and the ground, we have essentially built a voltage divider with the 2 resistors, which does have a dependence on $r_\ell$.
+		\item For this circuit, when we attach $R_L$ between the output and the ground, we can see that $r_\ell$ and $R_L$ are both in parallel, and the positive end of $v_\text{out}$ can be seen directly connected to the output node of the amplifier, which isn't affected by any resistor(s) along the way. Hence, the output voltage won't change.
+	\end{enumerate}}
 \end{enumerate}
 \empt{\newpage}

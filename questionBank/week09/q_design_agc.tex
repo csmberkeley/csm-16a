@@ -1,0 +1,92 @@
+% Lydia Lee, lydia.lee@berkeley.edu
+\qns{Automatic Gain Control}
+
+\begin{enumerate}
+\qitem\label{amp}{
+	Design a circuit where $V_\text{out} = 10V_\text{in}$. You are allowed to use
+	\begin{itemize}
+		\item op amps: $\leq$1. You do not need to specify rail voltages for this subpart.
+		\item resistors: as many as you want
+		\item capacitors: as many as you want
+	\end{itemize}
+}
+\empt{
+	\vspace{1.5cm}
+	\begin{circuitikz}
+		\draw
+		(0,0) to[short] ++(-1,0)
+			to[sV,v_=$V_\text{in}$] ++(0,-2)
+			node[ground] () {};
+	\end{circuitikz}
+	\vspace{1.5cm}}
+
+\qitem\label{no_rail}{
+	Your design was provided voltage rails at $5\si{\volt}$ and $-5\si{\volt}$, and that your input signal looks like so:
+	\begin{center}
+		\textcolor{red}{INSERT VOLTAGE FIGURE WITH MAX LESS THAN $0.5\si{\volt}$}
+	\end{center}
+	Will your signal be faithfully amplified? That is, will your op amp rail/clip?
+}
+\empt{\vspace{2cm}}
+
+\qitem\label{yes_rail}{
+	Again, your design has voltage rails at $\pm 5\si{\volt}$. Your input signal now looks like so:
+	\begin{center}
+		\textcolor{red}{INSERT VOLTAGE FIGURE WITH MAX AT $1\si{\volt}$}
+	\end{center}
+	With this input signal, will your amplifier rail/clip?
+}
+\empt{\vspace{2cm}}
+
+\qitem\label{resistorDAC}{
+	Design a circuit which can have a resistance $R$ when an input signal $\phi$ is low and a resistance $nR$ ($n > 1$) when $\phi$ is high. You may use:
+	\begin{itemize}
+		\item ideal switches: as many as you want
+		\item resistors: $\leq 2$
+	\end{itemize}
+}
+\empt{\vspace{4cm}}
+
+\qitem\label{vga}{
+	Using your answer from parts \ref{amp} and \ref{resistorDAC}, design a circuit where
+	$$V_\text{out} = \begin{cases}
+						5V_\text{in} & \phi = 0\\
+						10V_\text{in} & \phi = V_{DD}
+					\end{cases}$$
+}
+\empt{
+	\vspace{2cm}
+
+	\begin{circuitikz}
+		\draw
+		(0,0) to[short] ++(-1,0)
+			to[sV,v_=$V_\text{in}$] ++(0,-2)
+			node[ground] () {};
+	\end{circuitikz}
+	\vspace{2cm}}
+
+\qitem\label{agc}{
+	Now let's put it all together. Using
+	\begin{itemize}
+		\item op amps: as many as you want
+		\item switches: as many as you want
+		\item resistors: as many as you want
+		\item ideal voltage source: $\leq 1$ not including the provided rails $\pm 5\si{\volt}$
+	\end{itemize}
+	design a circuit which adjusts the gain setting depending on the input level:
+	$$V_\text{out} = \begin{cases}
+						5V_\text{in} & V_\text{in} > 0.49\si{\volt}\\
+						10V_\text{in} & V_\text{in} < 0.49\si{\volt}
+					\end{cases}$$
+}
+\empt{
+	\vspace{2cm}
+
+	\begin{circuitikz}
+		\draw
+		(0,0) to[short] ++(-1,0)
+			to[sV,v_=$V_\text{in}$] ++(0,-2)
+			node[ground] () {};
+	\end{circuitikz}
+	\vspace{2cm}}
+\end{enumerate}
