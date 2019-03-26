@@ -25,5 +25,7 @@
 		to[short] (OR.in 2)
 	(COMP_LO.out) to[short] (COMP_LO.out |- OR.in 1)
 		to[short] (OR.in 1)
-	(OR.out) node[anchor=west] () {$\phi$};
+	(OR.out) node[anchor=west] () {$\phi$}
+	(AMP.out) to[short,-o] ++(1,0)
+		node[anchor=south] () {$V_\text{out}$};
 \end{circuitikz}

@@ -33,12 +33,12 @@
 	\end{center}
 	Will your signal be faithfully amplified when $V_\text{out} = -10V_\text{in}$? That is, will your op amp distort the output because of railing/clipping?}
 
-\empt{\vspace{2cm}}
-
 \ans{
 	The signal will be faithfully amplified.
 
 	Our output is going to be limited to $\pm 5\si{\volt}$, meaning that with an amplifier gain $\frac{V_\text{out}}{V_\text{in}} = 10$, we can have an input no larger than $0.5\si{\volt}$ in the positive or negative direction.}
+
+\empt{\newpage}
 
 \qitem\label{yes_rail}{
 	Again, your design has voltage rails at $\pm 5\si{\volt}$. Your input signal now looks like so:
@@ -80,7 +80,7 @@
 						-10V_\text{in} & \phi = \text{low}
 					\end{cases}$$}
 \empt{
-	\vspace{2cm}
+	\vspace{4cm}
 
 	\begin{circuitikz}
 		\draw
@@ -134,6 +134,7 @@
 		\item switches: as many as you want
 		\item resistors with positive values: as many as you want
 		\item ideal voltage source: as many as you want, not including the provided rails $\pm 5\si{\volt}$
+		\item your answer to part \ref{vga}, black-boxed to take in $V_\text{in}$ and $\phi$. You may assume it works as described in part \ref{vga}.
 		\item a device which returns the maximum of its two inputs: $\leq 1$
 		\begin{center}
 			\begin{circuitikz}
@@ -148,7 +149,7 @@
 	
 
 \empt{
-	\vspace{2cm}
+	\vspace{3cm}
 
 	\begin{circuitikz}
 		\draw
@@ -156,7 +157,7 @@
 			to[sV,v_=$V_\text{in}$] ++(0,-2)
 			node[ground] () {};
 	\end{circuitikz}
-	\vspace{2cm}}
+	\newpage}
 
 \sol{
 	This may be a large jump for your students. If they're stumped, try prompting them in this order:
