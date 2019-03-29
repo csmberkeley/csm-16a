@@ -4,7 +4,7 @@
 \begin{enumerate}
 
 \qitem\label{rin}{
-	Assume you're given the following block:
+	You're given the following block which we'll call Block 1:
 	\begin{center}
 		\begin{circuitikz}[scale=0.75, transform shape]
 			\draw
@@ -17,19 +17,18 @@
 
 			(output) to[short,*-] ++(2,0)
 				node[anchor=south] () {$X$}
-				to[open,o-o,v^=$v_X$] ++(0,-1.5)
+				to[open,o-o,v^=$v_X \text{=} v_S\left(\frac{R_\text{bottom}}{R_\text{bottom} + R_\text{top}}\right)$] ++(0,-1.5)
 				node[ground] () {};
 		\end{circuitikz}
 	\end{center}
-	For each of the following, replace the input voltage source with the circuit above. For the full circuit, is the value of $v_X$ affected by the attachment of the second block, i.e. does the second block load the voltage divider?
+	For each of the circuits below, connect node $X$ to the output of Block 1. Does the value of $v_X$ change from what it would be otherwise? In other words, does the second block load the voltage divider?
 
 	\begin{enumerate}
 		\item \ \\
 		\begin{circuitikz}[scale=0.75, transform shape]
 			\draw
-			(0,0) node[ground] () {} 
-				to[sV,l=$v_\text{in}$] ++(0,1.5)
-				to[short] ++(1.5,0)
+			(0,0) node[anchor=east] () {$X$}
+				to[short,o-] ++(1.5,0)
 				to[R=$R_L$] ++(0,-1.5)
 				node[ground] () {};
 		\end{circuitikz}
