@@ -1,19 +1,12 @@
 \begin{circuitikz}[scale=0.8, transform shape]
 	\draw
-	(0,0) node[op amp] (AMP) {}
-	(4,-0.5) node[op amp,yscale=-1] (COMP) {}
+	(0,0) node[op amp] (COMP) {}
 
-	(AMP.-) to[short] ++(0,1) coordinate (topLeft)
-		to[R,l=$10R$] (topLeft -| AMP.out)
-		to[short] (AMP.out)
-		to[short] (COMP.+)
-	(AMP.-) to[R,l_=$R$] ++(-2,0)
+	(COMP.-) to[short] ++(-2,0)
 		to[sV,v_=$V_\text{in}$] ++(0,-2)
 		node[ground] () {}
-	(AMP.+) to[short] ++(0,-1)
+	(COMP.+) to[V=$-0.49\si{\volt}$] ++(0,-2)
 		node[ground] () {}
-	(COMP.-) to[V=$4.9\si{\volt}$] ++(0,-2)
-		node[ground] () {}
-	(COMP.out) to[short,-o] ++(1,0)
+	(COMP.out) to[short,-o] ++(1,0) 
 		node[anchor=west] () {$\phi_\text{high-side}$};
 \end{circuitikz}

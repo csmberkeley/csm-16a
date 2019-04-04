@@ -7,25 +7,24 @@
 	(AMP.-) to[short] ++(0,1) coordinate (topLeft)
 		to[vR,l=$R_\text{var}$] (topLeft -| AMP.out)
 		to[short] (AMP.out)
-		to[short] ++(1,0) coordinate (connector)
-	(connector) to[short] (connector |- COMP_HI.+)
-		to[short] (COMP_HI.+)
-	(connector) to[short] (connector |- COMP_LO.-)
-		to[short] (COMP_LO.-)
+		to[short,-o] ++(1,0) coordinate (connector)
+		node[anchor=west] () {$V_\text{out}$}
 	(AMP.-) to[R,l_=$R$] ++(-2,0)
 		to[sV,v_=$V_\text{in}$] ++(0,-2)
 		node[ground] () {}
 	(AMP.+) to[short] ++(0,-1)
 		node[ground] () {}
-	(COMP_HI.-) to[V=$4.9\si{\volt}$] ++(0,-2)
+	(COMP_HI.+) to[short] ++(-1,0)
+		node[anchor=east] () {$V_\text{in}$}
+	(COMP_LO.-) to[short] ++(-1,0)
+		node[anchor=east] () {$V_\text{in}$}
+	(COMP_HI.-) to[V=$0.49\si{\volt}$] ++(0,-2)
 		node[ground] () {}
-	(COMP_LO.+) to[V=$-4.9\si{\volt}$] ++(0,-2)
+	(COMP_LO.+) to[V=$-0.49\si{\volt}$] ++(0,-2)
 		node[ground] () {}
 	(COMP_HI.out) to[short] (COMP_HI.out |- OR.in 2)
 		to[short] (OR.in 2)
 	(COMP_LO.out) to[short] (COMP_LO.out |- OR.in 1)
 		to[short] (OR.in 1)
-	(OR.out) node[anchor=west] () {$\phi$}
-	(AMP.out) to[short,-o] ++(1,0)
-		node[anchor=west] () {$V_\text{out}$};
+	(OR.out) node[anchor=west] () {$\phi$};
 \end{circuitikz}
