@@ -1,5 +1,7 @@
 % Lydia Lee, lydia.lee@berkeley.edu
-\qns{Automatic Gain Control}
+\qns{\textbf{(EXAM-STYLE PRACTICE)} Automatic Gain Control}
+
+\sol{This is a design problem meant to be there \textbf{only if} students ask for exam-style practice, and as such it goes a bit beyond the standard mechanical practice/solidifying basics style CSM tends to offer. For useful amplifier topologies, see \lstinline{q_mech_nfb.tex}}
 
 \begin{enumerate}
 \qitem\label{amp}{
@@ -11,14 +13,14 @@
 	\end{itemize}}
 
 \empt{
-	\vspace{1.5cm}
+	\vspace{1cm}
 	\begin{circuitikz}
 		\draw
 		(0,0) to[short] ++(-1,0)
 			to[sV,v_=$V_\text{in}$] ++(0,-2)
 			node[ground] () {};
 	\end{circuitikz}
-	\vspace{1.5cm}}
+	\vspace{1cm}}
 
 \ans{
 	This is one possible solution:
@@ -31,14 +33,14 @@
 	\begin{center}
 		\input{../../questionBank/week09/q_design_agc_figs/no_rail_input}
 	\end{center}
-	Will your signal be faithfully amplified when $V_\text{out} = -10V_\text{in}$? That is, will your op amp distort the output because of railing/clipping?}
+	Will your signal be faithfully amplified when $V_\text{out} = -10V_\text{in}$, or will it rail/clip?}
+
+\empt{\vspace{1.5cm}}
 
 \ans{
 	The signal will be faithfully amplified.
 
 	Our output is going to be limited to $\pm 5\si{\volt}$, meaning that with an amplifier gain $\frac{V_\text{out}}{V_\text{in}} = 10$, we can have an input no larger than $0.5\si{\volt}$ in the positive or negative direction.}
-
-\empt{\newpage}
 
 \qitem\label{yes_rail}{
 	Again, your design has voltage rails at $\pm 5\si{\volt}$. Your input signal now looks like so:
@@ -47,7 +49,7 @@
 	\end{center}
 	With this input signal and $V_\text{out} = -10V_\text{in}$, will your amplifier  distort the output due to railing/clipping?}
 
-\empt{\vspace{2cm}}
+\empt{\vspace{1.5cm}}
 
 \ans{
 	The output will experience railing. From the explanation for part \ref{no_rail}, we know our input can swing no further than $0.5\si{\volt}$, and in this case the swing is $1\si{\volt}$.}
@@ -80,15 +82,14 @@
 						-10V_\text{in} & \phi = \text{low}
 					\end{cases}$$}
 \empt{
-	\vspace{4cm}
-
+	\vspace{1cm}
 	\begin{circuitikz}
 		\draw
 		(0,0) to[short] ++(-1,0)
 			to[sV,v_=$V_\text{in}$] ++(0,-2)
 			node[ground] () {};
 	\end{circuitikz}
-	\vspace{2cm}}
+	\vspace{1cm}}
 
 \ans{
 	Using the symbol for a variable resistor,
@@ -97,30 +98,39 @@
 	\end{center}
 	we can replace $R_\text{var}$ with our answer to part \ref{resistorDAC}.
 }
-% \qitem\label{positive_agc}{
-% 	We know what we want, but how do we get the signal $\phi$? In the real world, we often have to generate this ourselves. You may assume your answer from part \ref{amp} works as intended. Design a circuit whose output $\phi_\text{high-side}$ has the following traits:
-% 	$$\phi_\text{high-side} = \begin{cases}
-% 				V_{DD} & V_\text{in} > 0.49\si{\volt}\\
-% 				V_{SS} & V_\text{in} < 0.49\si{\volt}
-% 			\end{cases}$$
-% 	You may use:
-% 	\begin{itemize}
-% 		\item op amps: as many as you want
-% 		\item ideal voltage source: $\leq 1$ not including the provided $\pm 5\si{\volt}$ rails
-% 	\end{itemize}
-% 	}
 
-% \empt{
-% 	\vspace{1cm}
+\qitem\label{phi_oneSide}{
+	How do we generate $\phi$? We want it to be high whenever $|V_\text{in}|$ is larger than some threshold, and low otherwise. Before jumping to absolute value, let's look at a slightly simpler problem: design a circuit whose output is
+	$$\phi_\text{high-side} = \begin{cases}
+								V_{DD} & V_\text{in} < -0.49\si{\volt}\\
+								V_{SS} & V_\text{in} > -0.49\si{\volt}
+							\end{cases}$$
+	You may use:
+	\begin{itemize}
+		\item op amps: as many as you want
+		\item ideal voltage source: $\leq 1$ in addition to the $\pm 5\si{\volt}$ voltage rails
+		\item your answer to part \ref{amp}, black-boxed to take in $V_\text{in}$. You may assume it works as described in part \ref{amp}
+	\end{itemize}}
 
-% 	\begin{circuitikz}
-% 		\draw
-% 		(0,0) to[short] ++(-2,0)
-% 			to[sV,v_=$V_\text{in}$] ++(0,-2)
-% 			node[ground] () {};
-% 	\end{circuitikz}}
+\empt{
+	\vspace{1cm}
+	\begin{circuitikz}
+		\draw
+		(0,0) to[short] ++(-2,0)
+			to[sV,v_=$V_\text{in}$] ++(0,-2)
+			node[ground] () {};
+	\end{circuitikz}
+	\vspace{1cm}}
 
-% \ans{}
+
+\ans{
+	One possible solution:
+	\begin{center}
+		\input{../../questionBank/week09/q_design_agc_figs/sol_phi_oneSided}
+	\end{center}
+
+	Mind your polarity! Remember that part \ref{amp} has a negative relationship between its output and $V_\text{in}$.
+}
 
 \qitem\label{agc}{
 	Now let's put it all together. Design a circuit which lowers the gain setting when the input swing exceeds $0.49\si{\volt}$ (we usually like to leave some wriggle room just in case). You may assume all feedback loops are infinitely fast.
@@ -133,7 +143,7 @@
 		\item op amps: as many as you want
 		\item switches: as many as you want
 		\item resistors with positive values: as many as you want
-		\item ideal voltage source: as many as you want, not including the provided rails $\pm 5\si{\volt}$
+		\item ideal voltage source: $\leq 2$, in addition to the provided rails $\pm 5\si{\volt}$
 		\item your answer to part \ref{vga}, black-boxed to take in $V_\text{in}$ and $\phi$. You may assume it works as described in part \ref{vga}.
 		\item a device which returns the maximum of its two inputs: $\leq 1$
 		\begin{center}
@@ -150,14 +160,12 @@
 
 \empt{
 	\vspace{3cm}
-
 	\begin{circuitikz}
 		\draw
 		(0,0) to[short] ++(-1,0)
 			to[sV,v_=$V_\text{in}$] ++(0,-2)
 			node[ground] () {};
-	\end{circuitikz}
-	\newpage}
+	\end{circuitikz}}
 
 \sol{
 	This may be a large jump for your students. If they're stumped, try prompting them in this order:
@@ -173,6 +181,7 @@
 	\begin{center}
 		\input{../../questionBank/week09/q_design_agc_figs/sol_agc}
 	\end{center}
-	Another possible solution has it where the input to the comparators are connected to $V_\text{in}$ and the comparator voltage references are $\pm0.49\si{\volt}$ instead. In real-world circuit design, it's usually easier to work with larger signals (which is a reason to put the comparator inputs at the output of the amplifier), but this often comes at the expense of delay (nonzero response time for the amplifier, etc.).
-	\textcolor{red}{This solution needs some serious beefing: (1) do we need to add an intermediate subpart for the single-sided case? (2) Analysis of how the circuit works}}
+	Note that this solution is aggressive and minimal.}
 \end{enumerate}
+
+\empt{\newpage}

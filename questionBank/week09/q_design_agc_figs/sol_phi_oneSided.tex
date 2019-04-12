@@ -1,0 +1,12 @@
+\begin{circuitikz}[scale=0.8, transform shape]
+	\draw
+	(0,0) node[op amp] (COMP) {}
+
+	(COMP.-) to[short] ++(-2,0)
+		to[sV,v_=$V_\text{in}$] ++(0,-2)
+		node[ground] () {}
+	(COMP.+) to[V=$-0.49\si{\volt}$] ++(0,-2)
+		node[ground] () {}
+	(COMP.out) to[short,-o] ++(1,0) 
+		node[anchor=west] () {$\phi_\text{high-side}$};
+\end{circuitikz}

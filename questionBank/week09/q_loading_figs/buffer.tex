@@ -7,8 +7,7 @@
 		to[short] ++(1,0)
 		to[open,o-o,v^=$v_\text{out}$] ++(0,-2)
 		node[ground] () {}
-	(AMP.+) to[short] ++(-2,0)
-		to[sV,v_=$v_\text{in}$] ++(0,-2)
-		node[ground] () {}
+	(AMP.+) to[short,-o] ++(-2,0)
+		node[anchor=east] () {$X$}
 	;
 \end{circuitikz}
