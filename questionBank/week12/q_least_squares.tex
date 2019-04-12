@@ -5,7 +5,9 @@
 \qns{Least Squares}
 
 \meta{
-	Prereqs: Understanding of the mechanics and interpretations of (L2) norms\\
+
+	Prereqs: Understanding of the mechanics and interpretations of (L2) norms. The notation used here is $\norm{\cdot}_2$
+
 	Description: Describe and derive the least squares problem and solution, first geometrically, and then using calculus.}
 
 \begin{center}
@@ -16,15 +18,15 @@
 	Consider that you have some equations of the form $\mathbf{A}\vec{x} = \vec{b}$, however, that there is no solution $\vec{x}$ that solves the equations. What does this tell us about $\vec{b}$ with respect to $\mathbf{A}_1, \mathbf{A}_2$ (the columns of $\mathbf{A}$)?}
 
 \ans{
-	$\vec{b}$ is not in the column space of $\mathbf{A}$. If there was some $\vec{x}$ which solved the equation $\mathbf{A}\vec{x} = \vec{b}$, then we could write $\vec{b} = \mathbf{A}_1 x_1 + \mathbf{A}_2 x_2$, and $\vec{b}$ would have been in the column space of $\mathbf{A}$. However, since there is no such $\vec{x}$, $\vec{b}$ is not in the column space of $\mathbf{A}$.}
+	$\vec{b}$ is not in the column space of $\mathbf{A}$. If there were some $\vec{x}$ which solved the equation $\mathbf{A}\vec{x} = \vec{b}$, then we could write $\vec{b} = \mathbf{A}_1 x_1 + \mathbf{A}_2 x_2$, and $\vec{b}$ would have been in the column space of $\mathbf{A}$. However, since there is no such $\vec{x}$, $\vec{b}$ is not in the column space of $\mathbf{A}$.}
 
 \qitem{
 	We know that there is no $\vec{x}$ that satisfies the equations exactly, but we still want to solve the equations to get a solution as close as possible.
 
-	Let's say you had 3 choices, $\vec{x}_i, \vec{x}_j, \vec{x}_k$ (these are not drawn on the image). What could you compute in order to determine which of these would be the best choice instead of $\vec{x}$}
+	Let's say you had 3 choices, $\vec{x}_i, \vec{x}_j, \vec{x}_k$ (these are not drawn on the image). What could you compute in order to determine which of these would be the best choice instead of $\vec{x}$}? \textit{Hint: Is there something you're familiar with gauges distance between vectors?}
 
 \meta{
-	Be very careful. The word ``close'' is used here, on purpose, since the kind of error has not yet been defined. When teaching this, make sure to use the word ``close''2 as intended.}
+	Be very careful. The word ``close'' is used here, on purpose, since the kind of error has not yet been defined. When teaching this, make sure to use the word ``close'' as intended.}
 
 \ans{
 	A good idea would be to multiply out $\mathbf{A}\vec{x}_i, \mathbf{A}\vec{x}_j, \mathbf{A}\vec{x}_k$, and see which one results in something closest to $\vec{b}$, and that's the one that we would pick.}
@@ -74,5 +76,38 @@
 	The best $\vec{\hat{x}}$ we can find is $(\mathbf{A}^T\mathbf{A})^{-1}\mathbf{A}^T\vec{b}$.
 }
 
-    
+\qitem{
+	What is a necessary and sufficient condition for $(\mathbf{A}^T\mathbf{A})$ to be invertible?}
+
+\sol{
+	This is an important but often-overlooked subtlety which puts a constraint on when least squares is applicable. The full, rigorous proof is beyond the scope of the class.}
+
+\ans{
+	The columns of $\mathbf{A}$ must be linearly independent, i.e. $\mathbf{A}$ must be full column rank.}
+   
+\qitem{
+	Assuming $\mathbf{A}$ has linearly independent columns, find the projection of $\vec{b}$ onto the column space of $\mathbf{A}$.}
+
+\ans{
+	Looking back at the figure at the start of the problem, we see that $\vec{\hat{e}} \perp \text{Col}(\mathbf{A})$, meaning
+	\begin{align*}
+		\text{proj}_{\text{Col}(\mathbf{A})}(\vec{b}) &= \vec{b}-\vec{\hat{e}}\\
+			&= \mathbf{A}\vec{\hat{x}}\\
+			&= \mathbf{A}(\mathbf{A}^T\mathbf{A})^{-1}\mathbf{A}^T\vec{b}
+	\end{align*}
+}
+
+\qitem{
+	Find the projection of $\vec{b} \in \mathbb{R}^n$ onto an arbitrary vector $\vec{a} \neq \vec{0} \in \mathbb{R}^n$.}
+
+\ans{
+	Fun fact: Vectors are specialized matrices! In other words, we can use our matrix answer and replace $\mathbf{A}$ with $\vec{a}$:
+	\begin{align*}
+		\text{proj}_{\vec{a}}(\vec{b}) &= \vec{a}(\vec{a}^T\vec{a})^{-1}\vec{a}^T\vec{b}\\
+			&= \vec{a}\frac{\vec{a}^T\vec{b}}{\vec{a}^T\vec{a}}\\
+			&= \vec{a}\frac{\vec{a}^T\vec{b}}{\norm{a}_2^2}
+	\end{align*}
+
+}
+
 \end{enumerate}
