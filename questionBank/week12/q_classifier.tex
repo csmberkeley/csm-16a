@@ -1,0 +1,65 @@
+%Author: Paul Shao
+%Email: paulshaoyuqiao1@berkeley.edu
+
+\qns{Linear Classifer} \\
+Consider a set of patients. Patient $i$ can be represented by an attribute vector $\vec{x}^i = \begin{bmatrix}
+x_1^i\\ 
+x_2^i\\ 
+\end{bmatrix}$ as well as a known label $y^i \in \left \{ -1, +1 \right \}$ indicating whether they have a disease $D$. We want to design a simple classifier that can use the information from the data we have in order to predict whether a patient with attributes $x_1^i$ and $x_2^i$ and unknown diagnosis status has the disease. To do this, we will use our knowledge of least squares linear regression. We would like to design a linear function
+$$f(\vec{x}^i) = \vec{w}^T \vec{x}^i$$
+that takes in a vector $\vec{x}^i$ for a patient $i$ and computes $y^i = \text{Sign}(f(\vec{x}^i)$ to predict whether the patient has the disease.
+\begin{enumerate}
+    \item In order to make our classifier as accurate as possible, we've found the following 4 cost functions that we can choose from to minimize. Circle \text{one} that best fits our model and explain why the other three don't work well in this scenario.
+    \begin{itemize}
+        \item Linear Error: $e = \vec{y}^i - f(\vec{x}^i)$
+        \item Absolute Linear Error: $e = |\vec{y}^i - f(\vec{x}^i)|$
+        \item Squared Error: $e = (\vec{y}^i - f(\vec{x}^i))^2$
+        \item Sign Error: $e = \left\{\begin{matrix}
+        +1, \text{if } \vec{y}^i = f(\vec{x}^i) \\
+        -1, \text{if } \vec{y}^i \neq f(\vec{x}^i)
+        \end{matrix}\right.$
+    \end{itemize}
+    \sol{It is recommended to plot out what each of the cost functions would look like to give students a better intuition of why squared error is the best representation here.} \\
+    \ans{Square error best fits our model because it efficiently computes the deviation of our prediction from the actual labels for classifying the patients. Linear error doesn't work well due to signed error (a patient with a label of -1 mis-classified as +1 will instead incurr a loss of +2). Absolute Linear Error doesn't work well because we can't easily work with absolute expressions algebraically. Sign Error, a reasonable model, again doesn't work well because it is a piece-wise function and makes optimization on all data points more tricky.}
+        \item Suppose we have brand new set of data points as shown in the table below along with a column representing the actual diagnosis results: (+1) for positive diagnosis and (-1) for negative diagnosis. Given that we've found the weight vector $\vec{w}$ of our linear function $f(\vec{x}^i)$ to be $\begin{bmatrix}
+            2\\ 
+            3
+            \end{bmatrix}$. Predict whether each patient has the disease by filling in the table with the prediction \textbf{Yes, No, } or \textbf{Inconclusive}. What is the accuracy of our linear classifier?
+        \begin{table}[h]
+        \centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Patient & Attribute $x_1$ & Attribute $x_2$ & Diagnosis Result & Prediction from the Classifier \\ \hline
+1       & 1               & 0               & (+1)             &                                \\ \hline
+2       & -6              & 1               & (-1)             &                                \\ \hline
+3       & -5              & -5              & (+1)             &                                \\ \hline
+4       & 9               & -6              & (-1)             &                                \\ \hline
+\end{tabular}
+\end{table}
+\\ \\
+\ans{Recall 0 is the boundary for whether a patient has the disease. $w^T\vec{x} = 2x_1 + 3x_2$. Plugging in the values of $x_1$ and $x_2$ for each row and comparing them against the boundary value (0), we obtain the following classification:
+        \begin{table}[h]
+        \centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Patient & Attribute $x_1$ & Attribute $x_2$ & Diagnosis Result & Prediction from the Classifier \\ \hline
+1       & 1               & 0               & (+1)             & Yes                               \\ \hline
+2       & -6              & 1               & (-1)             & No                                \\ \hline
+3       & -5              & -5              & (+1)             & No                               \\ \hline
+4       & 9               & -6              & (-1)             & Inconclusive                                \\ \hline
+\end{tabular}
+\end{table}
+\\
+We've correctly classified 2 out of the 4 patients, hence the accuracy of our model is $\frac{2}{4} = 50 \%$
+}
+\item Applying the same model, Michelle has found a different linear classifier $f(\vec{x}^j)=\vec{w}^T \vec{x}^j$ for another disease $T$ with 2 attributes from each patient. Surprisingly, the disease has an astonishingly high accuracy of 95 \% on all the patients she has trained her classifier on so far. \\
+\sol{It is helpful to encourage the students to think from a real-life context when making inferences about the accuracy of their linear classifiers. If time permits, spending some time talking about the tradeoff between the variance and bias in a classification model will also give students more insights into the limitation of linear classifiers.}
+\begin{enumerate}
+    \item In order to further validate her model, Michelle obtains a new batch of data on 50 more patients along with their diagnosis results. What can Michelle infer about the accuracy of her classifier's performance on those 50 patients? Circle one below and provide your justification.
+$$<95 \% \:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\: =95\% \:\:\:\:\:\:\:\:\:\:\:\:\:\: >95\%  \:\:\:\:\:\:\:\:\:\:\:\:\:\: \text{Cannot be determined}$$
+\ans{Cannot be determined. It is possible that Michelle might overfit her classifier on all the patients she has so far, and the new testing data will bring down the accuracy of her model. It might also be possible this particular disease $T$ exhibits a linear correlation among the given set of features.}
+\item Michelle wants a more comprehensive model and decides to add more attributes of each patient to her linear classifier. What can Michelle most likely infer about the accuracy of her classifier's performance on the original dataset? Circle one below and provide your justification. 
+$$<95 \% \:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\:\: =95\% \:\:\:\:\:\:\:\:\:\:\:\:\:\: >95\%  \:\:\:\:\:\:\:\:\:\:\:\:\:\: \text{Cannot be determined}$$
+\ans{<95\%. It is usually rare to achieve a 95\% classification accuracy for disease diagnosis with only 2 attributes. More likely, it is the case that the original data Michelle had was not comprehensive/generalized enough, or she overfit her model on the dataset. Adding more attributes to our input vector $\vec{x}^j$ will most likely reduce the biase of her model and lower the accuracy of the classifer.}
+\end{enumerate}
+\end{enumerate}

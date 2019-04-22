@@ -1,0 +1,59 @@
+% author: Paul Shao
+% email: paulshaoyuqiao1@berkeley.edu
+
+\qns{Least Squares but with QR}
+
+Recall that the solution $\hat{x}$ to a linear least-squares problem is found through the minimization of $||\vec{b} - A\vec{x}||^2$. 
+\begin{enumerate}
+    \item Express $\hat{x}$ in terms of $\vec{b}$ and $A$ \\
+    \ans{Following the least squares formula, $\hat{x} = (A^T A)^{-1}A^T \vec{b}$}
+    \item Which of the vector subspaces does $\hat{x}$ belong to? Circle all that apply
+    $$Col(A) \:\:\:\:\:\:\:\:\:\:\:\:\:\: Nul(A) \:\:\:\:\:\:\:\:\:\:\:\:\: Nul(A^T) \:\:\:\:\:\:\:\:\:\:\:\:\: Row(A^T) \:\:\:\:\:\:\:\:\:\:\:\:\: \text{None of these}$$ 
+    \sol{It might be helpful to review the concept of vector subspaces with students and visualize the process of orthogonal projection.} \\
+    \ans{None of these. Although we are projecting the vector $\vec{b}$ onto the Column space of $A$, it doesn't imply anything directly about the solution $\hat{x}$. From the formula in part (a), we can also tell that $\hat{x}$ doesn't directly belong any of the listed subspaces here.}
+    \item We define \text{residual} as the deviation of our approximation from the original measurement. In this case, the residual can be represented by the vector $\vec{r} = \vec{b} - A\hat{x}$. Which of the vector subspaces does $\vec{r}$ belong to? Circle all that apply
+    $$Col(A) \:\:\:\:\:\:\:\:\:\:\:\:\:\: Nul(A) \:\:\:\:\:\:\:\:\:\:\:\:\: Nul(A^T) \:\:\:\:\:\:\:\:\:\:\:\:\: Row(A^T) \:\:\:\:\:\:\:\:\:\:\:\:\: \text{None of these}$$
+    \ans{$Nul(A^T)$. Recall that $Nul(A^T) \equiv Col(A^{\perp})$. Here, since $A\hat{x} \in Col(A)$, $\vec{b} - A\hat{x}$ will belong to the subspace of the all the vectors that are perpendicular to $A$ since we are projecting $\vec{b}$ onto the column space spanned by $A$.}
+    \item When working with least squares problem, knowing additional orthogonal properties about the column vectors of the matrix $A$ can usually help lead us to an equivalent (and usually simpler) representation of the solution. 
+    \begin{enumerate}
+        \item Given that a matrix $Q$ is a square matrix with real entries whose columns vectors are orthogonal normalized vectors (we call such a matrix $Q$ an \textbf{orthonormal} matrix), show that:
+        $$Q^T Q = I$$
+        where $I$ is the identity matrix of the same dimensions. \\
+        \sol{Make sure to show the students how vector multiplication is done step by step to achieve the simplified result.} \\
+        \ans{Let $Q = [\vec{q1}\:\:\vec{q_2}\:\:\dots\:\:\vec{q_n}]$. Transposing the columns of $Q$, we have:
+        $$Q^T=\begin{bmatrix}
+        \vec{q_1}^T \\ 
+        \vec{q_2}^T\\ 
+        \dots\\
+        \vec{q_n}^T 
+        \end{bmatrix}$$
+        Since all columns vectors of $Q$ are orthogonal and normalized vectors, we also know that $\vec{q_i}^T \vec{q_j} = \vec{0} \:\: \forall i \neq j$, and $||\vec{q_i}|| = 1 \forall i$. \\ \\
+        Multiplying $Q^T$ with $Q$, we have:
+        $$Q^T \cdot Q = \left [ \begin{array}{c}
+        \vec{q_1}^T \\ \vec{q_2}^T \\ \vdots \\ \vec{q_n}^T
+        \end{array} \right ] \cdot [\vec{q_1}, \vec{q_2}, \ldots, \vec{q_n}] = \left [ \begin{array}{ccccc}
+        \vec{q_1}^T \vec{q_1} & \vec{q_1}^T \vec{q_2} & \cdots  & \vec{q_1}^T \vec{q_n} \\
+        \vec{q_2}^T \vec{q_1} & \vec{q_2}^T \vec{q_2} & \cdots & \vec{q_2}^T \vec{q_n} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        \vec{q_n}^T \vec{q_1} & \vec{q_n}^T \vec{q_2} & \cdots & \vec{q_n}^T \vec{q_n}
+        \end{array}\right ] = \left [ \begin{array}{ccccc}
+        1 & 0 & \cdots  & 0 \\
+        0 & 1 & \cdots & 0 \\
+        \vdots & \vdots & \ddots & \vdots \\
+        0 & 0 & \cdots & 1
+        \end{array}\right ] = I$$
+        }
+        \item Given that the matrix $A$ can be decomposed into the product of 2 other matrices $Q, R$, where $Q$ is an orthonormal matrix. In other words, $A$ has a $QR$ decomposition $A=QR$, express $\hat{x}$, the solution to the least squares problem (minimizing $||\vec{b} - A\vec{x}||^2$) in terms of $R$, $Q$, and $\vec{b}$. You may assume $A$ has full column rank. \\
+        \ans{
+        Recall the least squares equation:
+        $$A^T A \vec{x} = A^T \vec{b}$$
+        Plugging $A = QR$ into both sides of the equation, we have:
+        $$(QR)^T QR \vec{x} = (QR)^T \vec{b}$$
+        $$R^T Q^T QR \vec{x} = R^T Q^T \vec{b}$$
+        Since $Q$ is orthonormal, $Q^T Q = I$
+        $$R^TR\vec{x} = R^T Q^T \vec{b}$$
+        $$R\vec{x} = Q^T \vec{b}$$
+        $$\hat{x} = R^{-1} Q^T \vec{b}$$
+        }
+    \end{enumerate}
+\end{enumerate}
