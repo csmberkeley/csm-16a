@@ -1,0 +1,10 @@
+\begin{circuitikz} [baseline=(current bounding box.center)]
+	\ctikzset { label/align = straight }
+	\draw (0,0)
+		to[V=$V_{S}$,invert] (0,2)
+		to[short, i=$I_\text{measure}$, -o] (4,2)
+		to[short] (4.5,2)
+		(0,0) to[short,-o] (4,0)
+		to[short] (4.5,0);
+	\node[draw,minimum width=2cm,minimum height=2.4cm,anchor=south west] at (4.5,-0.2){Mystery Box};
+\end{circuitikz}
