@@ -27,6 +27,7 @@
                     0 &, i\neq j
                 \end{cases}$$}
 
+\empt{\vspace{1.5cm}}
 
 \qitem\label{inversion_orthonormal}{
     In standard least squares problems, we have to invert $A^TA$. However, inversions are computationally intensive (not to mention a pain to calculate by hand), and ideally we'd avoid them as much as possible; suppose $A$ is an orthonormal matrix. Does this make solving a least squares problem easier?}
@@ -52,6 +53,8 @@
             &= I_n
     \end{align*}
     and the least squares solution $(A^TA)^{-1}A^T\vec{b}$ becomes a simple projection: $A^T \vec{b}$. This saves us a lot computationally, since computing an inverse is fairly intensive.}
+
+\empt{\vspace{1.5cm}}
 
 \qitem\label{span_requirement}{
     Suppose we replace $A$ with an orthonormal matrix $M$. What must be true of this matrix in order for it to give us the same least squares result?}
@@ -79,6 +82,8 @@
 
     Going the other way, we consider some arbitrary $\vec{u_2}$ such that $\vec{u_2}\in\text{span}(\vec{v_1}, \vec{v_2}-\alpha \vec{v_1})$. Looking at our rearrangement of the second span, we see that $u_2$ must also be in $\text{span}(\vec{v_1}, \vec{v_2})$}
 
+\empt{\vspace{1.5cm}}
+
 \qitem\label{gs_normalize}{
     Consider now you're given a set of vectors $\{\vec{v_1}, \cdots ,\vec{v_N}\}$, and we want to find an orthonormal set of vectors with the same span as the original set. Find a vector $\vec{w_1}$ such that
     \begin{itemize}
@@ -92,72 +97,138 @@
 \ans{
     $$\vec{w_1} = \frac{\vec{v_1}}{\norm{v_1}}$$}
 
+\empt{\vspace{2.5cm}}
+
 \qitem\label{gs_project_indep}{
-    Now suppose that your $\vec{w_1}$ from part \ref{gs_normalize} and $\vec{v_2}$ are linearly independent. How can we remove the $\vec{w_1}$ ``component'' of $\vec{v_2}$ from $\vec{v_2}$?}
+    Now suppose that your $\vec{w_1}$ from part \ref{gs_normalize} and $\vec{v_2}$ are linearly independent. Remove the $\vec{w_1}$ ``component'' of $\vec{v_2}$ from $\vec{v_2}$. Call the result $\vec{u_2}$ and find $\vec{u_2}^T\vec{w_1}$}
 
 \ans{
     To remove the $\vec{w_1}$ component from $\vec{v_2}$, we subtract the projection of $\vec{v_2}$ on the span of $\vec{w_1}$ from $\vec{v_2}$
     \begin{align*}
-        \vec{u_2} = \vec{v_2} - \text{proj}_{\text{span}(\vec{w_1})}(\vec{v_2})
+        \vec{u_2} &= \vec{v_2} - \text{proj}_{\text{span}(\vec{w_1})}(\vec{v_2})\\
+            &= \vec{v_2} - \vec{w_1}(\vec{w_1}^T\vec{w_1})^{-1}\vec{w_1}^T\vec{v_2}\\
+            &= \vec{v_2} - \vec{w_1}(\vec{w_1}^T\vec{v_2})
     \end{align*}
-   The projection of $\vec{b}$ onto $\vec{a}$ can be considered the $\vec{a}$ component of $\vec{b}$.Recall that the formula for projection of a vector $\vec{u}$ onto $\vec{v}$ can be expressed as proj$_v$u = $\frac{u \cdot v}{\norm{v}^2} v$, where the $\norm{v}^2$ serves to maintain the magnitude of the original vector by multiplying a normalized version of $\vec{v}$. Hence, if we are normalizing the entire vector later regardless, we can ignore this and consider the projection to just be $(\vec{u} \cdot \vec{v}) \vec{v}$. We want to subtract this resulting projection from $\vec{b}$.
-}
+    The result is orthogonal to $\vec{w_1}$, so $\vec{u_2}^T\vec{w_1} = 0$.
+    }
+
+\meta{
+    Consider a simple 2D example:
+    \begin{center}
+        \begin{tikzpicture}
+            %% coordinates
+            \coordinate (O) at (0,0);
+            \coordinate (w1) at (0,1);
+            \coordinate (v2) at (2,3);
+            \coordinate (proj) at (0,3);
+
+            %% lines
+            \draw[->] (O) -- (w1);
+            \draw[->] (O) -- (v2);
+            \draw[dashed, ->] (O) -- (proj);
+
+            %% point labels
+            \node[anchor=east] at (0,1) {$\vec{w_1}$};
+            \node[anchor=west] at (2,3) {$\vec{v_2}$};
+            \node[anchor=south] at (0,3) {$\text{proj}_{\text{span}(\vec{w_1})}(\vec{v_2})$};
+        \end{tikzpicture}
+    \end{center}
+    Subtracting $\text{proj}_{\text{span}(\vec{w_1})}(\vec{v_2})$ from $\vec{v_2}$ gives us a vector orthogonal to $\vec{w_1}$.}
+
+\empt{\vspace{3cm}}
 
 \qitem\label{gs_project_dep}{
-    What would happen if $\vec{w_1}$ and $\vec{v_2}$ were linearly dependent and we performed the same operation as in \ref{gs_project_indep}?}
+    \textbf{(PRACTICE)} What would happen if $\vec{w_1}$ and $\vec{v_2}$ were linearly dependent and we performed the same operation as in \ref{gs_project_indep}?}
     
-\qitem{
-Using your answer from part d), how can we generate a second vector for our orthonormal set? Hint: span($\vec{v_1}$, $\vec{v_2}$) is equivalent to the subspace span($\vec{v_1}$, $\vec{v_2} - \alpha\vec{v_1}$).
-}
+\ans{
+    We'd get $\vec{u_2} = \vec{0}$. Using the fact that $\norm{w_1} = 1$ to simplify our calculation,
+    \begin{align*}
+        \vec{v_2} - \vec{w_1}(\vec{w_1}^T\vec{v_2}) &= \vec{w_1}\norm{v_2} - \vec{w_1}\norm{\vec{w_1}}\norm{\vec{v_2}}\\
+            &= \vec{w_1}\norm{v_2} - \vec{w_1}\norm{\vec{v_2}}\\
+            &= \vec{0}
+    \end{align*}}
 
-\meta{\\
-Step 2 of Gram-Schmidt: to find the orthonormalized second vector in the new orthonormal set, calculate the projection of the original second vector onto the orthonormalized first vector, and subtract this value from the original second vector. Normalize the vector.
-}
+\meta{
+    Graphically,
+    \begin{center}
+        \begin{tikzpicture}
+            %% coordinates
+            \coordinate (O) at (0,0);
+            \coordinate (w1) at (1,0);
+            \coordinate (v2) at (2,0);
 
+            %% lines
+            \draw[->] (O) -- (w1);
+            \draw[->] (O) -- (v2);
+
+            %% point labels
+            \node[anchor=south] at (1,0) {$\vec{w_1}$};
+            \node[anchor=south] at (2,0) {$\vec{v_2}$};
+        \end{tikzpicture}
+    \end{center}
+    Projecting $\vec{v_2}$ onto $\vec{w_1}$ gives us $\vec{v_2}$, and $\vec{v_2} - \vec{v_2} = \vec{0}$!}
+
+\empt{\vspace{1.5cm}}
+
+\qitem\label{gs_normalize_again}{
+    Now go back to assuming $\vec{w_1}$ and $\vec{v_2}$ are linearly independent. Using your answer from parts \ref{gs_project_indep} and \ref{span_equivalence} to find a vector $\vec{w_2}$ such that
+    \begin{itemize}
+        \item $\vec{w_2}^T\vec{w_1} = 0$
+        \item $\norm{\vec{w_2}} = 1$
+        \item span($\vec{w_1}, \vec{w_2}$) = span($\vec{v_1}, \vec{v_2}$)
+    \end{itemize}}
+
+\meta{
+    Step 2: Find the orthonormalized second vector in the new orthonormal set by first calculating the projection of the original second vector onto the orthonormalized first vector, and  second subtracting this value from the original second vector. Finally, normalize the vector.}
 
 \ans{
-Starting with the second vector in our original set, we want to remove any 'trace' of $w_1$ from the second vector so that the resulting vectors are mutually orthogonal, but still span the same space.
-\\Let us call the resulting vector $\vec{p_2}$. Then, $\vec{p_2} = \vec{v_2} - (\vec{v_2}^T\vec{w_1}){\vec{w_1}}$. (Our $\alpha$ is thus the projection of $v_2$ onto $w_1$). We want to normalize this vector before we add it to our new set, so $$\vec{w_2} = \frac{p_2}{\norm{p_2}}$$
+    Starting with $\vec{v_2}$, we want to remove any component of $\vec{w_1}$ so the resulting vectors are mutually orthogonal and still span the same space as $\left\{\vec{w_1},\vec{v_2}\right\}$.
 
-}
+    Using our work from part \ref{gs_normalize_again}, we get
+    $$\vec{u_2} = \vec{v_2} - (\vec{v_2}^T\vec{w_1}){\vec{w_1}}$$
+    We know $\vec{u_2}^T\vec{w_1} = 0$ and that span($\vec{w_1}, \vec{u_2}$) is the same as span($\vec{w_1}, \vec{v_2}$), so all we have left to do is ensure that we have a normalized vector
+    $$\vec{w_2} = \frac{\vec{u_2}}{\norm{\vec{u_2}}}$$}
+
+\empt{\vspace{1.5cm}}
 
 \qitem{
-For every subsequent vector that we add to our orthonormal set, we want to ensure that it is orthogonal to the rest of the $\vec{w}$'s that we have already added to our new set. Therefore, we must subtract the projection of the original vector onto each of the $\vec{w}$'s from its original value, similar to what we did in the last step. Derive an expression for the calculating the third vector in the orthonormal set.
+    For every subsequent vector that we add to our orthonormal set, we want to ensure that it is orthogonal to the rest of the $\vec{w}$'s we've already found. Suppose $\vec{v_3}$ in the original set is linearly independent with respect to $\vec{w_1}$ and $\vec{w_2}$. Derive an expression for the calculating the third vector in the orthonormal set, $\vec{w_3}$.
 }
 
-\meta{\\
-Step 3 of Gram-Schmidt: For every subsequent vector, repeat the same process, but subtract the projection of the current vector onto every other orthnormalized vector from the current vector. 
+\meta{
+    Step 3: For every subsequent vector, repeat the same process, but subtract the projection of the current vector onto every other orthnormalized vector from the current vector. You can also 
 }
 
 \ans{
-Let us call the non-normalized, orthogonal vector $\vec{p_3}$. Then $\vec{p_3} = \vec{v_3} - (\vec{v_3}^T\vec{w_2}){\vec{w_2}} -  (\vec{v_3}^T\vec{w_1}){\vec{w_1}}$, where $(\vec{v_3}^T\vec{w_2}){\vec{w_2}}$ is the projection of the original third vector $\vec{v_3}$ onto the second orthonormal vector $\vec{w_2}$, and $(\vec{v_3}^T\vec{w_1}){\vec{w_1}}$ is the projection of the original third vector onto the first orthonormal vector $\vec{w_1}$ of our new set. Again, we want to normalize the resulting vector, so $$\vec{w_3} = \frac{p_3}{\norm{p_3}}$$
-}
+    Let us call the non-normalized, orthogonal vector $\vec{u_3}$.
+    \begin{align*}
+        \vec{u_3} &= \vec{v_3} - \text{proj}_{\text{span}(\vec{w_2})}(\vec{v_3}) - \text{proj}_{\text{span}(\vec{w_1})}(\vec{v_3})\\
+            &= \vec{v_3} - (\vec{v_3}^T\vec{w_2}){\vec{w_2}} - (\vec{v_3}^T\vec{w_1}){\vec{w_1}}
+    \end{align*}
+    where $(\vec{v_3}^T\vec{w_2}){\vec{w_2}}$ is the projection of the original third vector $\vec{v_3}$ onto the second orthonormal vector $\vec{w_2}$, and $(\vec{v_3}^T\vec{w_1}){\vec{w_1}}$ is the projection of the original third vector onto the first orthonormal vector $\vec{w_1}$ of our new set. Again, we want to normalize the resulting vector, so $$\vec{w_3} = \frac{\vec{u_3}}{\norm{\vec{u_3}}}$$}
 
+\empt{\vspace{3cm}}
 
-%Alternatively, example walk through with three vectors
-\qitem{
-Perform Gram-Schmidt on the following vectors to create an orthonormal basis that spans the same space:
-\[\vec{v_1} = \begin{bmatrix}1\\-1\\1\end{bmatrix}
-\vec{v_2} = \begin{bmatrix}1\\0\\1\end{bmatrix}
-\vec{v_3} = \begin{bmatrix}1\\1\\2\end{bmatrix} \]
+\qitem\label{numerical_example}{
+    Perform Gram-Schmidt on the following vectors to create an orthonormal basis that spans the same space:
+    \[\vec{v_1} = \begin{bmatrix}1\\-1\\1\end{bmatrix}
+    \vec{v_2} = \begin{bmatrix}1\\0\\1\end{bmatrix}
+    \vec{v_3} = \begin{bmatrix}1\\1\\2\end{bmatrix} \]
 }
 
 \ans{
-For the first step, we just take the first vector in the original set, and set it as the first vector in our orthonormal set:
-\[w_1 = \frac{v_1}{\norm{v_1}} = \frac{1}{\sqrt{3}}\begin{bmatrix}1\\-1\\1\end{bmatrix} = \begin{bmatrix}\frac{1}{\sqrt{3}}\\-\frac{1}{\sqrt{3}}\\\frac{1}{\sqrt{3}}\end{bmatrix} \]
+    For the first step, we just take the first vector in the original set, and set it as the first vector in our orthonormal set:
+    \[\vec{w_1} = \frac{\vec{v_1}}{\norm{\vec{v_1}}} = \frac{1}{\sqrt{3}}\begin{bmatrix}1\\-1\\1\end{bmatrix} = \begin{bmatrix}\frac{1}{\sqrt{3}}\\-\frac{1}{\sqrt{3}}\\\frac{1}{\sqrt{3}}\end{bmatrix} \]
 
-Next, let's find $p_2$, the un-normalized second vector for our orthonormal set, using $v_2$:
-\[p_2 = v_2 - (v_2^{\top}w_1)w_1 = \begin{bmatrix}1\\0\\1\end{bmatrix} - (\begin{bmatrix}1 & 0 & 1\end{bmatrix}\begin{bmatrix}\frac{1}{\sqrt{3}}\\-\frac{1}{\sqrt{3}}\\\frac{1}{\sqrt{3}}\end{bmatrix})\begin{bmatrix}\frac{1}{\sqrt{3}}\\-\frac{1}{\sqrt{3}}\\\frac{1}{\sqrt{3}}\end{bmatrix} = \begin{bmatrix}\frac{1}{3}\\\frac{2}{3}\\\frac{1}{3}\end{bmatrix} \]
+    Next, let's find $\vec{u_2}$, the un-normalized second vector for our orthonormal set, using $\vec{v_2}$:
+    \[\vec{u_2} = \vec{v_2} - (\vec{v_2}^{\top}\vec{w_1})\vec{w_1} = \begin{bmatrix}1\\0\\1\end{bmatrix} - (\begin{bmatrix}1 & 0 & 1\end{bmatrix}\begin{bmatrix}\frac{1}{\sqrt{3}}\\-\frac{1}{\sqrt{3}}\\\frac{1}{\sqrt{3}}\end{bmatrix})\begin{bmatrix}\frac{1}{\sqrt{3}}\\-\frac{1}{\sqrt{3}}\\\frac{1}{\sqrt{3}}\end{bmatrix} = \begin{bmatrix}\frac{1}{3}\\\frac{2}{3}\\\frac{1}{3}\end{bmatrix} \]
 
-If we want to add this vector to our orthonormal set, we have to normalize it:
-\[w_2 = \sqrt{\frac{3}{2}}\begin{bmatrix}\frac{1}{3}\\\frac{2}{3}\\\frac{1}{3}\end{bmatrix} = \begin{bmatrix}\frac{\sqrt{6}}{6}\\\frac{\sqrt{6}}{3}\\\frac{\sqrt{6}}{6}\end{bmatrix}
-\]
+    If we want to add this vector to our orthonormal set, we have to normalize it:
+    \[\vec{w_2} = \sqrt{\frac{3}{2}}\begin{bmatrix}\frac{1}{3}\\\frac{2}{3}\\\frac{1}{3}\end{bmatrix} = \begin{bmatrix}\frac{\sqrt{6}}{6}\\\frac{\sqrt{6}}{3}\\\frac{\sqrt{6}}{6}\end{bmatrix}
+    \]
 
-Finally, we repeat the same process to find $p_3$ and $w_3$.
-\[p_3 = v_3 - (v_3^T w_1)w_1 - (v_3^T w_2)w_2 = \begin{bmatrix}1\\1\\2\end{bmatrix} - (\begin{bmatrix}1 & 1 & 2\end{bmatrix}\begin{bmatrix}\frac{1}{3}\\\frac{2}{3}\\\frac{1}{3}\end{bmatrix})\begin{bmatrix}\frac{1}{3}\\\frac{2}{3}\\\frac{1}{3}\end{bmatrix} - (\begin{bmatrix}1 & 1 & 2\end{bmatrix}\begin{bmatrix}\frac{\sqrt{6}}{6}\\\frac{\sqrt{6}}{3}\\\frac{\sqrt{6}}{6}\end{bmatrix})\begin{bmatrix}\frac{\sqrt{6}}{6}\\\frac{\sqrt{6}}{3}\\\frac{\sqrt{6}}{6}\end{bmatrix} = \begin{bmatrix}\frac{-1}{2}\\0\\\frac{1}{2}\end{bmatrix}\]
-\[w_3 = \sqrt{2}\begin{bmatrix}\frac{-1}{2}\\0\\\frac{1}{2}\end{bmatrix} = \begin{bmatrix}\frac{-\sqrt{2}}{2}\\0\\\frac{\sqrt{2}}{2}\end{bmatrix}\]
-}
-
-
-    
+    Finally, we repeat the same process to find $p_3$ and $w_3$.
+    \[\vec{u_3} = \vec{v_3} - (\vec{v_3}^T\vec{w_1})\vec{w_1} - (\vec{v_3}^T\vec{w_2})\vec{w_2} = \begin{bmatrix}1\\1\\2\end{bmatrix} - (\begin{bmatrix}1 & 1 & 2\end{bmatrix}\begin{bmatrix}\frac{1}{3}\\\frac{2}{3}\\\frac{1}{3}\end{bmatrix})\begin{bmatrix}\frac{1}{3}\\\frac{2}{3}\\\frac{1}{3}\end{bmatrix} - (\begin{bmatrix}1 & 1 & 2\end{bmatrix}\begin{bmatrix}\frac{\sqrt{6}}{6}\\\frac{\sqrt{6}}{3}\\\frac{\sqrt{6}}{6}\end{bmatrix})\begin{bmatrix}\frac{\sqrt{6}}{6}\\\frac{\sqrt{6}}{3}\\\frac{\sqrt{6}}{6}\end{bmatrix} = \begin{bmatrix}\frac{-1}{2}\\0\\\frac{1}{2}\end{bmatrix}\]
+    \[w_3 = \sqrt{2}\begin{bmatrix}\frac{-1}{2}\\0\\\frac{1}{2}\end{bmatrix} = \begin{bmatrix}\frac{-\sqrt{2}}{2}\\0\\\frac{\sqrt{2}}{2}\end{bmatrix}\]}
+\empt{\newpage}
 \end{enumerate}
