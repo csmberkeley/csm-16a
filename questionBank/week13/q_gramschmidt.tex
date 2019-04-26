@@ -1,92 +1,110 @@
-% Authors: Emily Gosti, Yannan Tuo, Sukrit Arora
-% Emails: egosti@berkeley.edu, ytuo@berkeley.edu
-
-
+% Authors: Emily Gosti, Yannan Tuo, Sukrit Arora, Lydia Lee
+% Emails: egosti@berkeley.edu, ytuo@berkeley.edu, lydia.lee@berkeley
 \qns{Gram-Schmidt Practice}
 
-\meta{\\
-Prereqs: Knowledge of bases
-}
+\meta{
+    Prereqs: Knowledge of bases}
 
-\ans{\\
-Description: Describe the Gram-Schmidt process and what it does, and how to perform it. The objective of the Gram-Schmidt process is to take a set of linearly independent vectors that are not necessarily orthogonal, and create a set of vectors that span the same space and are orthogonal and of unit length. The motivation behind this is that it is often easier to work with vectors that are orthogonal and of unit length.
-}
+\ans{
+    Description: Describe the Gram-Schmidt process and what it does, and how to perform it. The objective of the Gram-Schmidt process is to take a set of linearly independent vectors that are not necessarily orthogonal, and create a set of vectors that span the same space and are orthogonal and of unit length. The motivation behind this is that it is often easier to work with vectors that are orthogonal and of unit length.}
 
 \begin{enumerate}
-\qitem{
-What does it mean for a set of vectors to be orthonormal?
-}
+\qitem\label{def_orthonormal}{
+    What does it mean for a set of vectors to be orthonormal?}
     
+\meta{
+    Some linear algebra textbooks use ``orthogonal'' to describe orthonormal sets.}
 
 \ans{
-Orthonormal is a portmanteau of "orthogonal" and "normal;" a set of vectors are mutually orthonormal if every pair of vectors in the set are orthogonal to each other (their inner product equals 0, ie the angle between the vectors is 90$^\circ$), and if each vector is of unit length.
-}
+    Orthonormal is a portmanteau of ``orthogonal'' and ``normal;'' a set of vectors is orthonormal if (and only if)
+    \begin{itemize}
+        \item all vectors are mutually orthogonal i.e. the angle between different vectors is 90$^\circ$) and
+        \item each vector is unit length
+    \end{itemize}
+    The set of $N$ vectors $\{\vec{v_1}, \cdots, \vec{v_N}\}$ is orthonormal if (and only if, by definition)
+    $$v_i^Tv_j = \begin{cases}
+                    1 &, i=j\\
+                    0 &, i\neq j
+                \end{cases}$$}
 
-\qitem{
-In the previous part, we have to invert the matrix $\m{A^T A}$ each time we perform least squares. That's a lot of inversions! Suppose that $\m{A}$ was an orthonormal matrix. Does this make our job easier?
-}
 
-\ans{
-Yes. If $\m{A}$ is orthonormal, then $\m{A^T A} = \m{I}$. So, we don't need to do the work of inverting a matrix. The least squares solution becomes a simple projection: $\m{A}^T \vec{b}$.
-}
-
-\qitem{
-Suppose we replace $\m{A}$ with an orthonormal matrix. What must be true of this matrix in order for it to give us the same least squares result?
-}
-
-\ans{
-It must span the same space as $\m{A}$, because least squares is equivalent to projecting $b$ onto the span (column space) of $\m{A}$.
-}
-
-\qitem{
-% does this wording make sense? delete o/w. following notes: https://inst.eecs.berkeley.edu/~ee16a/fa16/lecture/Note_Lin_Alg_Release17.pdf
-Give a justification as to why span($\vec{v_1}$, $\vec{v_2}$) is equivalent to the subspace span($\vec{v_1}$, $\vec{v_2} - \alpha\vec{v_1}$).
-}
-
-\meta{\\
-The idea is to give intuition as to why Gram-Schmidt gives us a set of vectors that spans the same space.
-}
+\qitem\label{inversion_orthonormal}{
+    In standard least squares problems, we have to invert $A^TA$. However, inversions are computationally intensive (not to mention a pain to calculate by hand), and ideally we'd avoid them as much as possible; suppose $A$ is an orthonormal matrix. Does this make solving a least squares problem easier?}
 
 \ans{
-    %please check, but pretty sure this makes sense
-    The span of ($\vec{v_1}$, $\vec{v_2}$) is all vectors that can be written as a linear combination of the two vectors, i.e. all $\vec{v_x}$ s.t. 
-    \[\vec{v_x} = \beta_1 \vec{v_1} + \beta_2 \vec{v_2} \text{ for all real }  \beta_1, \beta_2\]
-    We can write out the span($\vec{v_1}$, $\vec{v_2}-\alpha \vec{v_1}$) as follows:
+    Yes. If $A$ is orthonormal, then $A^TA = I$:
     \begin{align*}
-    span(\vec{v_1}, \vec{v_2}-\alpha \vec{v_1}) &= \beta_3 \vec{v_1} + \beta_4 (\vec{v_2} - \alpha \vec{v_1}) &\text{for real $\beta_3, \beta_4$, def. of span} \\
-    &= \beta_3 \vec{v_1} + \beta_4 \vec{v_2} - \beta_4\alpha \vec{v_1} &\text{distribute $\beta_4$}\\
-    &= (\beta_3 - \beta_4\alpha) \vec{v_1} + \beta_4 \vec{v_2} &\text{combine the $\vec{v_1}$s}
+        A^TA &= \begin{bmatrix}
+            \horzbar & \vec{a_1}^T & \horzbar\\
+            & \vdots &\\
+            \horzbar & \vec{a_n}^T & \horzbar\\
+        \end{bmatrix}
+        \begin{bmatrix}
+            \vertbar & & \vertbar\\
+            \vec{a_1} & \cdots & \vec{a_n}\\
+            \vertbar & & \vertbar\\
+        \end{bmatrix}\\
+            &= \begin{bmatrix}
+                    \vec{a_1}^T\vec{a_1} & \cdots & \vec{a_1}^T\vec{a_n}\\
+                    \vdots & \ddots & \vdots\\
+                    \vec{a_n}^T\vec{a_1} & \cdots & \vec{a_n}^T\vec{a_n}
+                \end{bmatrix}\\
+            &= I_n
     \end{align*}
-    
-    Note that $(\beta_3 - \beta_4\alpha)$ and $\beta_4$ are both real numbers, so we have an expression that looks like the first one. In fact, by setting $\beta_4 = \beta_2$ and $\beta_3 = \beta_1 + \alpha\beta_2$, we can get the exact same expression with our new vectors as we had with our old ones no matter what (real) numbers our $\beta$s and $\alpha$ are.
-    
-    %or use this as a hint for part e) instead, w/o justification
-}
+    and the least squares solution $(A^TA)^{-1}A^T\vec{b}$ becomes a simple projection: $A^T \vec{b}$. This saves us a lot computationally, since computing an inverse is fairly intensive.}
 
-\qitem{
-We want to start building our new orthonormal set of vectors from scratch. Starting with just one vector from our original set, how can we generate a vector for our new set such that it spans the same space as the single vector from the original set and keeps the new set orthonormal?
-}
-
-%plug in numerical values alongside each step of the problem?
-\meta{\\
-Step 1 of Gram-Schmidt: Pick an arbitrary vector in the set and normalize it.
-}
+\qitem\label{span_requirement}{
+    Suppose we replace $A$ with an orthonormal matrix $M$. What must be true of this matrix in order for it to give us the same least squares result?}
 
 \ans{
-Let us denote the $i^\text{th}$ vector in the original set as $v_i$, and the $i^\text{th}$ vector in the orthonormal set as $w_i$. To generate our first vector in the orthnormal set $w_1$, we can choose an arbitrary vector from our original set, and simply normalize it; there are currently no other vectors in the orthonormal set that we have to worry about with regards to orthogonality. Hence: $$w_1 = \frac{v_1}{\norm{v_1}}$$
-    }
+    $M$'s columns must span the same space as $A$, because least squares is equivalent to projecting $\vec{b}$ onto the span (column space) of $A$.}
 
-\qitem{
-   Given two linearly independent vectors $\vec{a}$ and $\vec{b}$ how can we "remove" the $\vec{a}$ component of $\vec{b}$ from $\vec{b}$? 
+\qitem\label{span_equivalence}{
+    Explain why span($\{\vec{v_1}$, $\vec{v_2}\}$) is equivalent to span($\{\vec{v_1}$, $\vec{v_2} - \alpha\vec{v_1}\}, \alpha \in \mathbb{R}$).}
 
-}
-
+\meta{
+    The idea is to give intuition as to why Gram-Schmidt gives us a set of vectors that spans the same space.}
 
 \ans{
-% a visual representation would be ideal; show the resulting vector of subtracting the projection from the original vector.
+    Showing that two sets $S_1$ and $S_2$ are equal has two parts: $S_1 \subseteq S_2$ \textbf{and} $S_2 \subseteq S_1$. Both of these must be shown to prove equivalence!
+
+    The span of $\{\vec{v_1}$, $\vec{v_2}\}$ is all linear combinations of $\vec{v_1}$ and $\vec{v_2}$:
+    $$\left\{\beta_1 \vec{v_1} + \beta_2 \vec{v_2} \,\forall\, \beta_1, \beta_2\in\mathbb{R}\right\}$$
+    Writing out span($\vec{v_1}$, $\vec{v_2}-\alpha \vec{v_1}$) and rearranging it a bit:
+    \begin{align*}
+        \{\beta_3\vec{v_1} + \beta_4(\vec{v_2}-\alpha)\vec{v_1})\,&\forall\, \beta_3, \beta_4\in\mathbb{R}\}\\
+        \{(\beta_3-\beta_4\alpha)\vec{v_1}, \beta_4\vec{v_2}\,&\forall\, \beta_3, \beta_4\in\mathbb{R}\}
+    \end{align*}
+    If we take some arbitrary $\vec{u_1}$ such that $\vec{u_1}\in\text{span}(\vec{v_1}, \vec{v_2})$, it's also in $\text{span}(\vec{v_1}$, $\vec{v_2}-\alpha \vec{v_1})$, so span($\{\vec{v_1}$, $\vec{v_2}\}$) $\in $span($\vec{v_1}$, $\vec{v_2}-\alpha \vec{v_1}$).
+
+    Going the other way, we consider some arbitrary $\vec{u_2}$ such that $\vec{u_2}\in\text{span}(\vec{v_1}, \vec{v_2}-\alpha \vec{v_1})$. Looking at our rearrangement of the second span, we see that $u_2$ must also be in $\text{span}(\vec{v_1}, \vec{v_2})$}
+
+\qitem\label{gs_normalize}{
+    Consider now you're given a set of vectors $\{\vec{v_1}, \cdots ,\vec{v_N}\}$, and we want to find an orthonormal set of vectors with the same span as the original set. Find a vector $\vec{w_1}$ such that
+    \begin{itemize}
+        \item span($\vec{w_1}$) = span($\vec{v_1}$)
+        \item $\norm{\vec{w_1}}_2 = 1$
+    \end{itemize}}
+
+\meta{
+    Step 1: Pick an arbitrary vector in the set and normalize it; it needn't be the first vector in the set.}
+
+\ans{
+    $$\vec{w_1} = \frac{\vec{v_1}}{\norm{v_1}}$$}
+
+\qitem\label{gs_project_indep}{
+    Now suppose that your $\vec{w_1}$ from part \ref{gs_normalize} and $\vec{v_2}$ are linearly independent. How can we remove the $\vec{w_1}$ ``component'' of $\vec{v_2}$ from $\vec{v_2}$?}
+
+\ans{
+    To remove the $\vec{w_1}$ component from $\vec{v_2}$, we subtract the projection of $\vec{v_2}$ on the span of $\vec{w_1}$ from $\vec{v_2}$
+    \begin{align*}
+        \vec{u_2} = \vec{v_2} - \text{proj}_{\text{span}(\vec{w_1})}(\vec{v_2})
+    \end{align*}
    The projection of $\vec{b}$ onto $\vec{a}$ can be considered the $\vec{a}$ component of $\vec{b}$.Recall that the formula for projection of a vector $\vec{u}$ onto $\vec{v}$ can be expressed as proj$_v$u = $\frac{u \cdot v}{\norm{v}^2} v$, where the $\norm{v}^2$ serves to maintain the magnitude of the original vector by multiplying a normalized version of $\vec{v}$. Hence, if we are normalizing the entire vector later regardless, we can ignore this and consider the projection to just be $(\vec{u} \cdot \vec{v}) \vec{v}$. We want to subtract this resulting projection from $\vec{b}$.
 }
-    
+
+\qitem\label{gs_project_dep}{
+    What would happen if $\vec{w_1}$ and $\vec{v_2}$ were linearly dependent and we performed the same operation as in \ref{gs_project_indep}?}
     
 \qitem{
 Using your answer from part d), how can we generate a second vector for our orthonormal set? Hint: span($\vec{v_1}$, $\vec{v_2}$) is equivalent to the subspace span($\vec{v_1}$, $\vec{v_2} - \alpha\vec{v_1}$).
