@@ -1,5 +1,6 @@
-% Author: Mudit Gupta
+% Author: Mudit Gupta and Paul Shao
 % Email: mudit+csm16a@berkeley.edu
+% Email: paulshaoyuqiao1@berkeley.edu
 
 \qns{First Proof}
 
@@ -15,6 +16,25 @@ Proof by contradiction is  not taught in 16A, so it is a good idea to go over th
 Final note: explain the 'without loss of generality' in the 'To Prove' section. Why }
 
 \ans{
+    \\
+    This problem can be tackled from two different approaches: \textbf{Direct Proof} and \textbf{Proof By Contradiction}. If you are not sure what the second approach means, we have also provided an explanation at the beginning of the second approach. \\ \\
+    \textbf{First Approach: }\\
+    The problem can be translated mathematically to be the following: \\
+    Given a set of $n$ vectors $N = \{\vec{v_1}, \vec{v_2}, \dots \vec{v_n}\}$ that are linearly independent, we want to show that any subset of vectors in $N$ is also linearly independent. \\
+    Since $N$ is a linearly independent set, we know that if there exists a set of constants $c_1, c_2, \dots, c_n$ such that:
+    $$c_1 \vec{v_1} + c_2 \vec{v_2} + \dots + c_n \vec{v_n} = 0$$
+    then it must be true that $c_1 = c_2 = \dots = c_n = 0$. \\
+    To also symbolically represent a subset of $N$, since we can shuffle the array or arrange the vectors as much as we want, the following form generalizes to any susbet of vectors in $N$: \\
+    We want to show that for some $k \leq n$, $\{\vec{v_1}, \vec{v_2}, \dots \vec{v_k}\}$ is also a set of linearly independent vectors. \\
+    Following the same setup based on the definition of linear independence, suppose there exists a set of constants $b_1, b_2, \dots, b_k$ such that:
+    $$b_1 \vec{v_1} + b_2 \vec{v_2} + \dots + b_k \vec{v_k} = 0$$
+    Now, we can add more "zeros" to both sides of the equations such that we are extending the linear combinations all the way from $v_k$ to $v_n$:
+    $$b_1 \vec{v_1} + b_2 \vec{v_2} + \dots + b_k \vec{v_k} + (0)\vec{v_{k+1}} + \dots + (0)\vec{v_n} = 0$$
+    Now, since we know that the set $N = \{\vec{v_1}, \vec{v_2}, \dots \vec{v_n}\}$ is linearly independent, we know that all coefficients of the given vectors must be equal to 0 (per definition of linear independence). This means that $b_1 = b_2 = \dots = b_k = 0$ as well. \\
+    Hence, it follows that $\{\vec{v_1}, \vec{v_2}, \dots \vec{v_k}\}$ is also a set of linearly independent vectors. \\ \\
+    \textbf{Second Approach: } \\
+    This problem can also be approached from another direction using a technique called \textbf{Proof by Contradiction}. \\ \\
+    \textbf{More Explanation on Proof by Contradiction:} In essence, the technique assumes the opposite of what we are trying to prove (so if the property we are proving is called $P$, we want to prove \textit{not} $P$ is true), and then reaches two \textbf{mutually contradictory} assertions (statements) (i.e., Property $A$ is true and also false at the same time). Since both statements can't be simultaneously true, this leads us to conclude the property not $P$ is in fact wrong, so $P$ must be true. \\ \\
 	$\textbf{Given:}$
 	$\vec{v}_1, \vec{v}_2, \ldots, \vec{v}_n$ are linearly independent. This, by definition of linear independence, means that if there exist $\alpha_1, \alpha_2, \ldots, \alpha_n$, such that:
 	 $$\alpha_1\vec{v}_1 + \alpha_2\vec{v}_2 + \ldots + \alpha_n\vec{v}_n = 0$$ then  $$\alpha_1=\alpha_2=\ldots=\alpha_n=0$$ 
